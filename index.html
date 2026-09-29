@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kertas Kerja FA V7 - Tab Menu + Nota Dinas Lengkap</title>
+<title>Kertas Kerja FA V9 - FINAL 8 File Lengkap - Retur Kontrak Rekening</title>
 <style>
 :root{--primary:#1a3c6e;--accent:#0f6cbf;--bg:#f4f6f9;--card:#fff;--border:#e2e8f0;--success:#16a34a;--danger:#dc2626;--warning:#f59e0b}
 *{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,Arial,sans-serif;background:var(--bg);color:#0f172a;line-height:1.5}
@@ -79,7 +79,7 @@ table.kk td.num{text-align:center}table.kk td.rupiah{text-align:right;white-spac
 <body>
 <div class="header no-print">
   <div class="header-inner">
-    <div class="brand"><div class="brand-logo">KPPN</div><div><h1>Laporan FA V7<br>Tab Menu - Bersih & Rapi</h1><p>Upload • Nota Dinas • Konfigurasi • Rekap • Data - Klik tab, depan tidak ramai</p></div></div>
+    <div class="brand"><div class="brand-logo">KPPN</div><div><h1>Laporan FA V9 FINAL<br>8 File Lengkap</h1><p>Tab Menu Bersih • Nota Dinas Lengkap • Retur 31k • Kontrak 22k • Rekening 27k nmwenang</p></div></div>
     <div class="controls">
       <button class="btn btn-primary" onclick="window.print()">🖨️ PDF</button>
       <button class="btn btn-success" onclick="exportRekapExcel()">📊 Excel</button>
@@ -246,9 +246,9 @@ const FILE_CONFIGS = [
   {id:'realisasi_fa', title:'3. Pagu Realisasi FA', mandatory:true, group:'central', badge:'WAJIB', badgeClass:'badge-wajib', exampleUrl:'https://docs.google.com/spreadsheets/d/1m6W43F-LJMU4MiECs7-kTkW1dAO3Q806/edit', exampleLabel:'18.192 baris', columns:['NO','BA','UNIT','SATKER','DESKRIPSI','AKUN','OUTPUT','SUMBER DANA','KEWENANGAN','COA','PAGU','REALISASI','SISA'], description:'Pagu 51/52/53 - Realisasi', mapping:'Pagu 51/52/53', dbKey:'realisasi_fa_summary', parser:'realisasi_fa'},
   {id:'up', title:'4. UP Baru', mandatory:true, group:'central', badge:'WAJIB', badgeClass:'badge-wajib', exampleUrl:'https://docs.google.com/spreadsheets/d/1mBv-04KIbbz8-lWkmUtau7zGGHrivSv2/edit', exampleLabel:'76 satker', columns:['NO','Kode Satker','NAMA','MATA UANG','SUMBER DANA','TOTAL UP','TGL UP','GU Nihil','Setoran','SISA UP','TGL GUP','TOTAL GUP','%','BATAS REVOLVING','BATAS TEGURAN','KET'], description:'UP - Sisa UP', mapping:'UP', dbKey:'up', parser:'up'},
   {id:'revisi_dipa', title:'5. Revisi DIPA Baru', mandatory:true, group:'central', badge:'WAJIB', badgeClass:'badge-wajib', exampleUrl:'https://docs.google.com/spreadsheets/d/1mFmmA0xmOWVEskE7xHBeyO0wuHw2s6zL/edit', exampleLabel:'641 baris', columns:['NO','Periode','Jenis Revisi','Kewenangan','Revisi Ke','Satker','Nama','No DIPA','Tgl Posting','Batch','Jumlah'], description:'Revisi DIPA', mapping:'Revisi', dbKey:'revisi_dipa', parser:'revisi_dipa'},
-  {id:'retur', title:'6. Retur', mandatory:false, group:'pelengkap', badge:'PELENGKAP', badgeClass:'badge-pelengkap', exampleUrl:'', exampleLabel:'Menunggu', columns:['SATKER','NAMA','JENIS','TGL SP2D','TGL RETUR','NO SP2D','JUMLAH'], description:'Retur SP2D', mapping:'Retur', dbKey:'retur', parser:'retur'},
-  {id:'kontrak', title:'7. Kontrak', mandatory:false, group:'pelengkap', badge:'PELENGKAP', badgeClass:'badge-pelengkap', exampleUrl:'', exampleLabel:'Menunggu', columns:['SATKER','NO CAN','SUPPLIER','NILAI'], description:'Kontrak', mapping:'Kontrak', dbKey:'kontrak', parser:'kontrak'},
-  {id:'rekening', title:'8. Rekening', mandatory:false, group:'pelengkap', badge:'PELENGKAP', badgeClass:'badge-pelengkap', exampleUrl:'', exampleLabel:'Menunggu', columns:['NOREK','SATKER','JENIS','STATUS'], description:'Rekening Bendahara', mapping:'Rekening', dbKey:'rekening', parser:'rekening'},
+  {id:'retur', title:'6. Retur SP2D - SPANEXT', mandatory:false, group:'pelengkap', badge:'PELENGKAP', badgeClass:'badge-pelengkap', exampleUrl:'https://docs.google.com/spreadsheets/d/1oINhH6QkSDhX05hYtSZ2_vHbmNapYKU8/edit?usp=sharing', exampleLabel:'31 kolom - Monitoring Retur SPANEXT', columns:['NO','KODE SATKER','NAMA SATKER','JENIS SP2D','TGL SP2D','TGL RETUR','TGL INTERFACE','NO SP2D','NO TRANSAKSI','BANK PEMBAYAR','BANK PENERIMA','NAMA PENERIMA','NO REKENING','JUMLAH','URAIAN SP2D','ALASAN RETUR','NO SURAT','TGL SURAT','UPLOAD SURAT','JATUH TEMPO','TGL PROSES','TGL SP2D PENGGANTI','NO SP2D PENGGANTI','WAKTU PENYELESAIAN','BANK PENERIMA PENGGANTI','NAMA PENERIMA PENGGANTI','NO REK PENGGANTI','JUMLAH PENGGANTI','STATUS RETUR','SUMBER DANA','KODE AKUN'], description:'Retur SP2D - Monitoring Retur SPANEXT 31 kolom - Complementary 10%', mapping:'Retur - SPANEXT', dbKey:'retur', parser:'retur'},
+  {id:'kontrak', title:'7. Kontrak - SPAN/SAKTI', mandatory:false, group:'pelengkap', badge:'PELENGKAP', badgeClass:'badge-pelengkap', exampleUrl:'https://docs.google.com/spreadsheets/d/1r9Ll3PlA6NeiH3ZvN_X1IC_SgElAHAWg/edit?usp=sharing', exampleLabel:'22 kolom - Monitoring Data Kontrak', columns:['NO','KODE SATKER','DESKRIPSI SATKER','KODE KPPN','NOMOR KONTRAK','NRK SPAN','NRK SAKTI','STATUS NRK','TANGGAL KONTRAK','KODE MATA UANG','NAMA SUPPLIER','NOMOR REGISTER SUPPLIER','TANGGAL MULAI','TANGGAL SELESAI','URAIAN KONTRAK','NILAI KONTRAK','NILAI PEMBAYARAN','SISA KONTRAK','STATUS PROGRESS','KODE COA','STATUS KIRIM KE KPPN','DETAIL BARANG JASA'], description:'Kontrak SPAN/SAKTI - Monitoring Data Kontrak 22 kolom - Complementary', mapping:'Kontrak SPAN', dbKey:'kontrak', parser:'kontrak'},
+  {id:'rekening', title:'8. Rekening - e-Rekon', mandatory:false, group:'pelengkap', badge:'PELENGKAP', badgeClass:'badge-pelengkap', exampleUrl:'https://docs.google.com/spreadsheets/d/18Rr4ayV3sC8VfA_pDLnXnnxUzvj8qH27/edit?usp=sharing', exampleLabel:'27 kolom - Rekening e-Rekon & nmwenang', columns:['idizin','register','norek','nmrek','tglizin','noizin','kdstatus','kdkppn','kdsatker','kdsts','tglcreate','kdjenis','kdwenang','kdbank','kdjenbank','kddept','nmsatker','nmbank','nmstatus','nmjenis','nmsts','kdkanwil','nmdept','nmkppn','nmkanwil','nmwenang','saldo'], description:'Rekening - e-Rekon 27 kolom - Jumlah rekening, nama, norek, nmwenang status Tutup/Normal', mapping:'Rekening e-Rekon', dbKey:'rekening', parser:'rekening'},
 ];
 
 const DEFAULT_LOCAL_GOV = [
@@ -298,9 +298,199 @@ function parseTUPFromRows(rows){ const out=[]; let h=-1; for(let i=0;i<Math.min(
 function parseRealisasiFAFromRows(rows){ const out=[]; let h=-1; for(let i=0;i<Math.min(10,rows.length);i++){ const r=rows[i]||[]; if(r.join(' ').toUpperCase().includes('KODE SATKER') && r.join(' ').toUpperCase().includes('PAGU')){ h=i; break; } } if(h<0) h=4; const map={}; for(let i=h+1;i<rows.length;i++){ const r=rows[i]; if(!r) continue; const kode=normSatker(r[3]); if(!kode) continue; const akun=String(r[5]||''); let jenbel=null; if(/^\d{2}/.test(akun)) jenbel=parseInt(akun.substring(0,2)); const sumber=String(r[7]||''); const coa=String(r[9]||''); const prog=(coa.split('.')[3]||'').replace(/[^A-Z]/g,'').substring(0,2)||'WA'; const keg=(String(r[6]||'').match(/\d+/)||[''])[0].substring(0,4)||'0000'; const pagu=parseNumID(r[10]); const real=parseNumID(r[11]); out.push({satker:kode,pagu:pagu,realisasi:real}); if(!map[kode]) map[kode]={satker:kode,nama:String(r[4]||''),total_pagu:0,total_real:0,sd_map:{},jb_map:{},program_set:new Set(),kegiatan_set:new Set()}; const e=map[kode]; e.total_pagu+=pagu; e.total_real+=real; e.program_set.add(prog); e.kegiatan_set.add(keg); if(!e.sd_map[sumber]) e.sd_map[sumber]={kode:sumber,pagu:0,real:0,count:0}; e.sd_map[sumber].pagu+=pagu; e.sd_map[sumber].real+=real; e.sd_map[sumber].count++; if(jenbel){ if(!e.jb_map[jenbel]) e.jb_map[jenbel]={jenbel:jenbel,pagu:0,real:0,count:0}; e.jb_map[jenbel].pagu+=pagu; e.jb_map[jenbel].real+=real; e.jb_map[jenbel].count++; } } const summary=[]; Object.values(map).forEach(e=>{ summary.push({satker:e.satker,nama:e.nama,total_pagu:e.total_pagu,total_real:e.total_real,sd_summary:Object.values(e.sd_map),jenbel_summary:Object.values(e.jb_map),program:Array.from(e.program_set),kegiatan:Array.from(e.kegiatan_set)}); }); return {full:out, summary:summary}; }
 function parseUPFromRows(rows){ const out=[]; let isNew=false; let start=5; for(let i=0;i<rows.length;i++){ const r=rows[i]||[]; if(r[0]==='NO' && String(r[1]||'').toUpperCase().includes('KODE SATKER')){ isNew=true; start=i+1; break; } if(r[2]==='NO' && String(r[3]||'').toUpperCase().includes('KODE SATKER')){ isNew=false; start=i+1; break; } } if(isNew){ for(let i=start;i<rows.length;i++){ const r=rows[i]; if(!r) continue; const kode=normSatker(r[1]); if(!kode) continue; out.push({satker:kode,nama:String(r[2]||''),sumber_dana:String(r[4]||''),total_up:parseNumID(r[5]),sisa_up:parseNumID(r[9]),tgl_gup:String(r[10]||''),total_gup:parseNumID(r[11]),ket:String(r[15]||'')}); } } else { for(let i=start;i<rows.length;i++){ const r=rows[i]; if(!r) continue; const kode=normSatker(r[3]); if(!kode) continue; out.push({satker:kode,nama:String(r[4]||''),sumber_dana:String(r[6]||''),total_up:parseNumID(r[7]),sisa_up:parseNumID(r[11]),tgl_gup:String(r[12]||''),total_gup:parseNumID(r[13]),ket:String(r[17]||'')}); } } return out; }
 function parseRevisiDipaFromRows(rows){ const out=[]; let h=-1; for(let i=0;i<Math.min(10,rows.length);i++){ const r=rows[i]||[]; if(r.join(' ').toUpperCase().includes('JENIS REVISI')){ h=i; break; } } if(h<0) h=4; for(let i=h+1;i<rows.length;i++){ const r=rows[i]; if(!r) continue; const kode=normSatker(r[5]); if(!kode) continue; out.push({satker:kode,jenis_revisi:String(r[2]||''),kewenangan:String(r[3]||''),revisi_ke:parseInt(parseNum(r[4]))||0}); } return out; }
-function parseReturFromRows(rows){ const out=[]; let h=5; for(let i=0;i<rows.length;i++){ const r=rows[i]||[]; if(r.join(' ').toUpperCase().includes('KODE SATKER') && r.join(' ').toUpperCase().includes('JUMLAH')){ h=i; break; } } for(let i=h+1;i<rows.length;i++){ const r=rows[i]; if(!r) continue; const kode=normSatker(r[3]); if(!kode) continue; out.push({satker:kode,jumlah:parseNum(r[15])}); } return out; }
-function parseKontrakFromRows(rows){ const out=[]; for(let i=4;i<rows.length;i++){ const r=rows[i]; if(!r) continue; const kode=normSatker(r[3]); if(!kode) continue; out.push({satker:kode}); } return out; }
-function parseRekeningFromRows(rows){ const out=[]; for(let i=1;i<rows.length;i++){ const r=rows[i]; if(!r) continue; const kode=normSatker(r[10]); if(!kode) continue; out.push({satker:kode}); } return out; }
+function parseReturFromRows(rows){
+  const out=[]; let h=-1; let headerMap={};
+  for(let i=0;i<Math.min(15,rows.length);i++){
+    const r=rows[i]||[];
+    const joined=r.join(' ').toUpperCase();
+    if(joined.includes('KODE SATKER') && joined.includes('JUMLAH')){
+      h=i;
+      r.forEach((col,idx)=>{
+        const key=String(col||'').trim().toUpperCase();
+        if(key.includes('KODE SATKER')) headerMap['kode']=idx;
+        else if(key.includes('NAMA SATKER')) headerMap['nama']=idx;
+        else if(key.includes('JENIS SP2D')) headerMap['jenis']=idx;
+        else if(key==='TGL SP2D' || key.includes('TGL SP2D') && !key.includes('PENGGANTI')) headerMap['tgl_sp2d']=idx;
+        else if(key==='TGL RETUR' || key.includes('TGL RETUR')) headerMap['tgl_retur']=idx;
+        else if(key.includes('NO SP2D') && !key.includes('PENGGANTI')) headerMap['no_sp2d']=idx;
+        else if(key.includes('BANK PEMBAYAR')) headerMap['bank_bayar']=idx;
+        else if(key==='BANK PENERIMA' || (key.includes('BANK PENERIMA') && !key.includes('PENGGANTI'))) headerMap['bank_terima']=idx;
+        else if(key==='NAMA PENERIMA' || (key.includes('NAMA PENERIMA') && !key.includes('PENGGANTI'))) headerMap['nama_terima']=idx;
+        else if(key==='NO REKENING' || (key.includes('NO REKENING') && !key.includes('PENGGANTI'))) headerMap['no_rek']=idx;
+        else if(key==='JUMLAH' || (key.includes('JUMLAH') && !key.includes('PENGGANTI'))) headerMap['jumlah']=idx;
+        else if(key.includes('URAIAN SP2D')) headerMap['uraian']=idx;
+        else if(key.includes('ALASAN RETUR')) headerMap['alasan']=idx;
+        else if(key.includes('STATUS RETUR')) headerMap['status']=idx;
+        else if(key.includes('SUMBER DANA')) headerMap['sumber_dana']=idx;
+        else if(key.includes('KODE AKUN')) headerMap['kode_akun']=idx;
+        else if(key.includes('TGL SP2D PENGGANTI')) headerMap['tgl_sp2d_ganti']=idx;
+        else if(key.includes('NO SP2D PENGGANTI')) headerMap['no_sp2d_ganti']=idx;
+        else if(key.includes('WAKTU PENYELESAIAN')) headerMap['waktu_selesai']=idx;
+      });
+      break;
+    }
+  }
+  if(h<0){ h=0; headerMap={kode:1,nama:2,jenis:3,tgl_sp2d:4,tgl_retur:5,no_sp2d:7,bank_bayar:9,bank_terima:10,nama_terima:11,no_rek:12,jumlah:13,uraian:14,alasan:15,status:28,sumber_dana:29,kode_akun:30,tgl_sp2d_ganti:21,no_sp2d_ganti:22,waktu_selesai:23}; }
+  // default fallback indices if not found
+  const def={kode:1,nama:2,jenis:3,tgl_sp2d:4,tgl_retur:5,no_sp2d:7,bank_bayar:9,bank_terima:10,nama_terima:11,no_rek:12,jumlah:13,uraian:14,alasan:15,status:28,sumber_dana:29,kode_akun:30,tgl_sp2d_ganti:21,no_sp2d_ganti:22,waktu_selesai:23};
+  Object.keys(def).forEach(k=>{ if(headerMap[k]==null) headerMap[k]=def[k]; });
+  for(let i=h+1;i<rows.length;i++){
+    const r=rows[i]; if(!r) continue;
+    const kode=normSatker(r[headerMap['kode']]);
+    if(!kode) continue;
+    const jumlah=parseNumID(r[headerMap['jumlah']]);
+    if(!jumlah && jumlah!==0) continue;
+    out.push({
+      satker:kode,
+      nama:String(r[headerMap['nama']]||'').trim(),
+      jenis_sp2d:String(r[headerMap['jenis']]||'').trim(),
+      tgl_sp2d:String(r[headerMap['tgl_sp2d']]||'').trim(),
+      tgl_retur:String(r[headerMap['tgl_retur']]||'').trim(),
+      no_sp2d:String(r[headerMap['no_sp2d']]||'').trim(),
+      bank_pembayar:String(r[headerMap['bank_bayar']]||'').trim(),
+      bank_penerima:String(r[headerMap['bank_terima']]||'').trim(),
+      nama_penerima:String(r[headerMap['nama_terima']]||'').trim(),
+      no_rekening:String(r[headerMap['no_rek']]||'').trim(),
+      jumlah:jumlah,
+      uraian:String(r[headerMap['uraian']]||'').trim(),
+      alasan_retur:String(r[headerMap['alasan']]||'').trim(),
+      status_retur:String(r[headerMap['status']]||'').trim(),
+      sumber_dana:String(r[headerMap['sumber_dana']]||'').trim(),
+      kode_akun:String(r[headerMap['kode_akun']]||'').trim(),
+      tgl_sp2d_pengganti:String(r[headerMap['tgl_sp2d_ganti']]||'').trim(),
+      no_sp2d_pengganti:String(r[headerMap['no_sp2d_ganti']]||'').trim(),
+      waktu_penyelesaian:String(r[headerMap['waktu_selesai']]||'').trim()
+    });
+  }
+  return out;
+}
+function parseKontrakFromRows(rows){
+  const out=[]; let h=-1; let headerMap={};
+  for(let i=0;i<Math.min(15,rows.length);i++){
+    const r=rows[i]||[];
+    const joined=r.join(' ').toUpperCase();
+    if(joined.includes('KODE SATKER') && joined.includes('NOMOR KONTRAK')){
+      h=i;
+      r.forEach((col,idx)=>{
+        const key=String(col||'').trim().toUpperCase();
+        if(key.includes('KODE SATKER')) headerMap['kode']=idx;
+        else if(key.includes('DESKRIPSI SATKER')) headerMap['nama']=idx;
+        else if(key.includes('NOMOR KONTRAK')) headerMap['no_kontrak']=idx;
+        else if(key.includes('NRK SPAN')) headerMap['nrk_span']=idx;
+        else if(key.includes('TANGGAL KONTRAK')) headerMap['tgl_kontrak']=idx;
+        else if(key.includes('NAMA SUPPLIER')) headerMap['supplier']=idx;
+        else if(key.includes('TANGGAL MULAI')) headerMap['tgl_mulai']=idx;
+        else if(key.includes('TANGGAL SELESAI')) headerMap['tgl_selesai']=idx;
+        else if(key.includes('URAIAN KONTRAK')) headerMap['uraian']=idx;
+        else if(key.includes('NILAI KONTRAK')) headerMap['nilai_kontrak']=idx;
+        else if(key.includes('NILAI PEMBAYARAN')) headerMap['nilai_bayar']=idx;
+        else if(key.includes('SISA KONTRAK')) headerMap['sisa']=idx;
+        else if(key.includes('STATUS PROGRESS')) headerMap['status_progress']=idx;
+        else if(key.includes('KODE COA')) headerMap['coa']=idx;
+      });
+      break;
+    }
+  }
+  if(h<0){ h=0; headerMap={kode:1,nama:2,no_kontrak:4,nrk_span:5,tgl_kontrak:8,supplier:10,tgl_mulai:12,tgl_selesai:13,uraian:14,nilai_kontrak:15,nilai_bayar:16,sisa:17,status_progress:18,coa:19}; }
+  const def={kode:1,nama:2,no_kontrak:4,nrk_span:5,tgl_kontrak:8,supplier:10,tgl_mulai:12,tgl_selesai:13,uraian:14,nilai_kontrak:15,nilai_bayar:16,sisa:17,status_progress:18,coa:19};
+  Object.keys(def).forEach(k=>{ if(headerMap[k]==null) headerMap[k]=def[k]; });
+  for(let i=h+1;i<rows.length;i++){
+    const r=rows[i]; if(!r) continue;
+    const kode=normSatker(r[headerMap['kode']]);
+    if(!kode) continue;
+    const nilaiKontrak=parseNumID(r[headerMap['nilai_kontrak']]);
+    out.push({
+      satker:kode,
+      nama:String(r[headerMap['nama']]||'').trim(),
+      nomor_kontrak:String(r[headerMap['no_kontrak']]||'').trim(),
+      nrk_span:String(r[headerMap['nrk_span']]||'').trim(),
+      tanggal_kontrak:String(r[headerMap['tgl_kontrak']]||'').trim(),
+      supplier:String(r[headerMap['supplier']]||'').trim(),
+      tgl_mulai:String(r[headerMap['tgl_mulai']]||'').trim(),
+      tgl_selesai:String(r[headerMap['tgl_selesai']]||'').trim(),
+      uraian:String(r[headerMap['uraian']]||'').trim(),
+      nilai_kontrak:nilaiKontrak,
+      nilai_pembayaran:parseNumID(r[headerMap['nilai_bayar']]),
+      sisa_kontrak:parseNumID(r[headerMap['sisa']]),
+      status_progress:String(r[headerMap['status_progress']]||'').trim(),
+      coa:String(r[headerMap['coa']]||'').trim()
+    });
+  }
+  return out;
+}
+function parseRekeningFromRows(rows){
+  const out=[]; let h=-1; let headerMap={};
+  for(let i=0;i<Math.min(15,rows.length);i++){
+    const r=rows[i]||[];
+    const joined=r.join(' ').toUpperCase();
+    if(joined.includes('NOREK') && joined.includes('KDSATKER')){
+      h=i;
+      r.forEach((col,idx)=>{
+        const key=String(col||'').trim().toLowerCase();
+        if(key==='kdsatker') headerMap['kode']=idx;
+        else if(key==='nmsatker') headerMap['nama_satker']=idx;
+        else if(key==='norek') headerMap['norek']=idx;
+        else if(key==='nmrek') headerMap['nmrek']=idx;
+        else if(key==='nmbank') headerMap['nmbank']=idx;
+        else if(key==='nmstatus') headerMap['nmstatus']=idx;
+        else if(key==='nmjenis') headerMap['nmjenis']=idx;
+        else if(key==='nmwenang') headerMap['nmwenang']=idx;
+        else if(key==='saldo') headerMap['saldo']=idx;
+        else if(key==='tglizin') headerMap['tglizin']=idx;
+        else if(key==='noizin') headerMap['noizin']=idx;
+        else if(key==='kdkppn') headerMap['kdkppn']=idx;
+      });
+      break;
+    }
+  }
+  if(h<0){
+    // try find idizin row
+    for(let i=0;i<Math.min(10,rows.length);i++){
+      const r=rows[i]||[];
+      if(r.join(' ').toLowerCase().includes('idizin')){
+        h=i; r.forEach((col,idx)=>{
+          const key=String(col||'').trim().toLowerCase();
+          if(key==='kdsatker') headerMap['kode']=idx;
+          else if(key==='nmsatker') headerMap['nama_satker']=idx;
+          else if(key==='norek') headerMap['norek']=idx;
+          else if(key==='nmrek') headerMap['nmrek']=idx;
+          else if(key==='nmbank') headerMap['nmbank']=idx;
+          else if(key==='nmstatus') headerMap['nmstatus']=idx;
+          else if(key==='nmjenis') headerMap['nmjenis']=idx;
+          else if(key==='nmwenang') headerMap['nmwenang']=idx;
+          else if(key==='saldo') headerMap['saldo']=idx;
+          else if(key==='tglizin') headerMap['tglizin']=idx;
+          else if(key==='noizin') headerMap['noizin']=idx;
+        }); break;
+      }
+    }
+  }
+  if(h<0){ h=1; headerMap={kode:8,nama_satker:16,norek:2,nmrek:3,nmbank:17,nmstatus:18,nmjenis:19,nmwenang:25,saldo:26,tglizin:4,noizin:5,kdkppn:7}; }
+  const def={kode:8,nama_satker:16,norek:2,nmrek:3,nmbank:17,nmstatus:18,nmjenis:19,nmwenang:25,saldo:26,tglizin:4,noizin:5,kdkppn:7};
+  Object.keys(def).forEach(k=>{ if(headerMap[k]==null) headerMap[k]=def[k]; });
+  for(let i=h+1;i<rows.length;i++){
+    const r=rows[i]; if(!r) continue;
+    const kode=normSatker(r[headerMap['kode']]);
+    if(!kode) continue;
+    const norek=String(r[headerMap['norek']]||'').trim();
+    if(!norek) continue;
+    out.push({
+      satker:kode,
+      nmsatker:String(r[headerMap['nama_satker']]||'').trim(),
+      norek:norek,
+      nmrek:String(r[headerMap['nmrek']]||'').trim(),
+      nmbank:String(r[headerMap['nmbank']]||'').trim(),
+      nmstatus:String(r[headerMap['nmstatus']]||'').trim(),
+      nmjenis:String(r[headerMap['nmjenis']]||'').trim(),
+      nmwenang:String(r[headerMap['nmwenang']]||'').trim(),
+      saldo:parseNumID(r[headerMap['saldo']]),
+      tglizin:String(r[headerMap['tglizin']]||'').trim(),
+      noizin:String(r[headerMap['noizin']]||'').trim(),
+      kdkppn:String(r[headerMap['kdkppn']]||'').trim()
+    });
+  }
+  return out;
+}
 
 function renderUploadGrid(){
   const grid=document.getElementById('uploadGrid'); grid.innerHTML='';
@@ -337,12 +527,12 @@ function updateDashboard(){
   document.getElementById('centralText').textContent=`${cDone}/${central.length}`; document.getElementById('pelengkapText').textContent=`${pDone}/${pelengkap.length}`;
   document.getElementById('overallProgressText').textContent=`${cDone+pDone}/8`; document.getElementById('tabUploadBadge').textContent=`${cDone+pDone}/8`;
   document.getElementById('centralBar').style.width=`${(cDone/central.length)*100}%`; document.getElementById('pelengkapBar').style.width=`${(pDone/pelengkap.length)*100}%`;
-  const totalSatker=new Set(); ['ikpa','tup','up','revisi_dipa','realisasi_fa_summary','pagu'].forEach(k=>{ (DB[k]||[]).forEach(r=>{ if(r.satker) totalSatker.add(r.satker); }); });
+  const totalSatker=new Set(); ['ikpa','tup','up','revisi_dipa','realisasi_fa_summary','pagu','retur','kontrak','rekening'].forEach(k=>{ (DB[k]||[]).forEach(r=>{ if(r.satker) totalSatker.add(r.satker); }); });
   if(totalSatker.size===0){ document.getElementById('dbInfo').innerHTML=`MODE KOSONG`; }
-  else { document.getElementById('dbInfo').textContent=`${totalSatker.size} satker | IKPA:${DB.ikpa.length} | TUP:${DB.tup.length} | FA:${(DB.realisasi_fa_summary||[]).length}`; }
+  else { document.getElementById('dbInfo').textContent=`${totalSatker.size} satker | IKPA:${DB.ikpa.length} | TUP:${DB.tup.length} | FA:${(DB.realisasi_fa_summary||[]).length} | Retur:${(DB.retur||[]).length} | Kontrak:${(DB.kontrak||[]).length} | Rek:${(DB.rekening||[]).length}`; }
 }
 function getSatkerList(){
-  const map=new Map(); ['pagu','ikpa','realisasi_fa_summary'].forEach(k=>{(DB[k]||[]).forEach(r=>{ if(!map.has(r.satker)) map.set(r.satker,{nama:r.nama||'', ikpa:0, pagu:0}); });}); DB.ikpa.forEach(r=>{ if(map.has(r.satker)) map.get(r.satker).ikpa=r.nilai_akhir; }); DB.pagu.forEach(r=>{ if(map.has(r.satker)) map.get(r.satker).pagu=r.pagu_belanja; }); ['tup','up','revisi_dipa'].forEach(k=>{(DB[k]||[]).forEach(r=>{ if(!map.has(r.satker)) map.set(r.satker,{nama:r.nama||r.nama_satker||'', ikpa:0, pagu:0}); });}); return Array.from(map.entries()).sort().map(([kode,v])=>({kode,nama:v.nama,ikpa:v.ikpa,pagu:v.pagu}));
+  const map=new Map(); ['pagu','ikpa','realisasi_fa_summary'].forEach(k=>{(DB[k]||[]).forEach(r=>{ if(!map.has(r.satker)) map.set(r.satker,{nama:r.nama||'', ikpa:0, pagu:0}); });}); DB.ikpa.forEach(r=>{ if(map.has(r.satker)) map.get(r.satker).ikpa=r.nilai_akhir; }); DB.pagu.forEach(r=>{ if(map.has(r.satker)) map.get(r.satker).pagu=r.pagu_belanja; }); ['tup','up','revisi_dipa','retur','kontrak','rekening'].forEach(k=>{(DB[k]||[]).forEach(r=>{ if(!map.has(r.satker)) map.set(r.satker,{nama:r.nama||r.nama_satker||'', ikpa:0, pagu:0}); });}); return Array.from(map.entries()).sort().map(([kode,v])=>({kode,nama:v.nama,ikpa:v.ikpa,pagu:v.pagu}));
 }
 function renderSatkerList(){
   const list=getSatkerList(); const body=document.getElementById('satkerListBody'); const search=(document.getElementById('satkerSearch').value||'').toLowerCase(); body.innerHTML='';
@@ -362,9 +552,19 @@ function saveSel(){ localStorage.setItem('selectedSatker', JSON.stringify(select
 
 function computeKertasKerja(kode){
   const paguRec=DB.pagu.find(x=>x.satker===kode); const ikpaRec=DB.ikpa.find(x=>x.satker===kode); const revisiRecs=(DB.revisi_dipa||[]).filter(x=>x.satker===kode); const revisiDipaOnly=revisiRecs.filter(x=>(x.jenis_revisi||'').toUpperCase().includes('REVISI DIPA')); const tupRecs=DB.tup.filter(x=>x.satker===kode); const upRecs=DB.up.filter(x=>x.satker===kode); const faSummary=(DB.realisasi_fa_summary||[]).find(x=>x.satker===kode);
+  const returRecs=(DB.retur||[]).filter(x=>x.satker===kode);
+  const kontrakRecs=(DB.kontrak||[]).filter(x=>x.satker===kode);
+  const rekeningRecs=(DB.rekening||[]).filter(x=>x.satker===kode);
   let totalPagu=0,totalReal=0,sdList=[],jbMap={}; if(faSummary){ totalPagu=faSummary.total_pagu; totalReal=faSummary.total_real; sdList=faSummary.sd_summary||[]; (faSummary.jenbel_summary||[]).forEach(j=>{ jbMap[j.jenbel]=j; }); }
   const getJB=k=>jbMap[k]||{pagu:0,real:0}; const upTotal=upRecs.reduce((s,r)=>s+(r.sisa_up||0),0);
-  return {kode,nama:paguRec?.nama||ikpaRec?.nama||faSummary?.nama||'',paguRec,ikpaRec,totalPagu,totalReal,sdList,getJB,upTotal,upRecs,tupRecs,revisiRecs,revisiDipaOnly,faSummary};
+  const returTotal=returRecs.reduce((s,r)=>s+(r.jumlah||0),0);
+  const kontrakTotal=kontrakRecs.reduce((s,r)=>s+(r.nilai_kontrak||0),0);
+  const kontrakBayar=kontrakRecs.reduce((s,r)=>s+(r.nilai_pembayaran||0),0);
+  const kontrakSisa=kontrakRecs.reduce((s,r)=>s+(r.sisa_kontrak||0),0);
+  const rekNormal=rekeningRecs.filter(r=> (r.nmwenang||'').toUpperCase().includes('NORMAL') || (r.nmstatus||'').toUpperCase().includes('NORMAL') ).length;
+  const rekTutup=rekeningRecs.filter(r=> (r.nmwenang||'').toUpperCase().includes('TUTUP') ).length;
+  const rekSaldo=rekeningRecs.reduce((s,r)=>s+(r.saldo||0),0);
+  return {kode,nama:paguRec?.nama||ikpaRec?.nama||faSummary?.nama||'',paguRec,ikpaRec,totalPagu,totalReal,sdList,getJB,upTotal,upRecs,tupRecs,revisiRecs,revisiDipaOnly,faSummary,returRecs,returTotal,kontrakRecs,kontrakTotal,kontrakBayar,kontrakSisa,rekeningRecs,rekNormal,rekTutup,rekSaldo};
 }
 
 function renderNotaDinasPaper(){
@@ -480,7 +680,16 @@ function renderDetailPapers(){
     const d=computeKertasKerja(kode); const sc=manualScores[kode]||{mandatory:70,complementary:30,akhir:100}; const st=stNumbers[kode]||document.getElementById('cfgNoST').value;
     const ikpa=d.ikpaRec; const cfgTahun=document.getElementById('cfgTahun').value; const cfgPeriode=document.getElementById('cfgPeriode').value; const cfgKPPN=document.getElementById('cfgKPPN').value; const cfgKetua=document.getElementById('cfgKetua').value; const cfgNIP=document.getElementById('cfgNIP').value;
     const div=document.createElement('div'); div.className='paper'; div.id=`paper-${kode}`;
-    div.innerHTML=`<div class="paper-header"><div class="paper-title"><h2>KERTAS KERJA MONITORING DAN EVALUASI</h2><h3>CENTRAL GOVERNMENT ADVISORY</h3></div><div class="meta-grid"><div><b>NOMOR</b></div><div>:</div><div contenteditable="true" class="editable-cell">${st}</div><div><b>PERIODE</b></div><div>:</div><div contenteditable="true" class="editable-cell">${cfgTahun} / ${cfgPeriode}</div><div><b>SATKER</b></div><div>:</div><div contenteditable="true" class="editable-cell">${d.nama||''}</div><div><b>KODE</b></div><div>:</div><div>${kode}</div></div></div><div style="padding:0 18px 12px"><div class="section-title">MANDATORY</div><div class="table-wrap"><table class="kk"><tr><th>No</th><th>Rincian</th><th>Data</th><th>Nilai</th></tr><tr><td class="num">1</td><td>Pagu Belanja</td><td contenteditable="true" class="editable-cell">${d.totalPagu?fmtRp(d.totalPagu)+` Real ${fmtRp(d.totalReal)} ${fmtPct(d.totalPagu,d.totalReal)}`:'Belum FA'}</td><td class="num editable-cell" contenteditable="true">10</td></tr><tr><td class="num">2</td><td>Revisi DIPA</td><td contenteditable="true" class="editable-cell">Total ${d.revisiRecs.length} DIPA ${d.revisiDipaOnly.length}</td><td class="num editable-cell" contenteditable="true">10</td></tr><tr><td class="num">3</td><td>IKPA</td><td contenteditable="true" class="editable-cell">${ikpa?`Total ${ikpa.nilai_total} Akhir ${ikpa.nilai_akhir}`:'Belum IKPA'}</td><td class="num editable-cell" contenteditable="true">10</td></tr><tr><td class="num">4</td><td>TUP</td><td contenteditable="true" class="editable-cell">${d.tupRecs.length?`${d.tupRecs.length} kali ${fmtRp(d.tupRecs.reduce((s,r)=>s+(r.nilai||0),0))}`:'Tidak ada'}</td><td class="num editable-cell" contenteditable="true">10</td></tr><tr><td class="num">5</td><td>UP Sisa</td><td contenteditable="true" class="editable-cell">${fmtRp(d.upTotal)}</td><td class="num editable-cell" contenteditable="true">10</td></tr></table></div><div class="section-title">ISU</div><div class="issue-box" contenteditable="true">- Realisasi ${fmtPct(d.totalPagu,d.totalReal)}<br>- Revisi ${d.revisiDipaOnly.length} kali</div><div class="section-title">FEEDBACK EKSTERNAL</div><div class="issue-box" contenteditable="true">-</div><div class="section-title">FEEDBACK INTERNAL</div><div class="issue-box" contenteditable="true">-</div><div style="text-align:right;margin-top:12px;font-size:10px">${cfgKPPN}, ${document.getElementById('cfgTglND').value}<br><br>Ketua Tim,<br><br><br><b>${cfgKetua}</b><br>NIP ${cfgNIP}</div></div>`;
+    const returRows = d.returRecs.length ? d.returRecs.map((r,i)=>`<tr><td class="num">${i+1}</td><td>${r.tgl_retur||''}</td><td>${r.no_sp2d||''}</td><td>${r.nama_penerima||''}</td><td class="rupiah">${fmtRp(r.jumlah)}</td><td>${r.alasan_retur||''}</td><td>${r.status_retur||''}</td></tr>`).join('') : '<tr><td colspan="7" style="text-align:center">Tidak ada retur</td></tr>';
+    const kontrakRows = d.kontrakRecs.length ? d.kontrakRecs.map((r,i)=>`<tr><td class="num">${i+1}</td><td>${r.nomor_kontrak||''}</td><td>${r.supplier||''}</td><td>${r.tanggal_kontrak||''}</td><td class="rupiah">${fmtRp(r.nilai_kontrak)}</td><td class="rupiah">${fmtRp(r.nilai_pembayaran)}</td><td class="rupiah">${fmtRp(r.sisa_kontrak)}</td><td>${r.status_progress||''}</td></tr>`).join('') : '<tr><td colspan="8" style="text-align:center">Tidak ada kontrak</td></tr>';
+    const rekeningRows = d.rekeningRecs.length ? d.rekeningRecs.map((r,i)=>`<tr><td class="num">${i+1}</td><td>${r.norek||''}</td><td>${r.nmrek||''}</td><td>${r.nmbank||''}</td><td>${r.nmjenis||''}</td><td style="text-align:center"><b>${r.nmwenang||''}</b></td><td>${r.nmstatus||''}</td><td class="rupiah">${fmtRp(r.saldo)}</td></tr>`).join('') : '<tr><td colspan="8" style="text-align:center">Tidak ada rekening</td></tr>';
+    div.innerHTML=`<div class="paper-header"><div class="paper-title"><h2>KERTAS KERJA MONITORING DAN EVALUASI</h2><h3>CENTRAL GOVERNMENT ADVISORY</h3></div><div class="meta-grid"><div><b>NOMOR</b></div><div>:</div><div contenteditable="true" class="editable-cell">${st}</div><div><b>PERIODE</b></div><div>:</div><div contenteditable="true" class="editable-cell">${cfgTahun} / ${cfgPeriode}</div><div><b>SATKER</b></div><div>:</div><div contenteditable="true" class="editable-cell">${d.nama||''}</div><div><b>KODE</b></div><div>:</div><div>${kode}</div></div></div><div style="padding:0 18px 12px">
+<div class="section-title">MANDATORY (90%)</div><div class="table-wrap"><table class="kk"><tr><th>No</th><th>Rincian</th><th>Data</th><th>Nilai</th></tr><tr><td class="num">1</td><td>Pagu Belanja</td><td contenteditable="true" class="editable-cell">${d.totalPagu?fmtRp(d.totalPagu)+` Real ${fmtRp(d.totalReal)} ${fmtPct(d.totalPagu,d.totalReal)}`:'Belum FA'}</td><td class="num editable-cell" contenteditable="true">10</td></tr><tr><td class="num">2</td><td>Revisi DIPA</td><td contenteditable="true" class="editable-cell">Total ${d.revisiRecs.length} DIPA ${d.revisiDipaOnly.length}</td><td class="num editable-cell" contenteditable="true">10</td></tr><tr><td class="num">3</td><td>IKPA</td><td contenteditable="true" class="editable-cell">${ikpa?`Total ${ikpa.nilai_total} Akhir ${ikpa.nilai_akhir}`:'Belum IKPA'}</td><td class="num editable-cell" contenteditable="true">10</td></tr><tr><td class="num">4</td><td>TUP</td><td contenteditable="true" class="editable-cell">${d.tupRecs.length?`${d.tupRecs.length} kali ${fmtRp(d.tupRecs.reduce((s,r)=>s+(r.nilai||0),0))}`:'Tidak ada'}</td><td class="num editable-cell" contenteditable="true">10</td></tr><tr><td class="num">5</td><td>UP Sisa</td><td contenteditable="true" class="editable-cell">${fmtRp(d.upTotal)}</td><td class="num editable-cell" contenteditable="true">10</td></tr></table></div>
+<div class="section-title">COMPLEMENTARY (10%) - RETUR, KONTRAK & REKENING</div><div class="table-wrap"><table class="kk"><tr><th>No</th><th>Rincian</th><th>Data</th><th>Nilai</th></tr><tr><td class="num">1</td><td>Retur SP2D</td><td contenteditable="true" class="editable-cell">${d.returRecs.length?`${d.returRecs.length} kali retur, total ${fmtRp(d.returTotal)} - Alasan: ${(d.returRecs[0]?.alasan_retur||'').substring(0,60)}`:'Tidak ada retur (Nilai 30)'}</td><td class="num editable-cell" contenteditable="true">${d.returRecs.length?10:30}</td></tr><tr><td class="num">2</td><td>Kontrak SPAN/SAKTI</td><td contenteditable="true" class="editable-cell">${d.kontrakRecs.length?`${d.kontrakRecs.length} kontrak, total ${fmtRp(d.kontrakTotal)} - Bayar ${fmtRp(d.kontrakBayar)} Sisa ${fmtRp(d.kontrakSisa)}`:'Belum ada data kontrak'}</td><td class="num editable-cell" contenteditable="true">${d.kontrakRecs.length?10:0}</td></tr><tr><td class="num">3</td><td>Rekening e-Rekon</td><td contenteditable="true" class="editable-cell">${d.rekeningRecs.length?`${d.rekeningRecs.length} rekening - Normal: ${d.rekNormal} Tutup: ${d.rekTutup} - Saldo ${fmtRp(d.rekSaldo)} - Status nmwenang dominan: ${(d.rekeningRecs[0]?.nmwenang||'')}`:'Belum ada data rekening'}</td><td class="num editable-cell" contenteditable="true">${d.rekeningRecs.length?10:0}</td></tr></table></div>
+${d.returRecs.length?`<div style="margin-top:8px"><b>Detail Retur SP2D (SPANEXT 31 kolom):</b><div class="table-wrap"><table class="kk"><thead><tr><th>No</th><th>Tgl Retur</th><th>No SP2D</th><th>Nama Penerima</th><th>Jumlah</th><th>Alasan Retur</th><th>Status</th></tr></thead><tbody>${returRows}</tbody></table></div></div>`:''}
+${d.kontrakRecs.length?`<div style="margin-top:8px"><b>Detail Kontrak SPAN/SAKTI (22 kolom):</b><div class="table-wrap"><table class="kk"><thead><tr><th>No</th><th>Nomor Kontrak</th><th>Supplier</th><th>Tgl Kontrak</th><th>Nilai Kontrak</th><th>Pembayaran</th><th>Sisa</th><th>Progress</th></tr></thead><tbody>${kontrakRows}</tbody></table></div></div>`:''}
+${d.rekeningRecs.length?`<div style="margin-top:8px"><b>Detail Rekening e-Rekon (27 kolom) - nmwenang = status Tutup/Normal:</b><div class="table-wrap"><table class="kk"><thead><tr><th>No</th><th>No Rekening</th><th>Nama Rekening (nmrek)</th><th>Bank</th><th>Jenis (nmjenis)</th><th>nmwenang</th><th>Status</th><th>Saldo</th></tr></thead><tbody>${rekeningRows}</tbody></table></div></div>`:''}
+<div class="section-title">ISU</div><div class="issue-box" contenteditable="true">- Realisasi ${fmtPct(d.totalPagu,d.totalReal)}<br>- Revisi ${d.revisiDipaOnly.length} kali<br>- Retur ${d.returRecs.length} kali ${d.returTotal?fmtRp(d.returTotal):''}<br>- Kontrak ${d.kontrakRecs.length} kontrak ${d.kontrakTotal?fmtRp(d.kontrakTotal):''}<br>- Rekening ${d.rekeningRecs.length} rekening - Normal ${d.rekNormal} Tutup ${d.rekTutup} Saldo ${fmtRp(d.rekSaldo)}</div><div class="section-title">FEEDBACK EKSTERNAL</div><div class="issue-box" contenteditable="true">-</div><div class="section-title">FEEDBACK INTERNAL</div><div class="issue-box" contenteditable="true">-</div><div style="text-align:right;margin-top:12px;font-size:10px">${cfgKPPN}, ${document.getElementById('cfgTglND').value}<br><br>Ketua Tim,<br><br><br><b>${cfgKetua}</b><br>NIP ${cfgNIP}</div></div>`;
     container.appendChild(div);
   });
 }
@@ -502,6 +711,9 @@ function exportRekapExcel(){
   XLSX.utils.book_append_sheet(wb,XLSX.utils.aoa_to_sheet(rowsPra),'SPECIAL PRA');
   const rowsPasca=[['SPECIAL MISSION PASCA'],[],['No','Jenis','Stakeholder','Ada','Tidak','Keterangan']]; specialPasca.forEach((r,i)=>{ rowsPasca.push([i+1,r.jenis,r.stakeholder,r.ada?'√':'',r.tidak?'√':'',r.keterangan]); });
   XLSX.utils.book_append_sheet(wb,XLSX.utils.aoa_to_sheet(rowsPasca),'SPECIAL PASCA');
+  const rowsRetur=[['REKAP RETUR'],[],['No','Kode','Nama','Jenis','Tgl Retur','No SP2D','Penerima','Jumlah','Alasan','Status']]; (DB.retur||[]).slice(0,500).forEach((r,i)=>{ rowsRetur.push([i+1,r.satker,r.nama,r.jenis_sp2d,r.tgl_retur,r.no_sp2d,r.nama_penerima,r.jumlah,r.alasan_retur,r.status_retur]); }); XLSX.utils.book_append_sheet(wb,XLSX.utils.aoa_to_sheet(rowsRetur),'RETUR REKAP');
+  const rowsKontrak=[['REKAP KONTRAK'],[],['No','Kode','Nama','No Kontrak','Supplier','Tgl Kontrak','Nilai','Bayar','Sisa','Progress']]; (DB.kontrak||[]).slice(0,500).forEach((r,i)=>{ rowsKontrak.push([i+1,r.satker,r.nama,r.nomor_kontrak,r.supplier,r.tanggal_kontrak,r.nilai_kontrak,r.nilai_pembayaran,r.sisa_kontrak,r.status_progress]); }); XLSX.utils.book_append_sheet(wb,XLSX.utils.aoa_to_sheet(rowsKontrak),'KONTRAK REKAP');
+  const rowsRek=[['REKAP REKENING - nmwenang'],[],['No','Kode','Nama Satker','No Rek','Nama Rek','Bank','Jenis','nmwenang','Status','Saldo']]; (DB.rekening||[]).slice(0,500).forEach((r,i)=>{ rowsRek.push([i+1,r.satker,r.nmsatker,r.norek,r.nmrek,r.nmbank,r.nmjenis,r.nmwenang,r.nmstatus,r.saldo]); }); XLSX.utils.book_append_sheet(wb,XLSX.utils.aoa_to_sheet(rowsRek),'REKENING REKAP');
   const rowsIsu=[['ISU CENTRAL'],[document.getElementById('rekapIsu').value],[],['ISU LOCAL'],[document.getElementById('localIsu').value],[],['ISU SPECIAL'],[document.getElementById('specialIsu').value]];
   XLSX.utils.book_append_sheet(wb,XLSX.utils.aoa_to_sheet(rowsIsu),'ISU & FEEDBACK');
   XLSX.writeFile(wb,`Rekap_FA_${cfgKPPN}_${cfgTahun}_${cfgPeriode}.xlsx`);
@@ -509,11 +721,20 @@ function exportRekapExcel(){
 function exportAllExcel(){
   if(typeof XLSX==='undefined'){ alert('SheetJS belum load'); return; }
   const wb=XLSX.utils.book_new(); const cfgKPPN=document.getElementById('cfgKPPN').value; const cfgTahun=document.getElementById('cfgTahun').value;
-  const rows=[['No','Kode','Nama','ST','Mandatory','Complementary','Akhir','Pagu','Realisasi','%','IKPA Total','IKPA Akhir','Revisi','TUP Freq','UP Sisa']];
-  selectedSatkerCodes.forEach((kode,i)=>{ const d=computeKertasKerja(kode); const sc=manualScores[kode]||{mandatory:70,complementary:30,akhir:100}; rows.push([i+1,kode,d.nama||'',stNumbers[kode]||'',sc.mandatory,sc.complementary,sc.akhir,d.totalPagu,d.totalReal,d.totalPagu?d.totalReal/d.totalPagu*100:0,d.ikpaRec?.nilai_total||'',d.ikpaRec?.nilai_akhir||'',d.revisiDipaOnly.length,d.tupRecs.length,d.upTotal]); });
+  const rows=[['No','Kode','Nama','ST','Mandatory','Complementary','Akhir','Pagu','Realisasi','%','IKPA Total','IKPA Akhir','Revisi','TUP Freq','UP Sisa','Retur Freq','Retur Total','Kontrak Freq','Kontrak Total','Rek Total','Rek Normal','Rek Tutup','Rek Saldo']];
+  selectedSatkerCodes.forEach((kode,i)=>{ const d=computeKertasKerja(kode); const sc=manualScores[kode]||{mandatory:70,complementary:30,akhir:100}; rows.push([i+1,kode,d.nama||'',stNumbers[kode]||'',sc.mandatory,sc.complementary,sc.akhir,d.totalPagu,d.totalReal,d.totalPagu?d.totalReal/d.totalPagu*100:0,d.ikpaRec?.nilai_total||'',d.ikpaRec?.nilai_akhir||'',d.revisiDipaOnly.length,d.tupRecs.length,d.upTotal,d.returRecs.length,d.returTotal,d.kontrakRecs.length,d.kontrakTotal,d.rekeningRecs.length,d.rekNormal,d.rekTutup,d.rekSaldo]); });
   XLSX.utils.book_append_sheet(wb,XLSX.utils.aoa_to_sheet(rows),'REKAP DETAIL');
   const rowsLocal=[['No','Pemda','Surat','Man','Comp','Akhir']]; localGovData.forEach((r,i)=>rowsLocal.push([i+1,r.pemda,r.surat,r.mandatory,r.complementary,r.akhir])); XLSX.utils.book_append_sheet(wb,XLSX.utils.aoa_to_sheet(rowsLocal),'LOCAL');
-  selectedSatkerCodes.forEach(kode=>{ const d=computeKertasKerja(kode); const arr=[['SATKER',kode,d.nama],['PAGU',d.totalPagu,'REAL',d.totalReal],[],['TUP'],['Tgl','No SP2D','Nilai']].concat(d.tupRecs.map(r=>[r.tgl_sp2d,r.no_sp2d,r.nilai])); XLSX.utils.book_append_sheet(wb,XLSX.utils.aoa_to_sheet(arr),kode.substring(0,31)); });
+  const rowsRetur=[['REKAP RETUR SP2D - SPANEXT 31 KOLOM'],[],['No','Kode','Nama Satker','Jenis SP2D','Tgl SP2D','Tgl Retur','No SP2D','Bank Penerima','Nama Penerima','Jumlah','Alasan Retur','Status','Sumber Dana','Tgl SP2D Pengganti','No SP2D Pengganti','Waktu Selesai']];
+  (DB.retur||[]).forEach((r,i)=>{ rowsRetur.push([i+1,r.satker,r.nama,r.jenis_sp2d,r.tgl_sp2d,r.tgl_retur,r.no_sp2d,r.bank_penerima,r.nama_penerima,r.jumlah,r.alasan_retur,r.status_retur,r.sumber_dana,r.tgl_sp2d_pengganti,r.no_sp2d_pengganti,r.waktu_penyelesaian]); });
+  XLSX.utils.book_append_sheet(wb,XLSX.utils.aoa_to_sheet(rowsRetur),'RETUR DETAIL');
+  const rowsKontrak=[['REKAP KONTRAK SPAN/SAKTI 22 KOLOM'],[],['No','Kode','Nama Satker','Nomor Kontrak','NRK SPAN','Tgl Kontrak','Supplier','Tgl Mulai','Tgl Selesai','Uraian','Nilai Kontrak','Nilai Bayar','Sisa','Status Progress','COA']];
+  (DB.kontrak||[]).forEach((r,i)=>{ rowsKontrak.push([i+1,r.satker,r.nama,r.nomor_kontrak,r.nrk_span,r.tanggal_kontrak,r.supplier,r.tgl_mulai,r.tgl_selesai,r.uraian,r.nilai_kontrak,r.nilai_pembayaran,r.sisa_kontrak,r.status_progress,r.coa]); });
+  XLSX.utils.book_append_sheet(wb,XLSX.utils.aoa_to_sheet(rowsKontrak),'KONTRAK DETAIL');
+  selectedSatkerCodes.forEach(kode=>{ const d=computeKertasKerja(kode); const arr=[['SATKER',kode,d.nama],['PAGU',d.totalPagu,'REAL',d.totalReal],[],['TUP'],['Tgl','No SP2D','Nilai']].concat(d.tupRecs.map(r=>[r.tgl_sp2d,r.no_sp2d,r.nilai])).concat([[],['RETUR'],['Tgl Retur','No SP2D','Nama Penerima','Jumlah','Alasan']].concat(d.returRecs.map(r=>[r.tgl_retur,r.no_sp2d,r.nama_penerima,r.jumlah,r.alasan_retur]))).concat([[],['KONTRAK'],['No Kontrak','Supplier','Nilai','Sisa','Progress']].concat(d.kontrakRecs.map(r=>[r.nomor_kontrak,r.supplier,r.nilai_kontrak,r.sisa_kontrak,r.status_progress]))).concat([[],['REKENING - nmwenang'],['No Rek','Nama Rek','Bank','Jenis','nmwenang','Status','Saldo']].concat(d.rekeningRecs.map(r=>[r.norek,r.nmrek,r.nmbank,r.nmjenis,r.nmwenang,r.nmstatus,r.saldo]))); XLSX.utils.book_append_sheet(wb,XLSX.utils.aoa_to_sheet(arr),kode.substring(0,31)); });
+  const rowsRek=[['REKAP REKENING e-Rekon 27 KOLOM'],[],['No','Kode','Nama Satker','No Rek','Nama Rek (nmrek)','Bank','Jenis (nmjenis)','nmwenang','Status (nmstatus)','Saldo','Tgl Izin','No Izin']];
+  (DB.rekening||[]).forEach((r,i)=>{ rowsRek.push([i+1,r.satker,r.nmsatker,r.norek,r.nmrek,r.nmbank,r.nmjenis,r.nmwenang,r.nmstatus,r.saldo,r.tglizin,r.noizin]); });
+  XLSX.utils.book_append_sheet(wb,XLSX.utils.aoa_to_sheet(rowsRek),'REKENING DETAIL');
   XLSX.writeFile(wb,`Laporan_FA_Lengkap_${cfgKPPN}_${cfgTahun}.xlsx`);
 }
 function exportWord(){
@@ -525,7 +746,7 @@ function exportWord(){
 
 function exportBackupJSON(){
   const data = {
-    version:'V7',
+    version:'V9 FINAL 8 FILE',
     date:new Date().toISOString(),
     DB, uploadMeta, selectedSatkerCodes, stNumbers, manualScores, localGovData, specialPra, specialPasca,
     config:{
@@ -668,5 +889,5 @@ function updateStorageInfo(){
   ['cfgTW1','cfgTW2','cfgTW3','cfgTW4'].forEach(id=>{ const el=document.getElementById(id); if(el) el.addEventListener('change',()=>{ localStorage.setItem(id,el.checked); renderRekapPaper(); renderNotaDinasPaper(); updateStorageInfo(); }); });
 })();
 </script>
-<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a429c813af52f8d0',t:'MTc5MDY3MjI1OQ=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a429f6448f2bff81',t:'MTc5MDY3NDE1MQ=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>

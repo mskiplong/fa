@@ -49,15 +49,17 @@ table.kk td.num{text-align:center}table.kk td.rupiah{text-align:right;white-spac
 .issue-box{border:1px solid #000;min-height:32px;padding:5px;margin-top:4px;font-size:10px;background:#fffbe6}
 .issue-box[contenteditable=true]:focus{outline:2px solid var(--accent);background:#fef3c7}
 .local-table{width:100%;border-collapse:collapse;font-size:10px}.local-table th,.local-table td{border:1px solid #000;padding:4px 5px}.local-table th{background:#e8eef7;font-size:9px;text-transform:uppercase;text-align:center}
-.nota-paper{font-family:'Times New Roman',Times,serif;color:#000;background:#fff;line-height:1.4}
-.nota-kop-wrapper{display:flex;align-items:flex-start;gap:12px;border-bottom:3px double #000;padding-bottom:10px;margin-bottom:0}
+.nota-paper{font-family:'Times New Roman',Times,serif;color:#000;background:#fff;line-height:1.45;border:1px solid #d1d5db;border-radius:10px;box-shadow:0 10px 40px rgba(0,0,0,.09);max-width:860px;margin:0 auto;padding:24px 36px}
+#notaDinasPaper.paper{border:none !important;box-shadow:none !important;background:transparent !important;padding:0 !important;display:block}
+#notaDinasPaper .paper{border:none !important}
+.nota-kop-wrapper{display:flex;align-items:center;gap:14px;border-bottom:3px double #000;padding-bottom:10px;margin-bottom:0}
 .nota-logo{width:80px;height:80px;object-fit:contain;flex-shrink:0;margin-top:2px}
 .nota-kop-text{flex:1;text-align:center;line-height:1.3}
 .nota-kop-1{font-weight:800;font-size:12.5px;letter-spacing:0.4px;text-transform:uppercase}
 .nota-kop-2{font-size:10.5px;font-weight:600;margin-top:1px}
 .nota-kop-3{font-size:10px;margin-top:1px}
 .nota-kop-4{font-weight:700;font-size:10.5px;margin-top:1px;text-transform:uppercase}
-.nota-alamat{font-size:7.5px;text-align:center;margin-top:6px;letter-spacing:0.1px;line-height:1.3;color:#000}
+.nota-alamat{font-size:8px;text-align:center;margin-top:6px;letter-spacing:0.2px;line-height:1.35;color:#000;font-weight:500}
 .nota-alamat-line{border-bottom:2px solid #000;margin-top:8px;margin-bottom:12px}
 .nota-judul{text-align:center;font-weight:800;font-size:14px;margin:14px 0 2px;letter-spacing:0.8px;text-transform:uppercase}
 .nota-nomor{text-align:center;font-size:11px;font-weight:600;margin-bottom:14px;letter-spacing:0.2px}
@@ -102,7 +104,9 @@ table.kk td.num{text-align:center}table.kk td.rupiah{text-align:right;white-spac
   table.kk th, table.kk td, table.local-table th, table.local-table td, table.rekap-table th, table.rekap-table td, th, td{border:1px solid #000 !important;box-decoration-break:clone;-webkit-box-decoration-break:clone;background:#fff !important;padding:3px 4px !important;font-size:8.5pt !important;line-height:1.25 !important}
   table.kk th{page-break-after:avoid !important;background:#efefef !important;font-size:8pt !important}
   .issue-box{page-break-inside:avoid !important;border:1px solid #000 !important;box-decoration-break:clone;padding:4px !important;font-size:8.5pt !important}
-  .nota-paper{padding:10mm !important;page-break-after:always !important;page-break-inside:avoid !important}
+  #notaDinasPaper.paper{border:none !important;box-shadow:none !important;padding:0 !important;background:transparent !important}
+  #notaDinasPaper{border:none !important;padding:0 !important}
+  .nota-paper{padding:10mm 12mm !important;page-break-after:always !important;page-break-inside:avoid !important;border:none !important;box-shadow:none !important;border-radius:0 !important;max-width:none !important;margin:0 !important;background:#fff !important}
   .nota-kop-wrapper{page-break-inside:avoid !important;page-break-after:avoid !important;border-bottom:3px double #000 !important;padding-bottom:6px !important}
   .nota-judul{font-size:13px !important;margin:10px 0 2px !important}
   .nota-nomor{font-size:10px !important;margin-bottom:10px !important}
@@ -117,6 +121,11 @@ table.kk td.num{text-align:center}table.kk td.rupiah{text-align:right;white-spac
   /* Ensure contenteditable highlights not printed */
   .editable-cell{border:none !important;background:transparent !important}
 }
+
+.nota-kop-1[contenteditable], .nota-kop-2[contenteditable], .nota-kop-3[contenteditable], .nota-kop-4[contenteditable], .nota-alamat[contenteditable]{outline:none;cursor:text}
+.nota-kop-1:focus, .nota-kop-2:focus, .nota-kop-3:focus, .nota-kop-4:focus, .nota-alamat:focus{background:#fef9c3}
+.nota-paper{box-sizing:border-box}
+
 </style>
 </head>
 <body>
@@ -654,7 +663,9 @@ async function handleFilesForType(files,typeId){
       let allParsed=[]; let summaryParsed=null;
       wb.SheetNames.forEach(sn=>{ const ws=wb.Sheets[sn]; const rows=XLSX.utils.sheet_to_json(ws,{header:1,defval:null}); if(rows.length<2) return; let parsed=null; if(cfg.parser==='ikpa') parsed=parseIKPAFromRows(rows); else if(cfg.parser==='tup') parsed=parseTUPFromRows(rows); else if(cfg.parser==='realisasi_fa'){ let res2=parseInquiryDataFromRows(rows); if(res2 && res2.summary && res2.summary.length>0){ parsed=res2.full; summaryParsed=res2.summary; } else { const res=parseRealisasiFAFromRows(rows); parsed=res.full; summaryParsed=res.summary; } } else if(cfg.parser==='up') parsed=parseUPFromRows(rows); else if(cfg.parser==='revisi_dipa') parsed=parseRevisiDipaFromRows(rows); else if(cfg.parser==='retur') parsed=parseReturFromRows(rows); else if(cfg.parser==='kontrak') parsed=parseKontrakFromRows(rows); else if(cfg.parser==='rekening') parsed=parseRekeningFromRows(rows); if(parsed && parsed.length>0){ if(cfg.parser==='realisasi_fa') allParsed=allParsed.concat(parsed); else allParsed=allParsed.concat(parsed); } });
       if(allParsed.length>0 || summaryParsed){
-        if(cfg.parser==='realisasi_fa'){ const map=new Map((DB.realisasi_fa_summary||[]).map(r=>[r.satker,r])); (summaryParsed||[]).forEach(r=>map.set(r.satker,r)); DB.realisasi_fa_summary=Array.from(map.values()); const paguMap=new Map((DB.pagu||[]).map(r=>[r.satker,r])); (summaryParsed||[]).forEach(s=>{ const maxRev=Math.max(...(DB.revisi_dipa||[]).filter(x=>x.satker===s.satker).map(x=>x.revisi_ke),0); paguMap.set(s.satker,{satker:s.satker,nama:s.nama,pagu_belanja:s.total_pagu,revisi_terakhir:maxRev}); }); DB.pagu=Array.from(paguMap.values()); } else { const dbKey=cfg.dbKey; if(['ikpa','pagu'].includes(dbKey)){ const m=new Map((DB[dbKey]||[]).map(r=>[r.satker,r])); allParsed.forEach(r=>m.set(r.satker,r)); DB[dbKey]=Array.from(m.values()); } else { const satSet=new Set(allParsed.map(r=>r.satker)); DB[dbKey]=(DB[dbKey]||[]).filter(r=>!satSet.has(r.satker)).concat(allParsed); } }
+        if(cfg.parser==='realisasi_fa'){ const map=new Map((DB.realisasi_fa_summary||[]).map(r=>[r.satker,r])); (summaryParsed||[]).forEach(r=>map.set(r.satker,r)); DB.realisasi_fa_summary=Array.from(map.values()); const paguMap=new Map((DB.pagu||[]).map(r=>[r.satker,r])); (summaryParsed||[]).forEach(s=>{ const maxRev=Math.max(...(DB.revisi_dipa||[]).filter(x=>x.satker===s.satker).map(x=>x.revisi_ke),0); paguMap.set(s.satker,{satker:s.satker,nama:s.nama,pagu_belanja:s.total_pagu,revisi_terakhir:maxRev}); }); DB.pagu=Array.from(paguMap.values()); } else if(cfg.parser==='revisi_dipa'){ const dbKey=cfg.dbKey; const satSet=new Set(allParsed.map(r=>r.satker)); DB[dbKey]=(DB[dbKey]||[]).filter(r=>!satSet.has(r.satker)).concat(allParsed); // update pagu revisi_terakhir if exists
+          const revMap=new Map(); DB.revisi_dipa.forEach(r=>{ const cur=revMap.get(r.satker)||0; if(r.revisi_ke>cur) revMap.set(r.satker,r.revisi_ke); }); DB.pagu.forEach(p=>{ if(revMap.has(p.satker)) p.revisi_terakhir=revMap.get(p.satker); });
+        } else { const dbKey=cfg.dbKey; if(['ikpa','pagu'].includes(dbKey)){ const m=new Map((DB[dbKey]||[]).map(r=>[r.satker,r])); allParsed.forEach(r=>m.set(r.satker,r)); DB[dbKey]=Array.from(m.values()); } else { const satSet=new Set(allParsed.map(r=>r.satker)); DB[dbKey]=(DB[dbKey]||[]).filter(r=>!satSet.has(r.satker)).concat(allParsed); } }
         uploadMeta[cfg.id]={count:(cfg.parser==='realisasi_fa'? (summaryParsed?.length||allParsed.length) : allParsed.length), date:new Date().toLocaleString('id-ID'), fileName:file.name, status:'sudah'};
         localStorage.setItem('kertasKerjaDB', JSON.stringify(DB)); localStorage.setItem('kertasKerjaMeta', JSON.stringify(uploadMeta));
       }
@@ -711,7 +722,7 @@ function computeKertasKerja(kode){
 }
 
 function renderNotaDinasPaper(){
-  const kopRaw = (document.getElementById('cfgKop').value||'').split('\n').map(s=>s.trim()).filter(Boolean);
+  const kopRaw = (document.getElementById('cfgKop').value||'').split(/\r?\n/).map(s=>s.trim()).filter(Boolean);
   while(kopRaw.length<4) kopRaw.push('');
   const kop1 = kopRaw[0]||'KEMENTERIAN KEUANGAN REPUBLIK INDONESIA';
   const kop2 = kopRaw[1]||'DIREKTORAT JENDERAL PERBENDAHARAAN';
@@ -735,9 +746,12 @@ function renderNotaDinasPaper(){
 
   function formatParagraf(text){
     if(!text) return '';
-    const paras = text.split(/\n\n+/).map(p=>p.trim()).filter(Boolean);
+    const paras = text.split(/
+
++/).map(p=>p.trim()).filter(Boolean);
     return paras.map((p, idx)=>{
-      const inner = p.replace(/\n/g,'<br>');
+      const inner = p.replace(/
+/g,'<br>');
       const cls = idx===0 ? '' : ' class="indent"';
       return `<p${cls}>${inner}</p>`;
     }).join('');
@@ -750,10 +764,10 @@ function renderNotaDinasPaper(){
     <div class="nota-kop-wrapper">
       <img src="${logoDataUri}" alt="Logo Kemenkeu" class="nota-logo" style="width:80px;height:80px;object-fit:contain" width="80" height="80" onerror="this.style.display='none'">
       <div class="nota-kop-text">
-        <div class="nota-kop-1" contenteditable="true" onblur="let v=this.textContent.trim(); let lines=document.getElementById('cfgKop').value.split('\n'); lines[0]=v; document.getElementById('cfgKop').value=lines.join('\n'); localStorage.setItem('cfgKop',lines.join('\n'))">${kop1}</div>
-        <div class="nota-kop-2" contenteditable="true" onblur="let v=this.textContent.trim(); let lines=document.getElementById('cfgKop').value.split('\n'); lines[1]=v; document.getElementById('cfgKop').value=lines.join('\n'); localStorage.setItem('cfgKop',lines.join('\n'))">${kop2}</div>
-        <div class="nota-kop-3" contenteditable="true" onblur="let v=this.textContent.trim(); let lines=document.getElementById('cfgKop').value.split('\n'); lines[2]=v; document.getElementById('cfgKop').value=lines.join('\n'); localStorage.setItem('cfgKop',lines.join('\n'))">${kop3}</div>
-        <div class="nota-kop-4" contenteditable="true" onblur="let v=this.textContent.trim(); let lines=document.getElementById('cfgKop').value.split('\n'); lines[3]=v; document.getElementById('cfgKop').value=lines.join('\n'); localStorage.setItem('cfgKop',lines.join('\n'))">${kop4}</div>
+        <div class="nota-kop-1" contenteditable="true" onblur="let v=this.textContent.trim(); let lines=document.getElementById('cfgKop').value.split(/\r?\n/); lines[0]=v; document.getElementById('cfgKop').value=lines.join('\n'); localStorage.setItem('cfgKop',lines.join('\n'))">${kop1}</div>
+        <div class="nota-kop-2" contenteditable="true" onblur="let v=this.textContent.trim(); let lines=document.getElementById('cfgKop').value.split(/\r?\n/); lines[1]=v; document.getElementById('cfgKop').value=lines.join('\n'); localStorage.setItem('cfgKop',lines.join('\n'))">${kop2}</div>
+        <div class="nota-kop-3" contenteditable="true" onblur="let v=this.textContent.trim(); let lines=document.getElementById('cfgKop').value.split(/\r?\n/); lines[2]=v; document.getElementById('cfgKop').value=lines.join('\n'); localStorage.setItem('cfgKop',lines.join('\n'))">${kop3}</div>
+        <div class="nota-kop-4" contenteditable="true" onblur="let v=this.textContent.trim(); let lines=document.getElementById('cfgKop').value.split(/\r?\n/); lines[3]=v; document.getElementById('cfgKop').value=lines.join('\n'); localStorage.setItem('cfgKop',lines.join('\n'))">${kop4}</div>
         <div class="nota-alamat" contenteditable="true" onblur="document.getElementById('cfgAlamat').value=this.textContent;localStorage.setItem('cfgAlamat',this.textContent)">${alamat}</div>
       </div>
     </div>
@@ -953,7 +967,10 @@ function renderRekapPaper(){
   let rows=''; selectedSatkerCodes.forEach((kode,i)=>{ const d=computeKertasKerja(kode); const sc=manualScores[kode]||{mandatory:70,complementary:30,akhir:100}; const st=stNumbers[kode]||document.getElementById('cfgNoST').value; rows+=`<tr><td class="num">${i+1}</td><td>${kode}</td><td>${d.nama||''}</td><td>${st}</td><td class="num">${sc.mandatory}</td><td class="num">${sc.complementary}</td><td class="num">${sc.akhir}</td></tr>`; });
   const avgMan=document.getElementById('avgMan').textContent; const avgComp=document.getElementById('avgComp').textContent; const avgAkhir=document.getElementById('avgAkhir').textContent;
   const periodeBoxes=renderPeriodeBoxesSimple();
-  const html=`<div class="paper-header"><div style="text-align:center;font-weight:800;font-family:'Times New Roman',serif;margin-bottom:6px;font-size:12px">REKAPITULASI KERTAS KERJA MONITORING FINANCIAL ADVISORY<br>TAHUN ${cfgTahun}<br>PERIODE : ${periodeBoxes}<br>KPPN : ${cfgKPPN}</div></div><div style="padding:12px 18px"><div style="font-weight:700;margin-top:8px;font-size:11px">A. CENTRAL GOVERNMENT ADVISORY</div><div class="table-wrap"><table class="kk"><thead><tr><th>No</th><th>Kode</th><th>Nama Satker</th><th>Surat Tugas</th><th>Mandatory</th><th>Complementary</th><th>Akhir</th></tr></thead><tbody>${rows||'<tr><td colspan="7" style="text-align:center">Belum ada</td></tr>'}<tr class="total"><td colspan="4">RATA-RATA CENTRAL</td><td class="num">${avgMan}</td><td class="num">${avgComp}</td><td class="num">${avgAkhir}</td></tr></tbody></table></div><div style="margin-top:8px"><b>Isu Central:</b><div class="issue-box">${isu.replace(/\n/g,'<br>')}</div></div><div style="margin-top:6px"><b>Feedback Eksternal:</b><div class="issue-box">${fbEk.replace(/\n/g,'<br>')}</div></div><div style="margin-top:6px"><b>Feedback Internal:</b><div class="issue-box">${fbIn.replace(/\n/g,'<br>')}</div></div></div>`;
+  const html=`<div class="paper-header"><div style="text-align:center;font-weight:800;font-family:'Times New Roman',serif;margin-bottom:6px;font-size:12px">REKAPITULASI KERTAS KERJA MONITORING FINANCIAL ADVISORY<br>TAHUN ${cfgTahun}<br>PERIODE : ${periodeBoxes}<br>KPPN : ${cfgKPPN}</div></div><div style="padding:12px 18px"><div style="font-weight:700;margin-top:8px;font-size:11px">A. CENTRAL GOVERNMENT ADVISORY</div><div class="table-wrap"><table class="kk"><thead><tr><th>No</th><th>Kode</th><th>Nama Satker</th><th>Surat Tugas</th><th>Mandatory</th><th>Complementary</th><th>Akhir</th></tr></thead><tbody>${rows||'<tr><td colspan="7" style="text-align:center">Belum ada</td></tr>'}<tr class="total"><td colspan="4">RATA-RATA CENTRAL</td><td class="num">${avgMan}</td><td class="num">${avgComp}</td><td class="num">${avgAkhir}</td></tr></tbody></table></div><div style="margin-top:8px"><b>Isu Central:</b><div class="issue-box">${isu.replace(/
+/g,'<br>')}</div></div><div style="margin-top:6px"><b>Feedback Eksternal:</b><div class="issue-box">${fbEk.replace(/
+/g,'<br>')}</div></div><div style="margin-top:6px"><b>Feedback Internal:</b><div class="issue-box">${fbIn.replace(/
+/g,'<br>')}</div></div></div>`;
   document.getElementById('rekapPaper').innerHTML=html;
 }
 function renderLocalPaper(){
@@ -961,7 +978,10 @@ function renderLocalPaper(){
   const isu=document.getElementById('localIsu').value; const fbEk=document.getElementById('localFbEk').value; const fbIn=document.getElementById('localFbIn').value;
   let rows=''; localGovData.forEach((r,i)=>{ rows+=`<tr><td class="num">${i+1}</td><td>${r.pemda}</td><td>${r.surat}</td><td class="num">${r.mandatory}</td><td class="num">${r.complementary}</td><td class="num">${r.akhir}</td></tr>`; });
   const avgMan=document.getElementById('localAvgMan').textContent; const avgComp=document.getElementById('localAvgComp').textContent; const avgAkhir=document.getElementById('localAvgAkhir').textContent;
-  const html=`<div class="paper-header"><div class="paper-title"><h2>REKAPITULASI LOCAL GOVERNMENT ADVISORY</h2><h3>KPPN ${cfgKPPN} Tahun ${cfgTahun}</h3></div></div><div style="padding:12px 18px"><div class="table-wrap"><table class="kk"><thead><tr><th>No</th><th>Pemda</th><th>Surat Tugas</th><th>Mandatory</th><th>Complementary</th><th>Akhir</th></tr></thead><tbody>${rows||'<tr><td colspan="6" style="text-align:center">Belum ada</td></tr>'}<tr class="total"><td colspan="3">RATA-RATA LOCAL</td><td class="num">${avgMan}</td><td class="num">${avgComp}</td><td class="num">${avgAkhir}</td></tr></tbody></table></div><div style="margin-top:8px"><b>Isu Local:</b><div class="issue-box">${isu.replace(/\n/g,'<br>')}</div></div><div style="margin-top:6px"><b>Feedback Eksternal:</b><div class="issue-box">${fbEk.replace(/\n/g,'<br>')}</div></div><div style="margin-top:6px"><b>Feedback Internal:</b><div class="issue-box">${fbIn.replace(/\n/g,'<br>')}</div></div></div>`;
+  const html=`<div class="paper-header"><div class="paper-title"><h2>REKAPITULASI LOCAL GOVERNMENT ADVISORY</h2><h3>KPPN ${cfgKPPN} Tahun ${cfgTahun}</h3></div></div><div style="padding:12px 18px"><div class="table-wrap"><table class="kk"><thead><tr><th>No</th><th>Pemda</th><th>Surat Tugas</th><th>Mandatory</th><th>Complementary</th><th>Akhir</th></tr></thead><tbody>${rows||'<tr><td colspan="6" style="text-align:center">Belum ada</td></tr>'}<tr class="total"><td colspan="3">RATA-RATA LOCAL</td><td class="num">${avgMan}</td><td class="num">${avgComp}</td><td class="num">${avgAkhir}</td></tr></tbody></table></div><div style="margin-top:8px"><b>Isu Local:</b><div class="issue-box">${isu.replace(/
+/g,'<br>')}</div></div><div style="margin-top:6px"><b>Feedback Eksternal:</b><div class="issue-box">${fbEk.replace(/
+/g,'<br>')}</div></div><div style="margin-top:6px"><b>Feedback Internal:</b><div class="issue-box">${fbIn.replace(/
+/g,'<br>')}</div></div></div>`;
   document.getElementById('localPaper').innerHTML=html;
 }
 function renderSpecialPaper(){
@@ -969,7 +989,9 @@ function renderSpecialPaper(){
   const isu=document.getElementById('specialIsu').value; const fb=document.getElementById('specialFb').value;
   let praRows=''; specialPra.forEach((r,i)=>{ praRows+=`<tr><td class="num">${i+1}</td><td>${r.jenis}</td><td>${r.stakeholder}</td><td class="num">${r.ya?'√':''}</td><td class="num">${r.tidak?'√':''}</td><td>${r.keterangan}</td></tr>`; });
   let pascaRows=''; specialPasca.forEach((r,i)=>{ pascaRows+=`<tr><td class="num">${i+1}</td><td>${r.jenis}</td><td>${r.stakeholder}</td><td class="num">${r.ada?'√':''}</td><td class="num">${r.tidak?'√':''}</td><td>${r.keterangan}</td></tr>`; });
-  const html=`<div class="paper-header"><div class="paper-title"><h2>REKAPITULASI SPECIAL MISSION ADVISORY</h2><h3>KPPN ${cfgKPPN} Tahun ${cfgTahun}</h3></div></div><div style="padding:12px 18px"><div style="font-weight:700">Pra-Implementasi - Potensi</div><div class="table-wrap"><table class="kk"><thead><tr><th>No</th><th>Jenis</th><th>Stakeholder</th><th>Ya</th><th>Tidak</th><th>Keterangan</th></tr></thead><tbody>${praRows||'<tr><td colspan="6" style="text-align:center">Belum ada</td></tr>'}</tbody></table></div><div style="font-weight:700;margin-top:10px">Pasca-Implementasi - Kendala</div><div class="table-wrap"><table class="kk"><thead><tr><th>No</th><th>Jenis</th><th>Stakeholder</th><th>Ada</th><th>Tidak</th><th>Keterangan</th></tr></thead><tbody>${pascaRows||'<tr><td colspan="6" style="text-align:center">Belum ada</td></tr>'}</tbody></table></div><div style="margin-top:8px"><b>Isu Special:</b><div class="issue-box">${isu.replace(/\n/g,'<br>')}</div></div><div style="margin-top:6px"><b>Feedback:</b><div class="issue-box">${fb.replace(/\n/g,'<br>')}</div></div></div>`;
+  const html=`<div class="paper-header"><div class="paper-title"><h2>REKAPITULASI SPECIAL MISSION ADVISORY</h2><h3>KPPN ${cfgKPPN} Tahun ${cfgTahun}</h3></div></div><div style="padding:12px 18px"><div style="font-weight:700">Pra-Implementasi - Potensi</div><div class="table-wrap"><table class="kk"><thead><tr><th>No</th><th>Jenis</th><th>Stakeholder</th><th>Ya</th><th>Tidak</th><th>Keterangan</th></tr></thead><tbody>${praRows||'<tr><td colspan="6" style="text-align:center">Belum ada</td></tr>'}</tbody></table></div><div style="font-weight:700;margin-top:10px">Pasca-Implementasi - Kendala</div><div class="table-wrap"><table class="kk"><thead><tr><th>No</th><th>Jenis</th><th>Stakeholder</th><th>Ada</th><th>Tidak</th><th>Keterangan</th></tr></thead><tbody>${pascaRows||'<tr><td colspan="6" style="text-align:center">Belum ada</td></tr>'}</tbody></table></div><div style="margin-top:8px"><b>Isu Special:</b><div class="issue-box">${isu.replace(/
+/g,'<br>')}</div></div><div style="margin-top:6px"><b>Feedback:</b><div class="issue-box">${fb.replace(/
+/g,'<br>')}</div></div></div>`;
   document.getElementById('specialPaper').innerHTML=html;
 }
 
@@ -1131,7 +1153,8 @@ function renderSDCell(d){
 
 function parseNumberedList(text){
   if(!text) return [];
-  const lines = text.split(/\n/).map(s=>s.trim()).filter(Boolean);
+  const lines = text.split(/
+/).map(s=>s.trim()).filter(Boolean);
   const out=[];
   let autoNo=1;
   lines.forEach(line=>{
@@ -1679,5 +1702,5 @@ function updateStorageInfo(){
   ['cfgTW1','cfgTW2','cfgTW3','cfgTW4'].forEach(id=>{ const el=document.getElementById(id); if(el) el.addEventListener('change',()=>{ localStorage.setItem(id,el.checked); renderRekapPaper(); renderNotaDinasPaper(); updateStorageInfo(); }); });
 })();
 </script>
-<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a432ed62fb8ca24f',t:'MTc5MDc2ODE1OQ=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a43346af4c07ce5a',t:'MTc5MDc3MTgxNg=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>

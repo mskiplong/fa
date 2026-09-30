@@ -75,42 +75,36 @@ table.kk td.num{text-align:center}table.kk td.rupiah{text-align:right;white-spac
 .nota-ttd-nama{font-weight:700;font-size:11.5px;margin-top:2px;text-decoration:underline;text-underline-offset:3px}
 .nota-clear{clear:both}
 .nota-tte{font-size:7.5px;color:#444;border-top:1px solid #999;margin-top:48px;padding-top:8px;font-style:italic;line-height:1.4;text-align:justify}
-@media print{.nota-paper{padding:0}.nota-logo{width:90px;height:90px}}
-/* TABS */
-.tabs{display:flex;gap:6px;flex-wrap:wrap;background:#fff;border:1px solid var(--border);border-radius:12px;padding:8px;margin-bottom:12px;box-shadow:0 2px 8px rgba(0,0,0,.04)}
-.tab{border:1px solid var(--border);background:#f8fafc;padding:8px 14px;border-radius:8px;font-size:11px;font-weight:700;cursor:pointer;transition:.15s;display:inline-flex;align-items:center;gap:6px}
-.tab:hover{background:#eef2ff;border-color:var(--accent)}
-.tab.active{background:var(--primary);color:#fff;border-color:var(--primary);box-shadow:0 2px 6px rgba(26,60,110,.25)}
-.tab small{font-weight:400;opacity:.8;font-size:9px}
-.tab-panel{display:none}
-.tab-panel.active{display:block;animation:fadeIn .2s ease}
-@keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
-.summary-bar{display:flex;flex-wrap:wrap;gap:8px;background:#fff;border:1px solid var(--border);border-radius:10px;padding:8px 12px;margin-bottom:12px;font-size:10px}
-.summary-item{display:flex;gap:4px;align-items:center;background:#f8fafc;border:1px solid #e2e8f0;border-radius:999px;padding:3px 8px}
 @media print{
-  body{background:#fff;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  body{background:#fff !important;-webkit-print-color-adjust:exact !important;print-color-adjust:exact !important;margin:0 !important;padding:0 !important}
   .no-print{display:none !important}
-  .main-paper{max-width:none;margin:0;padding:0}
-  .paper{box-shadow:none;border:2px solid #000 !important;border-radius:0;page-break-after:always;page-break-inside:auto;margin:0;padding:14px 16px;background:#fff !important;box-decoration-break:clone !important;-webkit-box-decoration-break:clone !important;overflow:visible !important}
-  .paper:last-child{page-break-after:auto}
-  .paper-header{padding:10px 14px 6px;page-break-after:avoid;page-break-inside:avoid}
-  .section-title, div[style*="font-weight:800"][style*="background:#d9d9d9"]{page-break-after:avoid;page-break-inside:avoid;border:1px solid #000 !important}
-  /* FIX GARIS HILANG SAAT PINDAH HALAMAN - border harus clone */
-  table, table.kk, table.local-table, table.rekap-table{border-collapse:collapse !important;border:1px solid #000 !important;page-break-inside:auto !important;box-decoration-break:clone;-webkit-box-decoration-break:clone}
-  table.kk thead, table.local-table thead, table.rekap-table thead{display:table-header-group}
-  table.kk tfoot, table.local-table tfoot{display:table-footer-group}
+  .main-paper{max-width:none !important;margin:0 !important;padding:0 !important;width:100% !important}
+  .satker-wrapper{margin:0 !important;padding:0 !important;page-break-inside:auto !important}
+  .paper{box-shadow:none !important;border:2px solid #000 !important;border-radius:0 !important;page-break-after:always !important;page-break-inside:avoid !important;margin:0 !important;padding:8px 10px !important;background:#fff !important;box-decoration-break:clone !important;-webkit-box-decoration-break:clone !important;overflow:visible !important;min-height:auto !important;height:auto !important;width:100% !important;box-sizing:border-box !important}
+  .paper:last-child{page-break-after:auto !important}
+  .paper-header{padding:6px 10px 4px !important;page-break-after:avoid !important;page-break-inside:avoid !important}
+  .section-title, div[style*="font-weight:800"][style*="background:#d9d9d9"]{page-break-after:avoid !important;page-break-inside:avoid !important;border:1px solid #000 !important;margin-top:4px !important;padding:2px 4px !important;font-size:9px !important}
+  table, table.kk, table.local-table, table.rekap-table{border-collapse:collapse !important;border:1px solid #000 !important;page-break-inside:auto !important;box-decoration-break:clone;-webkit-box-decoration-break:clone;width:100% !important;margin-top:2px !important}
+  table.kk thead, table.local-table thead, table.rekap-table thead{display:table-header-group !important}
+  table.kk tfoot, table.local-table tfoot{display:table-footer-group !important}
   table.kk tr, table.local-table tr, table.rekap-table tr, tr{page-break-inside:avoid !important;page-break-after:auto !important;box-decoration-break:clone;-webkit-box-decoration-break:clone;border:1px solid #000 !important}
-  table.kk th, table.kk td, table.local-table th, table.local-table td, table.rekap-table th, table.rekap-table td, th, td{border:1px solid #000 !important;box-decoration-break:clone;-webkit-box-decoration-break:clone;background:#fff !important}
-  table.kk th{page-break-after:avoid !important}
-  .issue-box{page-break-inside:avoid;border:1px solid #000 !important;box-decoration-break:clone}
-  .nota-paper{padding:12mm !important}
-  .nota-kop-wrapper{page-break-inside:avoid;page-break-after:avoid;border-bottom:3px double #000 !important}
-  .nota-judul, .nota-nomor, .nota-meta{page-break-after:avoid;page-break-inside:avoid}
-  .nota-meta td{border:none !important}
-  .nota-body-wrap{page-break-inside:auto}
-  .nota-ttd{page-break-inside:avoid}
+  table.kk th, table.kk td, table.local-table th, table.local-table td, table.rekap-table th, table.rekap-table td, th, td{border:1px solid #000 !important;box-decoration-break:clone;-webkit-box-decoration-break:clone;background:#fff !important;padding:3px 4px !important;font-size:8.5pt !important;line-height:1.25 !important}
+  table.kk th{page-break-after:avoid !important;background:#efefef !important;font-size:8pt !important}
+  .issue-box{page-break-inside:avoid !important;border:1px solid #000 !important;box-decoration-break:clone;padding:4px !important;font-size:8.5pt !important}
+  .nota-paper{padding:10mm !important;page-break-after:always !important;page-break-inside:avoid !important}
+  .nota-kop-wrapper{page-break-inside:avoid !important;page-break-after:avoid !important;border-bottom:3px double #000 !important;padding-bottom:6px !important}
+  .nota-judul{font-size:13px !important;margin:10px 0 2px !important}
+  .nota-nomor{font-size:10px !important;margin-bottom:10px !important}
+  .nota-meta{margin-bottom:12px !important;font-size:10px !important}
+  .nota-meta td{padding:2px 4px !important}
+  .nota-body{font-size:10.5pt !important;line-height:1.5 !important;margin-bottom:6px !important}
+  .nota-body p{margin:0 0 6px 0 !important}
+  .nota-ttd{page-break-inside:avoid !important;margin-top:16px !important}
+  .nota-tte{font-size:7pt !important;margin-top:20px !important;padding-top:4px !important}
   @page{size:A4 portrait;margin:1.25cm}
   .nota-logo{width:90px !important;height:90px !important}
+  /* Ensure contenteditable highlights not printed */
+  .editable-cell{border:none !important;background:transparent !important}
 }
 </style>
 </head>
@@ -1301,6 +1295,105 @@ function resetIsuToDefaultSingle(kode, type){
   renderDetailPapers();
 }
 
+
+function parseNumberedList(text){
+  if(!text) return [];
+  const lines = text.split(/\n/).map(s=>s.trim()).filter(Boolean);
+  const out=[];
+  let autoNo=1;
+  lines.forEach(line=>{
+    const m=line.match(/^(\d+)[\.\)\-\s]+\s*(.*)/);
+    if(m){
+      out.push({no:parseInt(m[1]), text:m[2]||''});
+      autoNo=Math.max(autoNo, parseInt(m[1])+1);
+    } else {
+      if(out.length>0 && !/^\d/.test(line) && out[out.length-1].text.length<20){
+        out[out.length-1].text += ' ' + line;
+      } else {
+        out.push({no:autoNo++, text:line});
+      }
+    }
+  });
+  return out;
+}
+
+function renderIsuTable(kode, type, title, textVal){
+  const items = parseNumberedList(textVal);
+  const rows = items.map((it, idx)=>`
+    <tr>
+      <td style="border:1px solid #000;text-align:center;width:30px">${it.no}</td>
+      <td style="border:1px solid #000;vertical-align:top;word-break:break-word;white-space:normal" contenteditable="true" class="editable-cell" onblur="saveIsuRow('${kode}','${type}',${idx},this.innerText)">${it.text}</td>
+      <td style="border:1px solid #000;text-align:center;width:40px" class="no-print"><button class="btn btn-danger" style="padding:1px 4px;font-size:8px" onclick="deleteIsuRow('${kode}','${type}',${idx})">✕</button></td>
+    </tr>`).join('');
+  
+  return `
+    <div style="margin-top:6px;page-break-inside:avoid">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:6px;page-break-after:avoid">
+        <b style="font-size:9.5px">${title}</b>
+        <div class="no-print" style="display:flex;gap:4px">
+          <button class="btn btn-success" style="padding:2px 6px;font-size:8px" onclick="addIsuRow('${kode}','${type}')">+ Baris</button>
+          <button class="btn" style="padding:2px 6px;font-size:8px" onclick="resetIsuToDefaultSingle('${kode}','${type}')">↺ Default</button>
+        </div>
+      </div>
+      <table class="kk" style="width:100%;margin-top:2px;border:1px solid #000;border-collapse:collapse">
+        <thead><tr style="background:#efefef"><th style="width:30px;border:1px solid #000;text-align:center">No</th><th style="border:1px solid #000;text-align:center">Uraian</th><th style="width:40px;border:1px solid #000;text-align:center" class="no-print">Aksi</th></tr></thead>
+        <tbody id="tbody-${type}-${kode}">${rows || '<tr><td colspan="3" style="text-align:center;padding:6px;color:#999">Kosong - klik + Baris</td></tr>'}</tbody>
+      </table>
+    </div>`;
+}
+
+function saveIsuRow(kode, type, idx, newText){
+  const map = {isu:satkerIsu, fbEk:satkerFbEk, fbIn:satkerFbIn};
+  const storageMap = {isu:'satkerIsu', fbEk:'satkerFbEk', fbIn:'satkerFbIn'};
+  const currentText = map[type][kode] || (type==='isu'?getDefaultIsu():type==='fbEk'?getDefaultFbEk():getDefaultFbIn());
+  let items = parseNumberedList(currentText);
+  if(idx>=0 && idx<items.length){
+    items[idx].text = newText.trim();
+  }
+  const newFull = items.map(it=>`${it.no}. ${it.text}`).join('\n');
+  map[type][kode]=newFull;
+  localStorage.setItem(storageMap[type], JSON.stringify(map[type]));
+  const st=document.getElementById('defaultIsuStatus');
+  if(st) st.textContent=`✏️ ${kode} ${type} diupdate: ${new Date().toLocaleTimeString('id-ID')}`;
+}
+
+function addIsuRow(kode, type){
+  const map = {isu:satkerIsu, fbEk:satkerFbEk, fbIn:satkerFbIn};
+  const storageMap = {isu:'satkerIsu', fbEk:'satkerFbEk', fbIn:'satkerFbIn'};
+  const currentText = map[type][kode] || (type==='isu'?getDefaultIsu():type==='fbEk'?getDefaultFbEk():getDefaultFbIn());
+  let items = parseNumberedList(currentText);
+  items.push({no:items.length+1, text:'Isian baru - klik untuk edit'});
+  const newFull = items.map(it=>`${it.no}. ${it.text}`).join('\n');
+  map[type][kode]=newFull;
+  localStorage.setItem(storageMap[type], JSON.stringify(map[type]));
+  renderDetailPapers();
+  setTimeout(()=>{ const el=document.getElementById(`tbody-${type}-${kode}`); if(el) el.scrollIntoView({behavior:'smooth',block:'center'}); },100);
+}
+
+function deleteIsuRow(kode, type, idx){
+  if(!confirm('Hapus baris ini?')) return;
+  const map = {isu:satkerIsu, fbEk:satkerFbEk, fbIn:satkerFbIn};
+  const storageMap = {isu:'satkerIsu', fbEk:'satkerFbEk', fbIn:'satkerFbIn'};
+  const currentText = map[type][kode] || '';
+  let items = parseNumberedList(currentText);
+  items.splice(idx,1);
+  items = items.map((it,i)=>({no:i+1, text:it.text}));
+  const newFull = items.map(it=>`${it.no}. ${it.text}`).join('\n');
+  map[type][kode]=newFull;
+  localStorage.setItem(storageMap[type], JSON.stringify(map[type]));
+  renderDetailPapers();
+}
+
+function resetIsuToDefaultSingle(kode, type){
+  if(!confirm(`Reset ${type} satker ${kode} ke default template?`)) return;
+  const map = {isu:satkerIsu, fbEk:satkerFbEk, fbIn:satkerFbIn};
+  const storageMap = {isu:'satkerIsu', fbEk:'satkerFbEk', fbIn:'satkerFbIn'};
+  const def = type==='isu'?getDefaultIsu():type==='fbEk'?getDefaultFbEk():getDefaultFbIn();
+  map[type][kode]=def;
+  localStorage.setItem(storageMap[type], JSON.stringify(map[type]));
+  renderDetailPapers();
+}
+
 function renderDetailPapers(){
   const container=document.getElementById('detailPapers'); container.innerHTML='';
   const tw1=document.getElementById('cfgTW1').checked?'■':'□'; const tw2=document.getElementById('cfgTW2').checked?'■':'□'; const tw3=document.getElementById('cfgTW3').checked?'■':'□'; const tw4=document.getElementById('cfgTW4').checked?'■':'□';
@@ -1328,128 +1421,129 @@ function renderDetailPapers(){
     const kegCount=(d.faSummary?.kegiatan||[]).length||10;
     const kontrakSingle=d.kontrakRecs.length;
     const sdCell=renderSDCell(d);
-    const row3 = (no, rincian, nilai=10) => `<tr><td style="border:1px solid #000;text-align:center;width:30px">${no}</td><td style="border:1px solid #000;vertical-align:top;word-break:break-word;white-space:normal">${rincian}</td><td style="border:1px solid #000;text-align:right;width:60px;vertical-align:top">${nilai}</td></tr>`;
+    const row3 = (no, rincian, nilai=10) => `<tr><td style="border:1px solid #000;text-align:center;width:30px">${no}</td><td style="border:1px solid #000;vertical-align:top;word-break:break-word;white-space:normal;font-size:9.5px">${rincian}</td><td style="border:1px solid #000;text-align:right;width:55px;vertical-align:top;font-size:9.5px">${nilai}</td></tr>`;
     const row3editable = (no, rincian, jawaban, nilai=10) => {
-      const r = `${rincian}<br><span contenteditable="true" class="editable-cell" style="display:block;margin-top:2px;font-weight:600">${jawaban}</span>`;
+      const r = `${rincian}<br><span contenteditable="true" class="editable-cell" style="display:block;margin-top:1px;font-weight:600;font-size:9.5px">${jawaban}</span>`;
       return row3(no, r, nilai);
     };
 
-    const wrapper=document.createElement('div'); wrapper.id=`paper-${kode}`; wrapper.className='satker-wrapper'; wrapper.style.marginBottom='24px';
+    const wrapper=document.createElement('div'); wrapper.id=`paper-${kode}`; wrapper.className='satker-wrapper'; wrapper.style.marginBottom='20px';
 
-    // === PAGE 1: Maksimalkan 1 halaman penuh - DIPA + Pelaksanaan Anggaran ===
+    // === PAGE 1: DIMAKSIMALKAN PENUH - DIPA + Pelaksanaan + Proses Bisnis + TI ===
     const page1=document.createElement('div'); page1.className='paper'; page1.id=`paper-${kode}-p1`;
     page1.innerHTML=`
-      <div style="padding:12px 14px;font-family:'Times New Roman',serif;color:#000;background:#fff;font-size:10px">
-        <div style="text-align:center;font-weight:800;font-size:12px;line-height:1.25">KERTAS KERJA MONITORING DAN EVALUASI<br>CENTRAL GOVERNMENT ADVISORY<br><span style="font-size:10px">NOMOR: ${noUrut} / ${st} — HAL 1/3</span></div>
-        <div style="margin-top:6px;font-size:10px;line-height:1.3;border:1px solid #000;padding:4px 6px;background:#f8fafc">
-          <div style="display:grid;grid-template-columns:90px 8px 1fr;gap:2px"><span><b>PERIODE</b></span><span>:</span><span>${cfgTahun} / ${renderPeriodeBoxesForPrint()} <span style="font-size:8px;color:#555">(I ${tw1} II ${tw2} III ${tw3} IV ${tw4})</span></span><span><b>SATKER</b></span><span>:</span><span>${d.nama||''} (${kode})</span><span><b>PESERTA</b></span><span>:</span><span contenteditable="true" class="editable-cell" id="peserta-${kode}" onblur="satkerPeserta['${kode}']=this.textContent;localStorage.setItem('satkerPeserta',JSON.stringify(satkerPeserta))">${peserta}</span></div>
+      <div style="padding:10px 12px;font-family:'Times New Roman',serif;color:#000;background:#fff;font-size:10px">
+        <div style="text-align:center;font-weight:800;font-size:11.5px;line-height:1.2">KERTAS KERJA MONITORING DAN EVALUASI<br>CENTRAL GOVERNMENT ADVISORY<br><span style="font-size:9.5px">NOMOR: ${noUrut} / ${st} — HAL 1/3 [DIPA, Pelaksanaan, Proses Bisnis, TI]</span></div>
+        <div style="margin-top:5px;font-size:9.5px;line-height:1.25;border:1px solid #000;padding:3px 5px;background:#f8fafc;display:grid;grid-template-columns:80px 8px 1fr;gap:1px">
+          <span><b>PERIODE</b></span><span>:</span><span>${cfgTahun} / ${renderPeriodeBoxesForPrint()} <span style="font-size:7px">(I ${tw1} II ${tw2} III ${tw3} IV ${tw4})</span></span>
+          <span><b>SATKER</b></span><span>:</span><span>${d.nama||''} (${kode})</span>
+          <span><b>PESERTA</b></span><span>:</span><span contenteditable="true" class="editable-cell" id="peserta-${kode}" onblur="satkerPeserta['${kode}']=this.textContent;localStorage.setItem('satkerPeserta',JSON.stringify(satkerPeserta))">${peserta}</span>
         </div>
 
-        <div style="margin-top:8px;font-weight:800;font-style:italic;background:#d9d9d9;border:1px solid #000;padding:3px 6px;page-break-after:avoid">MANDATORY - Pemahaman atas DIPA & Pelaksanaan Anggaran (Dimaksimalkan Hal 1)</div>
-        <table class="kk" style="width:100%;border:1px solid #000;border-collapse:collapse;margin-top:2px">
-          <thead><tr style="background:#d9d9d9"><th style="width:30px;border:1px solid #000;text-align:center">No</th><th style="border:1px solid #000;text-align:center">Rincian Materi</th><th style="width:60px;border:1px solid #000;text-align:center">Nilai</th></tr></thead>
+        <div style="margin-top:6px;font-weight:800;font-style:italic;background:#d9d9d9;border:1px solid #000;padding:2px 5px;font-size:9.5px;page-break-after:avoid">MANDATORY - Pemahaman atas DIPA & Pelaksanaan Anggaran (Hal 1 Dimaksimalkan Penuh)</div>
+        <table class="kk" style="width:100%;border:1px solid #000;border-collapse:collapse;margin-top:1px;font-size:9.5px">
+          <thead><tr style="background:#d9d9d9"><th style="width:28px;border:1px solid #000;text-align:center">No</th><th style="border:1px solid #000;text-align:center">Rincian Materi</th><th style="width:55px;border:1px solid #000;text-align:center">Nilai</th></tr></thead>
           <tbody>
-          <tr><td colspan="3" style="border:1px solid #000;background:#efefef;font-weight:700;page-break-after:avoid">Pemahaman atas DIPA</td></tr>
-          ${row3('1.', `Kode Satuan Kerja Saudara? <b>${kode}</b> — ${d.nama||''}`)}
-          ${row3('2.', `Pagu Belanja: <b>${fmtRpRight(d.totalPagu)}</b> — Realisasi: <b>${fmtRpRight(d.totalReal)}</b> (${fmtPct(d.totalPagu,d.totalReal)})`)}
-          <tr><td style="border:1px solid #000;text-align:center;width:30px">3.</td><td style="border:1px solid #000;vertical-align:top">Sumber Dana:<br>${sdCell}</td><td style="border:1px solid #000;text-align:right;width:60px;vertical-align:top">10</td></tr>
-          ${row3('4.', `Jumlah Program: <b>${progCount} program</b> | Jumlah Kegiatan: <b>${kegCount} kegiatan</b>`)}
-          ${row3('5.', `Belanja Hal IV DIPA: a. Belanja Pegawai 51, b. Barang 52, c. Modal 53, d. Lainnya`)}
-          <tr><td colspan="3" style="border:1px solid #000;background:#efefef;font-weight:700;page-break-after:avoid">Pemahaman atas Pelaksanaan Anggaran</td></tr>
+          <tr><td colspan="3" style="border:1px solid #000;background:#efefef;font-weight:700;font-size:9px;page-break-after:avoid">Pemahaman atas DIPA</td></tr>
+          ${row3('1.', `Kode Satker: <b>${kode}</b> — ${d.nama||''}`)}
+          ${row3('2.', `Pagu: <b>${fmtRpRight(d.totalPagu)}</b> | Real: <b>${fmtRpRight(d.totalReal)}</b> (${fmtPct(d.totalPagu,d.totalReal)}) | Prog: ${progCount} | Keg: ${kegCount}`)}
+          <tr><td style="border:1px solid #000;text-align:center;width:28px">3.</td><td style="border:1px solid #000;vertical-align:top">Sumber Dana:<br>${sdCell}</td><td style="border:1px solid #000;text-align:right;width:55px;vertical-align:top">10</td></tr>
+          <tr><td colspan="3" style="border:1px solid #000;background:#efefef;font-weight:700;font-size:9px;page-break-after:avoid">Pemahaman atas Pelaksanaan Anggaran</td></tr>
           <tr><td colspan="3" style="border:1px solid #000;padding:0">
-            <table style="width:100%;border-collapse:collapse">
-              <thead><tr style="background:#f1f5f9"><th style="border:1px solid #000;width:28%">Jenis Belanja</th><th style="border:1px solid #000;width:22%;text-align:right">Pagu</th><th style="border:1px solid #000;width:22%;text-align:right">Realisasi</th><th style="border:1px solid #000;width:12%;text-align:right">%</th><th style="border:1px solid #000;width:60px;text-align:right">Nilai</th></tr></thead>
+            <table style="width:100%;border-collapse:collapse;font-size:9px">
+              <thead><tr style="background:#f1f5f9"><th style="border:1px solid #000;width:26%">Jenis</th><th style="border:1px solid #000;width:20%;text-align:right">Pagu</th><th style="border:1px solid #000;width:20%;text-align:right">Realisasi</th><th style="border:1px solid #000;width:10%;text-align:right">%</th><th style="border:1px solid #000;width:55px;text-align:right">Nilai</th></tr></thead>
               <tbody>
-              <tr><td style="border:1px solid #000">51 Belanja Pegawai</td><td style="border:1px solid #000;text-align:right">${fmtRpRight(jb51.pagu)}</td><td style="border:1px solid #000;text-align:right">${fmtRpRight(jb51.real)}</td><td style="border:1px solid #000;text-align:right">${jb51.pagu?((jb51.real/jb51.pagu)*100).toFixed(1).replace('.',',')+'%':'0%'}</td><td style="border:1px solid #000;text-align:right" rowspan="9">10</td></tr>
-              <tr><td style="border:1px solid #000">52 Belanja Barang</td><td style="border:1px solid #000;text-align:right">${fmtRpRight(jb52.pagu)}</td><td style="border:1px solid #000;text-align:right">${fmtRpRight(jb52.real)}</td><td style="border:1px solid #000;text-align:right">${jb52.pagu?((jb52.real/jb52.pagu)*100).toFixed(1).replace('.',',')+'%':'0%'}</td></tr>
-              <tr><td style="border:1px solid #000">53 Belanja Modal</td><td style="border:1px solid #000;text-align:right">${fmtRpRight(jb53.pagu)}</td><td style="border:1px solid #000;text-align:right">${fmtRpRight(jb53.real)}</td><td style="border:1px solid #000;text-align:right">${jb53.pagu?((jb53.real/jb53.pagu)*100).toFixed(1).replace('.',',')+'%':'0%'}</td></tr>
-              <tr><td style="border:1px solid #000">54-58 Lainnya</td><td style="border:1px solid #000;text-align:right">Rp. -</td><td style="border:1px solid #000;text-align:right">Rp. -</td><td style="border:1px solid #000;text-align:right">-</td></tr>
-              <tr style="font-weight:700;background:#eef2ff"><td style="border:1px solid #000">TOTAL BELANJA</td><td style="border:1px solid #000;text-align:right">${fmtRpRight(d.totalPagu)}</td><td style="border:1px solid #000;text-align:right">${fmtRpRight(d.totalReal)}</td><td style="border:1px solid #000;text-align:right">${fmtPct(d.totalPagu,d.totalReal)}</td></tr>
-              <tr><td style="border:1px solid #000" colspan="5">Pagu UP: ${d.upRecs.length?d.upRecs.map(u=>`${u.sumber_dana||'RM'}: ${fmtRpRight(u.sisa_up)}`).join(', '):fmtRpRight(upTotal)} | TUP: ${d.tupRecs.length} freq | Retur: ${d.returRecs.length} | Rek: ${d.rekeningRecs.length}</td></tr>
-              <tr><td style="border:1px solid #000" colspan="5">Kontrak Tunggal: ${kontrakSingle} | Jamak: 0 | Revisi DIPA: ${d.revisiDipaOnly.length} | IKPA Akhir: ${ikpa?ikpa.nilai_akhir:''}</td></tr>
+              <tr><td style="border:1px solid #000">51 Pegawai</td><td style="border:1px solid #000;text-align:right">${fmtRpRight(jb51.pagu)}</td><td style="border:1px solid #000;text-align:right">${fmtRpRight(jb51.real)}</td><td style="border:1px solid #000;text-align:right">${jb51.pagu?((jb51.real/jb51.pagu)*100).toFixed(1).replace('.',',')+'%':'0%'}</td><td style="border:1px solid #000;text-align:right" rowspan="5">10</td></tr>
+              <tr><td style="border:1px solid #000">52 Barang</td><td style="border:1px solid #000;text-align:right">${fmtRpRight(jb52.pagu)}</td><td style="border:1px solid #000;text-align:right">${fmtRpRight(jb52.real)}</td><td style="border:1px solid #000;text-align:right">${jb52.pagu?((jb52.real/jb52.pagu)*100).toFixed(1).replace('.',',')+'%':'0%'}</td></tr>
+              <tr><td style="border:1px solid #000">53 Modal</td><td style="border:1px solid #000;text-align:right">${fmtRpRight(jb53.pagu)}</td><td style="border:1px solid #000;text-align:right">${fmtRpRight(jb53.real)}</td><td style="border:1px solid #000;text-align:right">${jb53.pagu?((jb53.real/jb53.pagu)*100).toFixed(1).replace('.',',')+'%':'0%'}</td></tr>
+              <tr><td style="border:1px solid #000">54-58 Lain</td><td style="border:1px solid #000;text-align:right">-</td><td style="border:1px solid #000;text-align:right">-</td><td style="border:1px solid #000;text-align:right">-</td></tr>
+              <tr style="font-weight:700;background:#eef2ff"><td style="border:1px solid #000">TOTAL</td><td style="border:1px solid #000;text-align:right">${fmtRpRight(d.totalPagu)}</td><td style="border:1px solid #000;text-align:right">${fmtRpRight(d.totalReal)}</td><td style="border:1px solid #000;text-align:right">${fmtPct(d.totalPagu,d.totalReal)}</td></tr>
               </tbody>
             </table>
           </td></tr>
+          ${row3('2.', `UP Sisa: ${fmtRpRight(upTotal)} | TUP: ${d.tupRecs.length} freq | Retur: ${d.returRecs.length} (${fmtRpRight(d.returTotal)}) | Rek: ${d.rekeningRecs.length} | Kontrak: ${kontrakSingle} | Revisi: ${d.revisiDipaOnly.length} | IKPA: ${ikpa?ikpa.nilai_akhir:''}`)}
+          <tr><td colspan="3" style="border:1px solid #000;background:#efefef;font-weight:700;font-size:9px;page-break-after:avoid">Pemahaman atas Proses Bisnis</td></tr>
+          ${row3('1.', `Revisi DIPA: ${d.revisiDipaOnly.length} | TUP: ${d.tupRecs.length} | Retur: ${d.returRecs.length} | Rekening: ${d.rekeningRecs.length}`)}
+          ${row3('2.', `SPM Gaji paling lambat tgl 15 bulan sebelumnya`)}
+          <tr><td colspan="3" style="border:1px solid #000;background:#efefef;font-weight:700;font-size:9px;page-break-after:avoid">Pemahaman atas Teknologi Informasi</td></tr>
+          ${row3editable('1.', `Aplikasi penerbit tagihan?`, `SAKTI`)}
+          ${row3editable('2.', `User SAKTI manage user?`, `User Admin`)}
+          ${row3editable('3.', `Kode OTP untuk TTE SPM?`, `OTP`)}
+          ${row3editable('4.', `Aplikasi monitoring keuangan?`, `MonSAKTI`)}
+          ${row3editable('5.', `Layanan konsultansi DJPb?`, `Hai-DJPb`)}
           </tbody>
         </table>
-        <div style="text-align:center;font-size:7px;color:#64748b;margin-top:4px;border-top:1px dashed #cbd5e1;padding-top:3px">— Hal 1/3 — Maksimalkan 1 halaman penuh — Lanjut Hal 2 —</div>
+        <div style="text-align:center;font-size:6.5px;color:#64748b;margin-top:3px;border-top:1px dashed #cbd5e1;padding-top:2px">— Hal 1/3 penuh — lanjut Hal 2 —</div>
       </div>
     `;
 
-    // === PAGE 2: Proses Bisnis + TI + Pejabat + Complementary Awal - Maksimalkan ===
+    // === PAGE 2: Pejabat + Complementary - Dimaksimalkan ===
     const page2=document.createElement('div'); page2.className='paper'; page2.id=`paper-${kode}-p2`;
     page2.innerHTML=`
-      <div style="padding:12px 14px;font-family:'Times New Roman',serif;color:#000;background:#fff;font-size:10px">
-        <div style="text-align:center;font-weight:800;font-size:11px;line-height:1.2">KERTAS KERJA LANJUTAN — ${kode}<br><span style="font-size:9px">NOMOR: ${noUrut} / ${st} — HAL 2/3 — Proses Bisnis, TI, Pejabat & Complementary</span></div>
+      <div style="padding:10px 12px;font-family:'Times New Roman',serif;color:#000;background:#fff;font-size:10px">
+        <div style="text-align:center;font-weight:800;font-size:10.5px;line-height:1.2">KERTAS KERJA — ${kode} — HAL 2/3<br><span style="font-size:9px">Pejabat Perbendaharaan & COMPLEMENTARY (Dimaksimalkan)</span></div>
 
-        <table class="kk" style="width:100%;border:1px solid #000;border-collapse:collapse;margin-top:6px">
-          <thead><tr style="background:#d9d9d9"><th style="width:30px;border:1px solid #000;text-align:center">No</th><th style="border:1px solid #000;text-align:center">Rincian Materi / Pertanyaan</th><th style="width:60px;border:1px solid #000;text-align:center">Nilai</th></tr></thead>
+        <table class="kk" style="width:100%;border:1px solid #000;border-collapse:collapse;margin-top:5px;font-size:9.5px">
+          <thead><tr style="background:#d9d9d9"><th style="width:28px;border:1px solid #000;text-align:center">No</th><th style="border:1px solid #000;text-align:center">Rincian Materi / Pertanyaan</th><th style="width:55px;border:1px solid #000;text-align:center">Nilai</th></tr></thead>
           <tbody>
-          <tr><td colspan="3" style="border:1px solid #000;background:#efefef;font-weight:700;page-break-after:avoid">Pemahaman atas Proses Bisnis & TI & Pejabat Perbendaharaan</td></tr>
-          ${row3('1.', `Revisi DIPA: <b>${d.revisiDipaOnly.length} kali</b> | TUP: ${d.tupRecs.length} | Retur: ${d.returRecs.length} (${fmtRpRight(d.returTotal)}) | Rek: ${d.rekeningRecs.length}`)}
-          ${row3('2.', `SPM Gaji paling lambat tgl 15 bulan sebelumnya — Kontrak: ${kontrakSingle} tunggal`)}
-          ${row3editable('3.', `Aplikasi penerbit tagihan?`, `SAKTI`)}
-          ${row3editable('4.', `User SAKTI manage user?`, `User Admin`)}
-          ${row3editable('5.', `Tanda tangan SPM pakai kode?`, `OTP`)}
-          ${row3editable('6.', `Aplikasi monitoring keuangan negara?`, `MonSAKTI`)}
-          ${row3editable('7.', `Layanan konsultansi Online DJPb?`, `Hai-DJPb`)}
-          ${row3editable('8.', `PPK & PPSPM dapat ditunjuk KPA?`, `Dapat`)}
-          ${row3editable('9.', `PPK & PPSPM satu orang?`, `Tidak Dapat`)}
-          ${row3editable('10.', `Bendahara rangkap Pejabat lain?`, `Tidak Dapat`)}
-          ${row3editable('11.', `Bendahara sertifikasi?`, `Sudah`)}
-          ${row3editable('12.', `PPSPM uji kebenaran SPM?`, `Ya — Sudah sertifikasi`)}
-          ${row3editable('13.', `PPK tanggung jawab supplier & kontrak?`, `Ya — Sudah sertifikasi`)}
-          ${row3editable('14.', `PPNPN jadi pejabat perbendaharaan?`, `Tidak Dapat`)}
-          <tr style="background:#efefef;font-weight:700"><td colspan="2" style="border:1px solid #000;text-align:right">Total Nilai Mandatory</td><td style="border:1px solid #000;text-align:right">300</td></tr>
+          <tr><td colspan="3" style="border:1px solid #000;background:#efefef;font-weight:700;font-size:9px;page-break-after:avoid">Pemahaman atas peran Pejabat Perbendaharaan</td></tr>
+          ${row3editable('1.', `PPK & PPSPM dapat ditunjuk KPA?`, `Dapat`)}
+          ${row3editable('2.', `PPK & PPSPM satu orang?`, `Tidak Dapat`)}
+          ${row3editable('3.', `Bendahara rangkap jabatan lain?`, `Tidak Dapat`)}
+          ${row3editable('4.', `Bendahara sertifikasi?`, `Sudah`)}
+          ${row3editable('5.', `PPSPM uji kebenaran SPM?`, `Ya`)}
+          ${row3editable('6.', `PPSPM sertifikasi?`, `Sudah`)}
+          ${row3editable('7.', `PPK tanggung jawab supplier & kontrak?`, `Ya`)}
+          ${row3editable('8.', `PPK sertifikasi?`, `Sudah`)}
+          ${row3editable('9.', `PPNPN jadi pejabat?`, `Tidak Dapat`)}
+          <tr style="background:#efefef;font-weight:700"><td colspan="2" style="border:1px solid #000;text-align:right">Total Mandatory</td><td style="border:1px solid #000;text-align:right">300</td></tr>
           <tr style="background:#efefef;font-weight:700"><td colspan="2" style="border:1px solid #000;text-align:right">Pembobotan Mandatory (70)</td><td style="border:1px solid #000;text-align:right">${sc.mandatory}</td></tr>
 
           <tr><td colspan="3" style="border:1px solid #000;background:#d9d9d9;font-weight:800;font-style:italic;page-break-after:avoid">COMPLEMENTARY - COMPULSORY</td></tr>
-          <tr><td colspan="3" style="border:1px solid #000;background:#efefef;font-weight:700">A. Deviasi Halaman III DIPA</td></tr>
-          ${row3editable('1.', `Sudah perencanaan triwulanan?`, `Sudah`)}
+          <tr><td colspan="3" style="border:1px solid #000;background:#efefef;font-weight:700;font-size:9px">A. Deviasi Halaman III DIPA</td></tr>
+          ${row3editable('1.', `Perencanaan triwulanan?`, `Sudah`)}
           ${row3editable('2.', `Bagaimana perencanaan?`, `Koordinasi semua pihak`)}
-          ${row3editable('3.', `Sudah hitung kebutuhan dana triwulanan?`, `Sudah`)}
+          ${row3editable('3.', `Hitung kebutuhan dana triwulanan?`, `Sudah`)}
           ${row3editable('4.', `Kebutuhan dana sesuai Hal III DIPA?`, `Sudah`)}
-          ${row3editable('5.', `Proses update Hal III DIPA?`, `Revisi DIPA awal triwulan`)}
-          ${row3editable('6.', `Persen deviasi realisasi vs Hal III?`, `0%`)}
+          ${row3editable('5.', `Proses update Hal III?`, `Revisi DIPA awal triwulan`)}
+          ${row3editable('6.', `Persen deviasi?`, `0%`)}
           ${row3editable('7.', `Faktor penyebab deviasi?`, `Tidak ada`)}
-          ${row3editable('8.', `Sudah perencanaan triwulanan? (ulang)`, `Sudah`)}
+          ${row3editable('8.', `Perencanaan triwulanan?`, `Sudah`)}
 
-          <tr><td colspan="3" style="border:1px solid #000;background:#efefef;font-weight:700">B. Kontrak Pra DIPA</td></tr>
-          ${row3editable('1.', `Pernah kontrak Pra DIPA?`, kontrakSingle?'Sudah':'Tidak ada')}
-          ${row3editable('2.', `Pemahaman Pra DIPA?`, `Kontrak tanda tangan sebelum DIPA sah, pelaksanaan setelah DIPA sah`)}
-          ${row3editable('3.', `Kendala Pra DIPA?`, `Tidak ada kendala`)}
+          <tr><td colspan="3" style="border:1px solid #000;background:#efefef;font-weight:700;font-size:9px">B. Kontrak Pra DIPA</td></tr>
+          ${row3editable('1.', `Pernah Pra DIPA?`, kontrakSingle?'Sudah':'Tidak ada')}
+          ${row3editable('2.', `Pemahaman Pra DIPA?`, `Tanda tangan sebelum DIPA sah, pelaksanaan setelah sah`)}
+          ${row3editable('3.', `Kendala Pra DIPA?`, `Tidak ada`)}
+
+          <tr><td colspan="3" style="border:1px solid #000;background:#efefef;font-weight:700;font-size:9px">C. DATA KEWILAYAHAN & CAPAIAN OUTPUT</td></tr>
+          ${row3editable('1.', `Lokasi target RKA-KL sesuai riil?`, `Sudah`)}
+          ${row3editable('2.', `Jika beda penyebab?`, `Bencana alam`)}
+          ${row3editable('3.', `Ukur capaian output?`, `Hitung jumlah output`)}
+          ${row3editable('4.', `Lapor capaian?`, `SAKTI awal bulan`)}
           </tbody>
         </table>
-        <div style="text-align:center;font-size:7px;color:#64748b;margin-top:4px;border-top:1px dashed #cbd5e1;padding-top:3px">— Hal 2/3 — Lanjut ke Complementary lanjutan & Isu —</div>
+        <div style="text-align:center;font-size:6.5px;color:#64748b;margin-top:3px;border-top:1px dashed #cbd5e1;padding-top:2px">— Hal 2/3 penuh — lanjut Hal 3 —</div>
       </div>
     `;
 
-    // === PAGE 3: Sisa Complementary + Isu & Feedback - Maksimalkan, tidak setengah-setengah ===
+    // === PAGE 3: Sisa Complementary + Isu & Feedback - Maksimalkan penuh ===
     const page3=document.createElement('div'); page3.className='paper'; page3.id=`paper-${kode}-p3`;
     page3.innerHTML=`
-      <div style="padding:12px 14px;font-family:'Times New Roman',serif;color:#000;background:#fff;font-size:10px">
-        <div style="text-align:center;font-weight:800;font-size:11px;line-height:1.2">KERTAS KERJA — ${kode} — HAL 3/3 — Complementary Lanjutan & ISU/FEEDBACK<br><span style="font-size:9px">NOMOR: ${noUrut} / ${st}</span></div>
+      <div style="padding:10px 12px;font-family:'Times New Roman',serif;color:#000;background:#fff;font-size:10px">
+        <div style="text-align:center;font-weight:800;font-size:10.5px;line-height:1.2">KERTAS KERJA — ${kode} — HAL 3/3<br><span style="font-size:9px">Complementary Lanjutan, Nilai Akhir & ISU/FEEDBACK (Dimaksimalkan Penuh)</span></div>
 
-        <table class="kk" style="width:100%;border:1px solid #000;border-collapse:collapse;margin-top:6px">
-          <thead><tr style="background:#d9d9d9"><th style="width:30px;border:1px solid #000;text-align:center">No</th><th style="border:1px solid #000;text-align:center">Pertanyaan</th><th style="width:60px;border:1px solid #000;text-align:center">Nilai</th></tr></thead>
+        <table class="kk" style="width:100%;border:1px solid #000;border-collapse:collapse;margin-top:5px;font-size:9.5px">
+          <thead><tr style="background:#d9d9d9"><th style="width:28px;border:1px solid #000;text-align:center">No</th><th style="border:1px solid #000;text-align:center">Pertanyaan</th><th style="width:55px;border:1px solid #000;text-align:center">Nilai</th></tr></thead>
           <tbody>
-          <tr><td colspan="3" style="border:1px solid #000;background:#efefef;font-weight:700">C. DATA KEWILAYAHAN dan CAPAIAN OUTPUT</td></tr>
-          ${row3editable('1.', `Lokasi target RKA-KL sesuai riil?`, `Sudah`)}
-          ${row3editable('2.', `Jika beda penyebabnya?`, `Faktor eksternal bencana alam`)}
-          ${row3editable('3.', `Ukur capaian output?`, `Hitung jumlah output`)}
-          ${row3editable('4.', `Lapor capaian output?`, `SAKTI awal bulan`)}
-
-          <tr><td colspan="3" style="border:1px solid #000;background:#efefef;font-weight:700">VOLUNTARY</td></tr>
-          <tr><td colspan="3" style="border:1px solid #000;background:#efefef;font-weight:700">D. KKP & MyIntress & Pejabat Cadangan</td></tr>
-          ${row3editable('1.', `Sudah manfaatkan KKP?`, `Sudah`)}
-          ${row3editable('2.', `Pemahaman KKP?`, `Transaksi mudah tanpa pajak`)}
+          <tr><td colspan="3" style="border:1px solid #000;background:#efefef;font-weight:700;font-size:9px">VOLUNTARY - KKP, MyIntress, Pejabat Cadangan</td></tr>
+          ${row3editable('1.', `Manfaatkan KKP?`, `Sudah`)}
+          ${row3editable('2.', `Pemahaman KKP?`, `Mudah tanpa pajak`)}
           ${row3editable('3.', `Kendala KKP?`, `Tidak ada`)}
-          ${row3editable('4.', `Sudah manfaatkan MyIntress?`, `Sudah`)}
-          ${row3editable('5.', `Pemahaman MyIntress?`, `Monitoring terintegrasi APBN, gabungan OMSPAN+MonSAKTI`)}
+          ${row3editable('4.', `Manfaatkan MyIntress?`, `Sudah`)}
+          ${row3editable('5.', `Pemahaman MyIntress?`, `Monitoring terintegrasi APBN`)}
           ${row3editable('6.', `Ada pejabat cadangan?`, `Sudah`)}
           ${row3editable('7.', `Pejabat pengganti sertifikat?`, `Belum`)}
-
-          <tr style="background:#efefef;font-weight:700"><td colspan="2" style="border:1px solid #000;text-align:right">Total Nilai Complementary</td><td style="border:1px solid #000;text-align:right">150</td></tr>
+          <tr style="background:#efefef;font-weight:700"><td colspan="2" style="border:1px solid #000;text-align:right">Total Complementary</td><td style="border:1px solid #000;text-align:right">150</td></tr>
           <tr style="background:#efefef;font-weight:700"><td colspan="2" style="border:1px solid #000;text-align:right">Pembobotan Complementary (30)</td><td style="border:1px solid #000;text-align:right">${sc.complementary}</td></tr>
           <tr style="background:#e0f2fe;font-weight:800"><td colspan="2" style="border:1px solid #000;text-align:center">NILAI AKHIR CENTRAL GOVERNMENT</td><td style="border:1px solid #000;text-align:right"><span contenteditable="true" class="editable-cell">${sc.akhir}</span></td></tr>
           </tbody>
@@ -1459,17 +1553,17 @@ function renderDetailPapers(){
         ${renderIsuTable(kode,'fbEk','FEEDBACK EKSTERNAL - PENGELOLAAN ANGGARAN SATKER:', fbEkVal)}
         ${renderIsuTable(kode,'fbIn','FEEDBACK INTERNAL - PERBAIKAN LAYANAN KEMENKEU:', fbInVal)}
 
-        <div style="display:flex;justify-content:flex-end;margin-top:16px;font-size:10px;page-break-inside:avoid">
-          <div style="text-align:center;min-width:220px;border:1px solid #000;padding:8px 12px">
+        <div style="display:flex;justify-content:flex-end;margin-top:12px;font-size:9.5px;page-break-inside:avoid">
+          <div style="text-align:center;min-width:200px;border:1px solid #000;padding:6px 10px">
             Pekalongan, <span contenteditable="true" class="editable-cell">${cfgTglND}</span><br>Ketua Tim Teknis,<br><br><br><br>
-            <div style="font-size:8px;color:#6b7280;margin-bottom:2px">Ditandatangani secara elektronik</div>
-            <b>${cfgKetua}</b><br>NIP. ${cfgNIP}
+            <div style="font-size:7px;color:#6b7280;margin-bottom:1px">Ditandatangani secara elektronik</div>
+            <b>${cfgKetua}</b><br><span style="font-size:8px">NIP. ${cfgNIP}</span>
           </div>
         </div>
 
-        <div class="no-print" style="margin-top:12px;display:flex;gap:6px;flex-wrap:wrap;border-top:2px dashed #94a3b8;padding-top:10px;background:#f8fafc;padding:10px;border-radius:8px">
-          <b style="font-size:10px;width:100%">🖨️ Cetak Satker Ini (3 hal penuh):</b>
-          <button class="btn btn-primary" onclick="printSatker('${kode}')">🖨️ PDF ${kode} (3 hal)</button>
+        <div class="no-print" style="margin-top:10px;display:flex;gap:6px;flex-wrap:wrap;border-top:2px dashed #94a3b8;padding-top:8px;background:#f8fafc;padding:8px;border-radius:8px">
+          <b style="font-size:9px;width:100%">🖨️ Cetak Satker Ini (3 hal penuh):</b>
+          <button class="btn btn-primary" onclick="printSatker('${kode}')">🖨️ PDF ${kode}</button>
           <button class="btn" style="background:#2563eb;color:#fff" onclick="exportSatkerWord('${kode}')">📝 Word</button>
           <button class="btn btn-success" onclick="exportSatkerExcel('${kode}')">📊 Excel</button>
         </div>
@@ -1483,6 +1577,30 @@ function renderDetailPapers(){
   });
 }
 
+function printSatker(kode){
+  const wrapper=document.getElementById(`paper-${kode}`);
+  if(!wrapper){ alert('Kertas kerja tidak ditemukan'); return; }
+  const nota=document.getElementById('notaDinasPaper').innerHTML;
+  const w=window.open('','_blank');
+  w.document.write(`<html><head><title>Kertas Kerja ${kode}</title><style>
+    @page{size:A4 portrait;margin:1.25cm}
+    body{font-family:'Times New Roman',serif;font-size:10pt;color:#000;margin:0;padding:0;line-height:1.3;background:#fff !important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    .satker-wrapper{margin:0 !important;padding:0 !important}
+    table, table.kk{border-collapse:collapse !important;width:100%;font-size:9pt;border:1px solid #000 !important;box-decoration-break:clone;-webkit-box-decoration-break:clone;margin-top:2px !important}
+    th,td{border:1px solid #000 !important;padding:3px 4px !important;font-size:8.5pt !important;vertical-align:top;word-break:break-word;background:#fff !important;box-decoration-break:clone;-webkit-box-decoration-break:clone;line-height:1.25 !important}
+    th{background:#efefef !important;font-weight:700 !important;font-size:8pt !important}
+    thead{display:table-header-group !important}
+    tfoot{display:table-footer-group !important}
+    tr{page-break-inside:avoid !important;page-break-after:auto !important;border:1px solid #000 !important}
+    .paper{page-break-after:always !important;page-break-inside:avoid !important;padding:8px 10px !important;border:2px solid #000 !important;background:#fff !important;box-decoration-break:clone !important;overflow:visible !important;margin:0 !important;box-sizing:border-box !important}
+    .paper:last-child{page-break-after:auto !important}
+    .no-print{display:none !important}
+    .nota-logo{width:90px !important;height:90px !important}
+    .nota-paper{padding:10mm !important;page-break-after:always !important}
+    .editable-cell{border:none !important;background:transparent !important}
+  </style></head><body>${nota}<div style="page-break-after:always"></div>${wrapper.innerHTML}</body></html>`);
+  w.document.close(); w.focus(); setTimeout(()=>w.print(),600);
+}
 function printSatker(kode){
   const wrapper=document.getElementById(`paper-${kode}`);
   if(!wrapper){ alert('Kertas kerja tidak ditemukan'); return; }
@@ -1775,5 +1893,5 @@ function updateStorageInfo(){
   ['cfgTW1','cfgTW2','cfgTW3','cfgTW4'].forEach(id=>{ const el=document.getElementById(id); if(el) el.addEventListener('change',()=>{ localStorage.setItem(id,el.checked); renderRekapPaper(); renderNotaDinasPaper(); updateStorageInfo(); }); });
 })();
 </script>
-</body>
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a431a9d34c83ea89',t:'MTc5MDc1NDkwNg=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>

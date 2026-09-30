@@ -92,9 +92,14 @@ table.kk td.num{text-align:center}table.kk td.rupiah{text-align:right;white-spac
   body{background:#fff !important;-webkit-print-color-adjust:exact !important;print-color-adjust:exact !important;margin:0 !important;padding:0 !important}
   .no-print{display:none !important}
   .main-paper{max-width:none !important;margin:0 !important;padding:0 !important;width:100% !important}
-  .satker-wrapper{margin:0 !important;padding:0 !important;page-break-inside:auto !important}
-  .paper{box-shadow:none !important;border:2px solid #000 !important;border-radius:0 !important;page-break-after:always !important;page-break-inside:auto !important;margin:0 !important;padding:8px 10px !important;background:#fff !important;box-decoration-break:clone !important;-webkit-box-decoration-break:clone !important;overflow:visible !important;min-height:auto !important;height:auto !important;width:100% !important;box-sizing:border-box !important}
-  .paper:last-child{page-break-after:auto !important}
+  /* WRAPPER: tiap satker 3 hal, setelah TTD (Hal 3) harus ganti halaman baru */
+  .satker-wrapper{margin:0 !important;padding:0 !important;page-break-inside:auto !important;page-break-after:auto !important;page-break-before:auto !important}
+  .satker-wrapper:last-child{page-break-after:auto !important}
+  .satker-wrapper + .satker-wrapper{page-break-before:always !important}
+  .paper{box-shadow:none !important;border:2px solid #000 !important;border-radius:0 !important;page-break-after:always !important;page-break-inside:auto !important;margin:0 0 0 0 !important;padding:8px 10px !important;background:#fff !important;box-decoration-break:clone !important;-webkit-box-decoration-break:clone !important;overflow:visible !important;min-height:auto !important;height:auto !important;width:100% !important;box-sizing:border-box !important}
+  /* Hal 3 (TTD) harus break ke satker berikutnya, jangan taruh dalam satu halaman */
+  .satker-wrapper .paper:last-child{page-break-after:always !important}
+  .satker-wrapper:last-child .paper:last-child{page-break-after:auto !important}
   .paper-header{padding:6px 10px 4px !important;page-break-after:avoid !important;page-break-inside:avoid !important}
   .section-title, div[style*="font-weight:800"][style*="background:#d9d9d9"]{page-break-after:avoid !important;page-break-inside:avoid !important;border:1px solid #000 !important;margin-top:4px !important;padding:2px 4px !important;font-size:9px !important}
   table, table.kk, table.local-table, table.rekap-table{border-collapse:collapse !important;border:1px solid #000 !important;page-break-inside:auto !important;box-decoration-break:clone;-webkit-box-decoration-break:clone;width:100% !important;margin-top:2px !important}
@@ -104,6 +109,8 @@ table.kk td.num{text-align:center}table.kk td.rupiah{text-align:right;white-spac
   table.kk th, table.kk td, table.local-table th, table.local-table td, table.rekap-table th, table.rekap-table td, th, td{border:1px solid #000 !important;box-decoration-break:clone;-webkit-box-decoration-break:clone;background:#fff !important;padding:3px 4px !important;font-size:8.5pt !important;line-height:1.25 !important}
   table.kk th{page-break-after:avoid !important;background:#efefef !important;font-size:8pt !important}
   .issue-box{page-break-inside:avoid !important;border:1px solid #000 !important;box-decoration-break:clone;padding:4px !important;font-size:8.5pt !important}
+  /* TTD harus avoid potong, dan setelah TTD harus ada jarak */
+  .ttd-block, div[style*="justify-content:flex-end"][style*="page-break-inside:avoid"]{page-break-inside:avoid !important;page-break-before:avoid !important;page-break-after:auto !important;margin-top:18px !important}
   #notaDinasPaper.paper{border:none !important;box-shadow:none !important;padding:0 !important;background:transparent !important}
   #notaDinasPaper{border:none !important;padding:0 !important}
   .nota-paper{padding:10mm 12mm !important;page-break-after:always !important;page-break-inside:avoid !important;border:none !important;box-shadow:none !important;border-radius:0 !important;max-width:none !important;margin:0 !important;background:#fff !important}
@@ -114,11 +121,10 @@ table.kk td.num{text-align:center}table.kk td.rupiah{text-align:right;white-spac
   .nota-meta td{padding:2px 4px !important}
   .nota-body{font-size:10.5pt !important;line-height:1.5 !important;margin-bottom:6px !important}
   .nota-body p{margin:0 0 6px 0 !important}
-  .nota-ttd{page-break-inside:avoid !important;margin-top:16px !important}
+  .nota-ttd{page-break-inside:avoid !important;page-break-before:avoid !important;margin-top:18px !important}
   .nota-tte{font-size:7pt !important;margin-top:20px !important;padding-top:4px !important}
   @page{size:A4 portrait;margin:1.25cm}
   .nota-logo{width:90px !important;height:90px !important}
-  /* Ensure contenteditable highlights not printed */
   .editable-cell{border:none !important;background:transparent !important}
 }
 
@@ -1165,7 +1171,7 @@ function renderIsuTable(kode, type, title, textVal){
   const items = parseNumberedList(textVal);
   const rows = items.map((it, idx)=>`
     <tr>
-      <td style="border:1px solid #000;text-align:center;width:30px">${it.no}</td>
+      <td style="border:1px solid #000;text-align:center;width:32px">${it.no}</td>
       <td style="border:1px solid #000;vertical-align:top;word-break:break-word;white-space:normal" contenteditable="true" class="editable-cell" onblur="saveIsuRow('${kode}','${type}',${idx},this.innerText)">${it.text}</td>
       <td style="border:1px solid #000;text-align:center;width:40px" class="no-print"><button class="btn btn-danger" style="padding:1px 4px;font-size:8px" onclick="deleteIsuRow('${kode}','${type}',${idx})">✕</button></td>
     </tr>`).join('');
@@ -1179,7 +1185,7 @@ function renderIsuTable(kode, type, title, textVal){
         </div>
       </div>
       <table class="kk" style="width:100%;margin-top:2px;border:1px solid #000;border-collapse:collapse">
-        <thead><tr style="background:#efefef"><th style="width:30px;border:1px solid #000;text-align:center">No</th><th style="border:1px solid #000;text-align:center">Uraian</th><th style="width:40px;border:1px solid #000;text-align:center" class="no-print">Aksi</th></tr></thead>
+        <thead><tr style="background:#efefef"><th style="width:32px;border:1px solid #000;text-align:center">No</th><th style="border:1px solid #000;text-align:center">Uraian</th><th style="width:40px;border:1px solid #000;text-align:center" class="no-print">Aksi</th></tr></thead>
         <tbody id="tbody-${type}-${kode}">${rows || '<tr><td colspan="3" style="text-align:center;padding:6px;color:#999">Kosong - klik + Baris</td></tr>'}</tbody>
       </table>
     </div>`;
@@ -1244,20 +1250,26 @@ function printSatker(kode){
   const w=window.open('','_blank');
   w.document.write(`<html><head><title>Kertas Kerja ${kode}</title><style>
     @page{size:A4 portrait;margin:1.25cm}
-    body{font-family:'Times New Roman',serif;font-size:10pt;color:#000;margin:0;padding:0;line-height:1.3;background:#fff !important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
-    .satker-wrapper{margin:0 !important;padding:0 !important}
-    table, table.kk{border-collapse:collapse !important;width:100%;font-size:9pt;border:1px solid #000 !important;box-decoration-break:clone;-webkit-box-decoration-break:clone;margin-top:2px !important}
-    th,td{border:1px solid #000 !important;padding:3px 4px !important;font-size:8.5pt !important;vertical-align:top;word-break:break-word;background:#fff !important;box-decoration-break:clone;-webkit-box-decoration-break:clone;line-height:1.25 !important}
-    th{background:#efefef !important;font-weight:700 !important;font-size:8pt !important}
+    body{font-family:'Times New Roman',Times,serif;font-size:10pt;color:#000;margin:0;padding:0;line-height:1.3;background:#fff !important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    .satker-wrapper{margin:0 !important;padding:0 !important;page-break-inside:auto !important;page-break-after:auto !important}
+    .satker-wrapper:last-child{page-break-after:auto !important}
+  .satker-wrapper + .satker-wrapper{page-break-before:always !important}
+    table, table.kk{border-collapse:collapse !important;width:100% !important;font-size:9.5pt !important;border:1px solid #000 !important;box-decoration-break:clone;-webkit-box-decoration-break:clone;margin-top:2px !important;table-layout:auto !important}
+    th,td{border:1px solid #000 !important;padding:3px 5px !important;font-size:9pt !important;vertical-align:top !important;word-break:break-word !important;white-space:normal !important;background:#fff !important;box-decoration-break:clone;-webkit-box-decoration-break:clone;line-height:1.3 !important}
+    th{background:#efefef !important;font-weight:700 !important;font-size:9pt !important;text-align:center !important}
     thead{display:table-header-group !important}
     tfoot{display:table-footer-group !important}
     tr{page-break-inside:avoid !important;page-break-after:auto !important;border:1px solid #000 !important}
-    .paper{page-break-after:always !important;page-break-inside:auto !important;padding:8px 10px !important;border:2px solid #000 !important;background:#fff !important;box-decoration-break:clone !important;-webkit-box-decoration-break:clone !important;overflow:visible !important;margin:0 !important;box-sizing:border-box !important}
-    .paper:last-child{page-break-after:auto !important}
+    .paper{page-break-after:always !important;page-break-inside:auto !important;padding:10px 12px !important;border:2px solid #000 !important;background:#fff !important;box-decoration-break:clone !important;-webkit-box-decoration-break:clone !important;overflow:visible !important;margin:0 0 0 0 !important;box-sizing:border-box !important}
+    .satker-wrapper .paper:last-child{page-break-after:always !important}
+    .satker-wrapper:last-child .paper:last-child{page-break-after:auto !important}
+    .ttd-block{page-break-inside:avoid !important;page-break-before:avoid !important;margin-top:18px !important}
     .no-print{display:none !important}
     .nota-logo{width:90px !important;height:90px !important}
-    .nota-paper{padding:10mm !important;page-break-after:always !important}
+    .nota-paper{padding:10mm 12mm !important;page-break-after:always !important;page-break-inside:avoid !important;border:none !important}
     .editable-cell{border:none !important;background:transparent !important}
+    div[style*="font-size:9.5px"]{font-size:10pt !important}
+    td[style*="font-size:9.5px"]{font-size:10pt !important}
   </style></head><body>${nota}<div style="page-break-after:always"></div>${wrapper.innerHTML}</body></html>`);
   w.document.close(); w.focus(); setTimeout(()=>w.print(),600);
 }
@@ -1291,7 +1303,7 @@ function renderDetailPapers(){
     const kegCount=(d.faSummary?.kegiatan||[]).length||10;
     const kontrakSingle=d.kontrakRecs.length;
     const sdCell=renderSDCell(d);
-    const row3 = (no, rincian, nilai=10) => `<tr><td style="border:1px solid #000;text-align:center;width:30px">${no}</td><td style="border:1px solid #000;vertical-align:top;word-break:break-word;white-space:normal;font-size:9.5px">${rincian}</td><td style="border:1px solid #000;text-align:right;width:55px;vertical-align:top;font-size:9.5px">${nilai}</td></tr>`;
+    const row3 = (no, rincian, nilai=10) => `<tr><td style="border:1px solid #000;text-align:center;width:32px">${no}</td><td style="border:1px solid #000;vertical-align:top;word-break:break-word;white-space:normal;font-size:9.5px">${rincian}</td><td style="border:1px solid #000;text-align:right;width:55px;vertical-align:top;font-size:9.5px">${nilai}</td></tr>`;
     const row3editable = (no, rincian, jawaban, nilai=10) => {
       const r = `${rincian}<br><span contenteditable="true" class="editable-cell" style="display:block;margin-top:1px;font-weight:600;font-size:9.5px">${jawaban}</span>`;
       return row3(no, r, nilai);
@@ -1418,7 +1430,7 @@ function renderDetailPapers(){
         ${renderIsuTable(kode,'fbEk','FEEDBACK EKSTERNAL - PENGELOLAAN ANGGARAN SATKER:', fbEkVal)}
         ${renderIsuTable(kode,'fbIn','FEEDBACK INTERNAL - PERBAIKAN LAYANAN KEMENKEU:', fbInVal)}
 
-        <div style="display:flex;justify-content:flex-end;margin-top:12px;font-size:9.5px;page-break-inside:avoid">
+        <div class="ttd-block" style="display:flex;justify-content:flex-end;margin-top:18px;font-size:10pt;page-break-inside:avoid;page-break-before:avoid">
           <div style="text-align:center;min-width:200px;border:1px solid #000;padding:6px 10px">
             Pekalongan, <span contenteditable="true" class="editable-cell">${cfgTglND}</span><br>Ketua Tim Teknis,<br><br><br><br>
             <div style="font-size:7px;color:#6b7280;margin-bottom:1px">Ditandatangani secara elektronik</div>
@@ -1449,7 +1461,38 @@ function exportSatkerWord(kode){
   const el=document.getElementById(`paper-${kode}`);
   if(!el) return;
   const nota=document.getElementById('notaDinasPaper').innerHTML;
-  const full=`<html><head><meta charset="UTF-8"><style>body{font-family:'Times New Roman',serif;font-size:11pt} table{border-collapse:collapse;width:100%} th,td{border:1px solid #000;padding:4px}</style></head><body>${nota}<div style="page-break-after:always"></div>${el.innerHTML}</body></html>`;
+  const full=`<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40"><head><meta charset="UTF-8"><meta name=ProgId content=Word.Document><meta name=Generator content="Microsoft Word 15"><meta name=Originator content="Microsoft Word 15"><style>
+  @page{size:A4 portrait;margin:1.25cm;mso-page-orientation:portrait}
+  @page Section1{size:21cm 29.7cm;margin:1.25cm;mso-header-margin:0.5cm;mso-footer-margin:0.5cm;mso-paper-source:0}
+  div.Section1{page:Section1}
+  body{font-family:'Times New Roman',Times,serif;font-size:11pt;line-height:1.4;color:#000;background:#fff}
+  table, table.kk{border-collapse:collapse !important;width:100% !important;font-size:10pt !important;border:1px solid #000 !important}
+  th,td{border:1px solid #000 !important;padding:4px 6px !important;font-size:10pt !important;vertical-align:top !important;word-break:break-word !important}
+  th{background:#e8eef7 !important;font-weight:700 !important;text-align:center !important}
+  thead{display:table-header-group} tr{page-break-inside:avoid !important}
+  .paper{page-break-after:always !important;page-break-inside:auto !important;padding:10px 12px !important;border:2px solid #000 !important;margin-bottom:12px !important;box-sizing:border-box !important}
+  .satker-wrapper{page-break-after:always !important}
+  .satker-wrapper:last-child{page-break-after:auto !important}
+  .satker-wrapper + .satker-wrapper{page-break-before:always !important}
+  .satker-wrapper .paper:last-child{page-break-after:always !important}
+  .nota-paper{padding:12mm !important;border:none !important;page-break-after:always !important}
+  .nota-logo{width:90px;height:90px}
+  .no-print{display:none}
+  div[style*="font-size:6.5px"]{font-size:7pt !important}
+  div[style*="font-size:7px"]{font-size:7.5pt !important}
+  div[style*="font-size:8px"]{font-size:8.5pt !important}
+  div[style*="font-size:9px"]{font-size:9.5pt !important}
+  div[style*="font-size:9.5px"]{font-size:10pt !important}
+  div[style*="font-size:10px"]{font-size:10.5pt !important}
+  div[style*="font-size:10.5px"]{font-size:11pt !important}
+  div[style*="font-size:11.5px"]{font-size:11.5pt !important}
+  td[style*="font-size:6.5px"]{font-size:7pt !important}
+  td[style*="font-size:7px"]{font-size:7.5pt !important}
+  td[style*="font-size:8px"]{font-size:8.5pt !important}
+  td[style*="font-size:9px"]{font-size:9.5pt !important}
+  td[style*="font-size:9.5px"]{font-size:10pt !important}
+  td[style*="font-size:10px"]{font-size:10.5pt !important}
+  </style></head><body>${nota}<div style="page-break-after:always"></div>${el.innerHTML}</body></html>`;
   const blob=new Blob([full],{type:'application/msword'}); const url=URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download=`Kertas_Kerja_${kode}_${document.getElementById('cfgKPPN').value}_${document.getElementById('cfgTahun').value}.doc`; a.click(); URL.revokeObjectURL(url);
 }
 function exportSatkerExcel(kode){
@@ -1533,7 +1576,36 @@ function exportAllExcel(){
 function exportWord(){
   const cfgKPPN=document.getElementById('cfgKPPN').value; const cfgTahun=document.getElementById('cfgTahun').value;
   const nota=document.getElementById('notaDinasPaper').innerHTML; const rekap=document.getElementById('rekapPaper').innerHTML; const local=document.getElementById('localPaper').innerHTML; const special=document.getElementById('specialPaper').innerHTML; const detail=document.getElementById('detailPapers').innerHTML;
-  const full=`<html><head><meta charset="UTF-8"><style>@page{size:A4 portrait;margin:1.25cm} body{font-family:'Times New Roman',serif;font-size:11pt;line-height:1.4;color:#000;background:#fff} table, table.kk{border-collapse:collapse !important;width:100%;font-size:10pt;border:1px solid #000 !important} th,td{border:1px solid #000 !important;padding:5px 6px;font-size:10pt;vertical-align:top;word-break:break-word;background:#fff !important} th{background:#f1f5f9 !important;font-weight:700} thead{display:table-header-group} tr{page-break-inside:avoid !important} .paper{page-break-after:always;page-break-inside:auto !important;padding:8px 10px !important;border:2px solid #000 !important;background:#fff !important;box-decoration-break:clone !important;-webkit-box-decoration-break:clone !important;overflow:visible !important;box-sizing:border-box !important} .nota-paper{padding:12mm} .nota-logo{width:90px;height:90px} .no-print{display:none} table.kk{font-size:10pt} table.kk th, table.kk td{font-size:10pt} .issue-box{font-size:10pt;border:1px solid #000 !important}</style></head><body>${nota}<div style="page-break-after:always"></div>${rekap}<div style="page-break-after:always"></div>${local}<div style="page-break-after:always"></div>${special}${detail}</body></html>`;
+  const full=`<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40"><head><meta charset="UTF-8"><meta name=ProgId content=Word.Document><meta name=Generator content="Microsoft Word 15"><meta name=Originator content="Microsoft Word 15"><style>
+  @page{size:A4 portrait;margin:1.25cm;mso-page-orientation:portrait}
+  @page Section1{size:21cm 29.7cm;margin:1.25cm;mso-header-margin:0.5cm;mso-footer-margin:0.5cm;mso-paper-source:0}
+  div.Section1{page:Section1}
+  body{font-family:'Times New Roman',Times,serif;font-size:11pt;line-height:1.4;color:#000;background:#fff;word-wrap:break-word}
+  /* Samakan dengan PDF: semua font proporsional pt, bukan px */
+  table, table.kk, table.local-table, table.rekap-table{border-collapse:collapse !important;width:100% !important;font-size:10pt !important;border:1px solid #000 !important;table-layout:auto !important}
+  th,td{border:1px solid #000 !important;padding:4px 6px !important;font-size:10pt !important;vertical-align:top !important;word-break:break-word !important;white-space:normal !important;background:#fff !important;line-height:1.3 !important}
+  th{background:#e8eef7 !important;font-weight:700 !important;font-size:10pt !important;text-align:center !important}
+  thead{display:table-header-group} tfoot{display:table-footer-group} tr{page-break-inside:avoid !important}
+  .paper{page-break-after:always !important;page-break-inside:auto !important;padding:10px 12px !important;border:2px solid #000 !important;background:#fff !important;box-sizing:border-box !important;margin:0 0 12px 0 !important}
+  .paper:last-child{page-break-after:auto !important}
+  .satker-wrapper{page-break-after:always !important;page-break-inside:auto !important;margin-bottom:0 !important}
+  .satker-wrapper:last-child{page-break-after:auto !important}
+  .satker-wrapper + .satker-wrapper{page-break-before:always !important}
+  .satker-wrapper .paper:last-child{page-break-after:always !important}
+  .satker-wrapper:last-child .paper:last-child{page-break-after:auto !important}
+  .nota-paper{padding:12mm !important;border:none !important;page-break-after:always !important;page-break-inside:avoid !important;max-width:100% !important;margin:0 !important}
+  .nota-logo{width:90px !important;height:90px !important}
+  .no-print{display:none !important}
+  .issue-box{font-size:10pt !important;border:1px solid #000 !important;padding:4px !important;page-break-inside:avoid !important}
+  .paper-header{font-size:11pt !important}
+  /* Override inline px to pt untuk Word agar proporsional */
+  div[style*="font-size:9.5px"]{font-size:10pt !important}
+  div[style*="font-size:9px"]{font-size:9.5pt !important}
+  div[style*="font-size:10px"]{font-size:10pt !important}
+  div[style*="font-size:11.5px"]{font-size:11pt !important}
+  td[style*="font-size:9.5px"]{font-size:10pt !important}
+  td[style*="font-size:9px"]{font-size:9.5pt !important}
+  </style></head><body>${nota}<div style="page-break-after:always"></div>${rekap}<div style="page-break-after:always"></div>${local}<div style="page-break-after:always"></div>${special}<div style="page-break-after:always"></div>${detail}</body></html>`;
   const blob=new Blob([full],{type:'application/msword'}); const url=URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download=`Laporan_FA_${cfgKPPN}_${cfgTahun}.doc`; a.click(); URL.revokeObjectURL(url);
 }
 
@@ -1690,5 +1762,5 @@ function updateStorageInfo(){
   ['cfgTW1','cfgTW2','cfgTW3','cfgTW4'].forEach(id=>{ const el=document.getElementById(id); if(el) el.addEventListener('change',()=>{ localStorage.setItem(id,el.checked); renderRekapPaper(); renderNotaDinasPaper(); updateStorageInfo(); }); });
 })();
 </script>
-<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a433633b9bf8fede',t:'MTc5MDc3Mjk4Ng=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a43371e00fd5b5b7',t:'MTc5MDc3MzU4NQ=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>

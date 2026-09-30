@@ -91,7 +91,7 @@ table.kk td.num{text-align:center}table.kk td.rupiah{text-align:right;white-spac
   .no-print{display:none !important}
   .main-paper{max-width:none !important;margin:0 !important;padding:0 !important;width:100% !important}
   .satker-wrapper{margin:0 !important;padding:0 !important;page-break-inside:auto !important}
-  .paper{box-shadow:none !important;border:2px solid #000 !important;border-radius:0 !important;page-break-after:always !important;page-break-inside:avoid !important;margin:0 !important;padding:8px 10px !important;background:#fff !important;box-decoration-break:clone !important;-webkit-box-decoration-break:clone !important;overflow:visible !important;min-height:auto !important;height:auto !important;width:100% !important;box-sizing:border-box !important}
+  .paper{box-shadow:none !important;border:2px solid #000 !important;border-radius:0 !important;page-break-after:always !important;page-break-inside:auto !important;margin:0 !important;padding:8px 10px !important;background:#fff !important;box-decoration-break:clone !important;-webkit-box-decoration-break:clone !important;overflow:visible !important;min-height:auto !important;height:auto !important;width:100% !important;box-sizing:border-box !important}
   .paper:last-child{page-break-after:auto !important}
   .paper-header{padding:6px 10px 4px !important;page-break-after:avoid !important;page-break-inside:avoid !important}
   .section-title, div[style*="font-weight:800"][style*="background:#d9d9d9"]{page-break-after:avoid !important;page-break-inside:avoid !important;border:1px solid #000 !important;margin-top:4px !important;padding:2px 4px !important;font-size:9px !important}
@@ -1241,7 +1241,7 @@ function printSatker(kode){
     thead{display:table-header-group !important}
     tfoot{display:table-footer-group !important}
     tr{page-break-inside:avoid !important;page-break-after:auto !important;border:1px solid #000 !important}
-    .paper{page-break-after:always !important;page-break-inside:avoid !important;padding:8px 10px !important;border:2px solid #000 !important;background:#fff !important;box-decoration-break:clone !important;overflow:visible !important;margin:0 !important;box-sizing:border-box !important}
+    .paper{page-break-after:always !important;page-break-inside:auto !important;padding:8px 10px !important;border:2px solid #000 !important;background:#fff !important;box-decoration-break:clone !important;-webkit-box-decoration-break:clone !important;overflow:visible !important;margin:0 !important;box-sizing:border-box !important}
     .paper:last-child{page-break-after:auto !important}
     .no-print{display:none !important}
     .nota-logo{width:90px !important;height:90px !important}
@@ -1286,13 +1286,14 @@ function renderDetailPapers(){
       return row3(no, r, nilai);
     };
 
+    
     const wrapper=document.createElement('div'); wrapper.id=`paper-${kode}`; wrapper.className='satker-wrapper'; wrapper.style.marginBottom='20px';
 
-    // === PAGE 1: DIMAKSIMALKAN PENUH - DIPA + Pelaksanaan + Proses Bisnis + TI ===
+    // === PAGE 1: DIMAKSIMALKAN PENUH - DIPA + Pelaksanaan + Proses Bisnis + TI + Pejabat ===
     const page1=document.createElement('div'); page1.className='paper'; page1.id=`paper-${kode}-p1`;
     page1.innerHTML=`
       <div style="padding:10px 12px;font-family:'Times New Roman',serif;color:#000;background:#fff;font-size:10px">
-        <div style="text-align:center;font-weight:800;font-size:11.5px;line-height:1.2">KERTAS KERJA MONITORING DAN EVALUASI<br>CENTRAL GOVERNMENT ADVISORY<br><span style="font-size:9.5px">NOMOR: ${noUrut} / ${st} — HAL 1/3 [DIPA, Pelaksanaan, Proses Bisnis, TI]</span></div>
+        <div style="text-align:center;font-weight:800;font-size:11.5px;line-height:1.2">KERTAS KERJA MONITORING DAN EVALUASI<br>CENTRAL GOVERNMENT ADVISORY<br><span style="font-size:9.5px">NOMOR: ${noUrut} / ${st} — HAL 1/3 [DIPA, Pelaksanaan, Proses Bisnis, TI, Pejabat]</span></div>
         <div style="margin-top:5px;font-size:9.5px;line-height:1.25;border:1px solid #000;padding:3px 5px;background:#f8fafc;display:grid;grid-template-columns:80px 8px 1fr;gap:1px">
           <span><b>PERIODE</b></span><span>:</span><span>${cfgTahun} / ${renderPeriodeBoxesForPrint()} <span style="font-size:7px">(I ${tw1} II ${tw2} III ${tw3} IV ${tw4})</span></span>
           <span><b>SATKER</b></span><span>:</span><span>${d.nama||''} (${kode})</span>
@@ -1330,21 +1331,6 @@ function renderDetailPapers(){
           ${row3editable('3.', `Kode OTP untuk TTE SPM?`, `OTP`)}
           ${row3editable('4.', `Aplikasi monitoring keuangan?`, `MonSAKTI`)}
           ${row3editable('5.', `Layanan konsultansi DJPb?`, `Hai-DJPb`)}
-          </tbody>
-        </table>
-        <div style="text-align:center;font-size:6.5px;color:#64748b;margin-top:3px;border-top:1px dashed #cbd5e1;padding-top:2px">— Hal 1/3 penuh — lanjut Hal 2 —</div>
-      </div>
-    `;
-
-    // === PAGE 2: Pejabat + Complementary - Dimaksimalkan ===
-    const page2=document.createElement('div'); page2.className='paper'; page2.id=`paper-${kode}-p2`;
-    page2.innerHTML=`
-      <div style="padding:10px 12px;font-family:'Times New Roman',serif;color:#000;background:#fff;font-size:10px">
-        <div style="text-align:center;font-weight:800;font-size:10.5px;line-height:1.2">KERTAS KERJA — ${kode} — HAL 2/3<br><span style="font-size:9px">Pejabat Perbendaharaan & COMPLEMENTARY (Dimaksimalkan)</span></div>
-
-        <table class="kk" style="width:100%;border:1px solid #000;border-collapse:collapse;margin-top:5px;font-size:9.5px">
-          <thead><tr style="background:#d9d9d9"><th style="width:28px;border:1px solid #000;text-align:center">No</th><th style="border:1px solid #000;text-align:center">Rincian Materi / Pertanyaan</th><th style="width:55px;border:1px solid #000;text-align:center">Nilai</th></tr></thead>
-          <tbody>
           <tr><td colspan="3" style="border:1px solid #000;background:#efefef;font-weight:700;font-size:9px;page-break-after:avoid">Pemahaman atas peran Pejabat Perbendaharaan</td></tr>
           ${row3editable('1.', `PPK & PPSPM dapat ditunjuk KPA?`, `Dapat`)}
           ${row3editable('2.', `PPK & PPSPM satu orang?`, `Tidak Dapat`)}
@@ -1357,7 +1343,21 @@ function renderDetailPapers(){
           ${row3editable('9.', `PPNPN jadi pejabat?`, `Tidak Dapat`)}
           <tr style="background:#efefef;font-weight:700"><td colspan="2" style="border:1px solid #000;text-align:right">Total Mandatory</td><td style="border:1px solid #000;text-align:right">300</td></tr>
           <tr style="background:#efefef;font-weight:700"><td colspan="2" style="border:1px solid #000;text-align:right">Pembobotan Mandatory (70)</td><td style="border:1px solid #000;text-align:right">${sc.mandatory}</td></tr>
+          </tbody>
+        </table>
+        <div style="text-align:center;font-size:6.5px;color:#64748b;margin-top:3px;border-top:1px dashed #cbd5e1;padding-top:2px">— Hal 1/3 dimaksimalkan penuh — lanjut Hal 2 —</div>
+      </div>
+    `;
 
+    // === PAGE 2: COMPLEMENTARY - Dimaksimalkan Penuh ===
+    const page2=document.createElement('div'); page2.className='paper'; page2.id=`paper-${kode}-p2`;
+    page2.innerHTML=`
+      <div style="padding:10px 12px;font-family:'Times New Roman',serif;color:#000;background:#fff;font-size:10px">
+        <div style="text-align:center;font-weight:800;font-size:10.5px;line-height:1.2">KERTAS KERJA — ${kode} — HAL 2/3<br><span style="font-size:9px">COMPLEMENTARY (Dimaksimalkan Penuh)</span></div>
+
+        <table class="kk" style="width:100%;border:1px solid #000;border-collapse:collapse;margin-top:5px;font-size:9.5px">
+          <thead><tr style="background:#d9d9d9"><th style="width:28px;border:1px solid #000;text-align:center">No</th><th style="border:1px solid #000;text-align:center">Rincian Materi / Pertanyaan</th><th style="width:55px;border:1px solid #000;text-align:center">Nilai</th></tr></thead>
+          <tbody>
           <tr><td colspan="3" style="border:1px solid #000;background:#d9d9d9;font-weight:800;font-style:italic;page-break-after:avoid">COMPLEMENTARY - COMPULSORY</td></tr>
           <tr><td colspan="3" style="border:1px solid #000;background:#efefef;font-weight:700;font-size:9px">A. Deviasi Halaman III DIPA</td></tr>
           ${row3editable('1.', `Perencanaan triwulanan?`, `Sudah`)}
@@ -1379,21 +1379,7 @@ function renderDetailPapers(){
           ${row3editable('2.', `Jika beda penyebab?`, `Bencana alam`)}
           ${row3editable('3.', `Ukur capaian output?`, `Hitung jumlah output`)}
           ${row3editable('4.', `Lapor capaian?`, `SAKTI awal bulan`)}
-          </tbody>
-        </table>
-        <div style="text-align:center;font-size:6.5px;color:#64748b;margin-top:3px;border-top:1px dashed #cbd5e1;padding-top:2px">— Hal 2/3 penuh — lanjut Hal 3 —</div>
-      </div>
-    `;
 
-    // === PAGE 3: Sisa Complementary + Isu & Feedback - Maksimalkan penuh ===
-    const page3=document.createElement('div'); page3.className='paper'; page3.id=`paper-${kode}-p3`;
-    page3.innerHTML=`
-      <div style="padding:10px 12px;font-family:'Times New Roman',serif;color:#000;background:#fff;font-size:10px">
-        <div style="text-align:center;font-weight:800;font-size:10.5px;line-height:1.2">KERTAS KERJA — ${kode} — HAL 3/3<br><span style="font-size:9px">Complementary Lanjutan, Nilai Akhir & ISU/FEEDBACK (Dimaksimalkan Penuh)</span></div>
-
-        <table class="kk" style="width:100%;border:1px solid #000;border-collapse:collapse;margin-top:5px;font-size:9.5px">
-          <thead><tr style="background:#d9d9d9"><th style="width:28px;border:1px solid #000;text-align:center">No</th><th style="border:1px solid #000;text-align:center">Pertanyaan</th><th style="width:55px;border:1px solid #000;text-align:center">Nilai</th></tr></thead>
-          <tbody>
           <tr><td colspan="3" style="border:1px solid #000;background:#efefef;font-weight:700;font-size:9px">VOLUNTARY - KKP, MyIntress, Pejabat Cadangan</td></tr>
           ${row3editable('1.', `Manfaatkan KKP?`, `Sudah`)}
           ${row3editable('2.', `Pemahaman KKP?`, `Mudah tanpa pajak`)}
@@ -1407,6 +1393,15 @@ function renderDetailPapers(){
           <tr style="background:#e0f2fe;font-weight:800"><td colspan="2" style="border:1px solid #000;text-align:center">NILAI AKHIR CENTRAL GOVERNMENT</td><td style="border:1px solid #000;text-align:right"><span contenteditable="true" class="editable-cell">${sc.akhir}</span></td></tr>
           </tbody>
         </table>
+        <div style="text-align:center;font-size:6.5px;color:#64748b;margin-top:3px;border-top:1px dashed #cbd5e1;padding-top:2px">— Hal 2/3 penuh — lanjut Hal 3 ISU/FEEDBACK —</div>
+      </div>
+    `;
+
+    // === PAGE 3: ISU & FEEDBACK - Dimaksimalkan penuh ===
+    const page3=document.createElement('div'); page3.className='paper'; page3.id=`paper-${kode}-p3`;
+    page3.innerHTML=`
+      <div style="padding:10px 12px;font-family:'Times New Roman',serif;color:#000;background:#fff;font-size:10px">
+        <div style="text-align:center;font-weight:800;font-size:10.5px;line-height:1.2">KERTAS KERJA — ${kode} — HAL 3/3<br><span style="font-size:9px">ISU, FEEDBACK & TTD (Dimaksimalkan Penuh)</span></div>
 
         ${renderIsuTable(kode,'isu','ISU/PERMASALAHAN YANG BERHASIL DIIDENTIFIKASI:', isuVal)}
         ${renderIsuTable(kode,'fbEk','FEEDBACK EKSTERNAL - PENGELOLAAN ANGGARAN SATKER:', fbEkVal)}
@@ -1421,7 +1416,7 @@ function renderDetailPapers(){
         </div>
 
         <div class="no-print" style="margin-top:10px;display:flex;gap:6px;flex-wrap:wrap;border-top:2px dashed #94a3b8;padding-top:8px;background:#f8fafc;padding:8px;border-radius:8px">
-          <b style="font-size:9px;width:100%">🖨️ Cetak Satker Ini (3 hal penuh):</b>
+          <b style="font-size:9px;width:100%">🖨️ Cetak Satker Ini (3 hal penuh dimaksimalkan):</b>
           <button class="btn btn-primary" onclick="printSatker('${kode}')">🖨️ PDF ${kode}</button>
           <button class="btn" style="background:#2563eb;color:#fff" onclick="exportSatkerWord('${kode}')">📝 Word</button>
           <button class="btn btn-success" onclick="exportSatkerExcel('${kode}')">📊 Excel</button>
@@ -1433,7 +1428,9 @@ function renderDetailPapers(){
     wrapper.appendChild(page2);
     wrapper.appendChild(page3);
     container.appendChild(wrapper);
+
   });
+
 }
 
 
@@ -1525,7 +1522,7 @@ function exportAllExcel(){
 function exportWord(){
   const cfgKPPN=document.getElementById('cfgKPPN').value; const cfgTahun=document.getElementById('cfgTahun').value;
   const nota=document.getElementById('notaDinasPaper').innerHTML; const rekap=document.getElementById('rekapPaper').innerHTML; const local=document.getElementById('localPaper').innerHTML; const special=document.getElementById('specialPaper').innerHTML; const detail=document.getElementById('detailPapers').innerHTML;
-  const full=`<html><head><meta charset="UTF-8"><style>@page{size:A4 portrait;margin:1.25cm} body{font-family:'Times New Roman',serif;font-size:11pt;line-height:1.4;color:#000;background:#fff} table, table.kk{border-collapse:collapse !important;width:100%;font-size:10pt;border:1px solid #000 !important} th,td{border:1px solid #000 !important;padding:5px 6px;font-size:10pt;vertical-align:top;word-break:break-word;background:#fff !important} th{background:#f1f5f9 !important;font-weight:700} thead{display:table-header-group} tr{page-break-inside:avoid !important} .paper{page-break-after:always;padding:12mm;border:2px solid #000 !important;background:#fff !important;box-decoration-break:clone !important;-webkit-box-decoration-break:clone !important;overflow:visible !important} .nota-paper{padding:12mm} .nota-logo{width:90px;height:90px} .no-print{display:none} table.kk{font-size:10pt} table.kk th, table.kk td{font-size:10pt} .issue-box{font-size:10pt;border:1px solid #000 !important}</style></head><body>${nota}<div style="page-break-after:always"></div>${rekap}<div style="page-break-after:always"></div>${local}<div style="page-break-after:always"></div>${special}${detail}</body></html>`;
+  const full=`<html><head><meta charset="UTF-8"><style>@page{size:A4 portrait;margin:1.25cm} body{font-family:'Times New Roman',serif;font-size:11pt;line-height:1.4;color:#000;background:#fff} table, table.kk{border-collapse:collapse !important;width:100%;font-size:10pt;border:1px solid #000 !important} th,td{border:1px solid #000 !important;padding:5px 6px;font-size:10pt;vertical-align:top;word-break:break-word;background:#fff !important} th{background:#f1f5f9 !important;font-weight:700} thead{display:table-header-group} tr{page-break-inside:avoid !important} .paper{page-break-after:always;page-break-inside:auto !important;padding:8px 10px !important;border:2px solid #000 !important;background:#fff !important;box-decoration-break:clone !important;-webkit-box-decoration-break:clone !important;overflow:visible !important;box-sizing:border-box !important} .nota-paper{padding:12mm} .nota-logo{width:90px;height:90px} .no-print{display:none} table.kk{font-size:10pt} table.kk th, table.kk td{font-size:10pt} .issue-box{font-size:10pt;border:1px solid #000 !important}</style></head><body>${nota}<div style="page-break-after:always"></div>${rekap}<div style="page-break-after:always"></div>${local}<div style="page-break-after:always"></div>${special}${detail}</body></html>`;
   const blob=new Blob([full],{type:'application/msword'}); const url=URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download=`Laporan_FA_${cfgKPPN}_${cfgTahun}.doc`; a.click(); URL.revokeObjectURL(url);
 }
 
@@ -1682,5 +1679,5 @@ function updateStorageInfo(){
   ['cfgTW1','cfgTW2','cfgTW3','cfgTW4'].forEach(id=>{ const el=document.getElementById(id); if(el) el.addEventListener('change',()=>{ localStorage.setItem(id,el.checked); renderRekapPaper(); renderNotaDinasPaper(); updateStorageInfo(); }); });
 })();
 </script>
-</body>
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a432ed62fb8ca24f',t:'MTc5MDc2ODE1OQ=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>

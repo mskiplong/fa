@@ -51,7 +51,7 @@ table.kk td.num{text-align:center}table.kk td.rupiah{text-align:right;white-spac
 .local-table{width:100%;border-collapse:collapse;font-size:10px}.local-table th,.local-table td{border:1px solid #000;padding:4px 5px}.local-table th{background:#e8eef7;font-size:9px;text-transform:uppercase;text-align:center}
 .nota-paper{font-family:'Times New Roman',Times,serif;color:#000;background:#fff;line-height:1.4}
 .nota-kop-wrapper{display:flex;align-items:flex-start;gap:12px;border-bottom:3px double #000;padding-bottom:10px;margin-bottom:0}
-.nota-logo{width:62px;height:62px;object-fit:contain;flex-shrink:0;margin-top:2px}
+.nota-logo{width:80px;height:80px;object-fit:contain;flex-shrink:0;margin-top:2px}
 .nota-kop-text{flex:1;text-align:center;line-height:1.3}
 .nota-kop-1{font-weight:800;font-size:12.5px;letter-spacing:0.4px;text-transform:uppercase}
 .nota-kop-2{font-size:10.5px;font-weight:600;margin-top:1px}
@@ -75,7 +75,7 @@ table.kk td.num{text-align:center}table.kk td.rupiah{text-align:right;white-spac
 .nota-ttd-nama{font-weight:700;font-size:11.5px;margin-top:2px;text-decoration:underline;text-underline-offset:3px}
 .nota-clear{clear:both}
 .nota-tte{font-size:7.5px;color:#444;border-top:1px solid #999;margin-top:48px;padding-top:8px;font-style:italic;line-height:1.4;text-align:justify}
-@media print{.nota-paper{padding:0}.nota-logo{width:56px;height:56px}}
+@media print{.nota-paper{padding:0}.nota-logo{width:90px;height:90px}}
 /* TABS */
 .tabs{display:flex;gap:6px;flex-wrap:wrap;background:#fff;border:1px solid var(--border);border-radius:12px;padding:8px;margin-bottom:12px;box-shadow:0 2px 8px rgba(0,0,0,.04)}
 .tab{border:1px solid var(--border);background:#f8fafc;padding:8px 14px;border-radius:8px;font-size:11px;font-weight:700;cursor:pointer;transition:.15s;display:inline-flex;align-items:center;gap:6px}
@@ -91,14 +91,23 @@ table.kk td.num{text-align:center}table.kk td.rupiah{text-align:right;white-spac
   body{background:#fff;-webkit-print-color-adjust:exact;print-color-adjust:exact}
   .no-print{display:none !important}
   .main-paper{max-width:none;margin:0;padding:0}
-  .paper{box-shadow:none;border:1px solid #000;border-radius:0;page-break-after:always;page-break-inside:auto;margin:0;padding:12px 14px}
+  .paper{box-shadow:none;border:1px solid #000;border-radius:0;page-break-after:always;page-break-inside:auto;margin:0;padding:14px 16px}
   .paper:last-child{page-break-after:auto}
-  .paper-header{padding:10px 14px 6px}
-  table.kk{page-break-inside:auto}
-  tr{page-break-inside:avoid;page-break-after:auto}
+  .paper-header{padding:10px 14px 6px;page-break-after:avoid}
+  .section-title, div[style*="font-weight:800"][style*="background:#d9d9d9"]{page-break-after:avoid;page-break-inside:avoid}
+  table.kk{page-break-inside:auto;border-collapse:collapse !important}
+  table.kk thead{display:table-header-group}
+  table.kk tfoot{display:table-footer-group}
+  table.kk tr{page-break-inside:avoid;page-break-after:auto}
+  table.kk th{page-break-after:avoid}
   .issue-box{page-break-inside:avoid;border:1px solid #000}
-  .nota-paper{padding:10mm !important}
-  @page{size:A4 portrait;margin:1cm}
+  .nota-paper{padding:12mm !important}
+  .nota-kop-wrapper{page-break-inside:avoid;page-break-after:avoid}
+  .nota-judul, .nota-nomor, .nota-meta{page-break-after:avoid;page-break-inside:avoid}
+  .nota-body-wrap{page-break-inside:auto}
+  .nota-ttd{page-break-inside:avoid}
+  @page{size:A4 portrait;margin:1.25cm}
+  .nota-logo{width:90px !important;height:90px !important}
 }
 </style>
 </head>
@@ -731,7 +740,7 @@ function renderNotaDinasPaper(){
 
   const html = `<div class="nota-paper" style="padding:22px 32px">
     <div class="nota-kop-wrapper">
-      <img src="${logoDataUri}" alt="Logo Kemenkeu" class="nota-logo" onerror="this.style.display='none'">
+      <img src="${logoDataUri}" alt="Logo Kemenkeu" class="nota-logo" style="width:80px;height:80px;object-fit:contain" width="80" height="80" onerror="this.style.display='none'">
       <div class="nota-kop-text">
         <div class="nota-kop-1" contenteditable="true" onblur="let v=this.textContent.trim(); let lines=document.getElementById('cfgKop').value.split('\n'); lines[0]=v; document.getElementById('cfgKop').value=lines.join('\n'); localStorage.setItem('cfgKop',lines.join('\n'))">${kop1}</div>
         <div class="nota-kop-2" contenteditable="true" onblur="let v=this.textContent.trim(); let lines=document.getElementById('cfgKop').value.split('\n'); lines[1]=v; document.getElementById('cfgKop').value=lines.join('\n'); localStorage.setItem('cfgKop',lines.join('\n'))">${kop2}</div>
@@ -1391,13 +1400,18 @@ function printSatker(kode){
   const nota=document.getElementById('notaDinasPaper').innerHTML;
   const w=window.open('','_blank');
   w.document.write(`<html><head><title>Kertas Kerja ${kode}</title><style>
-    body{font-family:'Times New Roman',serif;font-size:10pt;color:#000;margin:0}
-    table{border-collapse:collapse;width:100%}
-    th,td{border:1px solid #000;padding:4px;font-size:9pt;vertical-align:top;word-break:break-word}
-    .paper{page-break-after:always;padding:10mm}
+    @page{size:A4 portrait;margin:1.25cm}
+    body{font-family:'Times New Roman',serif;font-size:11pt;color:#000;margin:0;line-height:1.4}
+    table{border-collapse:collapse;width:100%;font-size:10pt}
+    th,td{border:1px solid #000;padding:5px 6px;font-size:10pt;vertical-align:top;word-break:break-word}
+    th{background:#f1f5f9;font-weight:700}
+    thead{display:table-header-group}
+    tr{page-break-inside:avoid}
+    .paper{page-break-after:always;padding:12mm}
     .paper:last-child{page-break-after:auto}
     .no-print{display:none !important}
-    @page{size:A4 portrait;margin:1cm}
+    .nota-logo{width:90px !important;height:90px !important}
+    .nota-paper{padding:12mm}
   </style></head><body>${nota}<div style="page-break-after:always"></div>${wrapper.innerHTML}</body></html>`);
   w.document.close(); w.focus(); setTimeout(()=>w.print(),600);
 }
@@ -1437,7 +1451,9 @@ function exportSatkerExcel(kode){
     ['FEEDBACK EKSTERNAL',satkerFbEk[kode]||''],
     ['FEEDBACK INTERNAL',satkerFbIn[kode]||''],
   ];
-  XLSX.utils.book_append_sheet(wb,XLSX.utils.aoa_to_sheet(rows),'KERTAS KERJA');
+  const ws=XLSX.utils.aoa_to_sheet(rows);
+  ws['!cols']=[{wch:8},{wch:50},{wch:12},{wch:40}];
+  XLSX.utils.book_append_sheet(wb,ws,'KERTAS KERJA');
   XLSX.writeFile(wb,`Kertas_Kerja_${kode}_${document.getElementById('cfgKPPN').value}.xlsx`);
 }
 
@@ -1488,7 +1504,7 @@ function exportAllExcel(){
 function exportWord(){
   const cfgKPPN=document.getElementById('cfgKPPN').value; const cfgTahun=document.getElementById('cfgTahun').value;
   const nota=document.getElementById('notaDinasPaper').innerHTML; const rekap=document.getElementById('rekapPaper').innerHTML; const local=document.getElementById('localPaper').innerHTML; const special=document.getElementById('specialPaper').innerHTML; const detail=document.getElementById('detailPapers').innerHTML;
-  const full=`<html><head><meta charset="UTF-8"><style>body{font-family:'Times New Roman',serif;font-size:11pt} table{border-collapse:collapse;width:100%} th,td{border:1px solid #000;padding:4px} .paper{page-break-after:always}</style></head><body>${nota}<div style="page-break-after:always"></div>${rekap}<div style="page-break-after:always"></div>${local}<div style="page-break-after:always"></div>${special}${detail}</body></html>`;
+  const full=`<html><head><meta charset="UTF-8"><style>@page{size:A4 portrait;margin:1.25cm} body{font-family:'Times New Roman',serif;font-size:11pt;line-height:1.4;color:#000} table{border-collapse:collapse;width:100%;font-size:10pt} th,td{border:1px solid #000;padding:5px 6px;font-size:10pt;vertical-align:top;word-break:break-word} th{background:#f1f5f9;font-weight:700} .paper{page-break-after:always;padding:12mm} .nota-paper{padding:12mm} .nota-logo{width:90px;height:90px} .no-print{display:none} table.kk{font-size:10pt} table.kk th, table.kk td{font-size:10pt} .issue-box{font-size:10pt}</style></head><body>${nota}<div style="page-break-after:always"></div>${rekap}<div style="page-break-after:always"></div>${local}<div style="page-break-after:always"></div>${special}${detail}</body></html>`;
   const blob=new Blob([full],{type:'application/msword'}); const url=URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download=`Laporan_FA_${cfgKPPN}_${cfgTahun}.doc`; a.click(); URL.revokeObjectURL(url);
 }
 
@@ -1645,5 +1661,5 @@ function updateStorageInfo(){
   ['cfgTW1','cfgTW2','cfgTW3','cfgTW4'].forEach(id=>{ const el=document.getElementById(id); if(el) el.addEventListener('change',()=>{ localStorage.setItem(id,el.checked); renderRekapPaper(); renderNotaDinasPaper(); updateStorageInfo(); }); });
 })();
 </script>
-</body>
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a430ac025e81ea87',t:'MTc5MDc0NDUwOQ=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>

@@ -87,7 +87,19 @@ table.kk td.num{text-align:center}table.kk td.rupiah{text-align:right;white-spac
 @keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
 .summary-bar{display:flex;flex-wrap:wrap;gap:8px;background:#fff;border:1px solid var(--border);border-radius:10px;padding:8px 12px;margin-bottom:12px;font-size:10px}
 .summary-item{display:flex;gap:4px;align-items:center;background:#f8fafc;border:1px solid #e2e8f0;border-radius:999px;padding:3px 8px}
-@media print{body{background:#fff}.no-print{display:none !important}.main-paper{max-width:none;margin:0;padding:0}.paper{box-shadow:none;border:none;border-radius:0;page-break-after:always}@page{size:A4 portrait;margin:12mm 15mm}}
+@media print{
+  body{background:#fff;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .no-print{display:none !important}
+  .main-paper{max-width:none;margin:0;padding:0}
+  .paper{box-shadow:none;border:1px solid #000;border-radius:0;page-break-after:always;page-break-inside:auto;margin:0;padding:12px 14px}
+  .paper:last-child{page-break-after:auto}
+  .paper-header{padding:10px 14px 6px}
+  table.kk{page-break-inside:auto}
+  tr{page-break-inside:avoid;page-break-after:auto}
+  .issue-box{page-break-inside:avoid;border:1px solid #000}
+  .nota-paper{padding:10mm !important}
+  @page{size:A4 portrait;margin:1cm}
+}
 </style>
 </head>
 <body>
@@ -175,6 +187,39 @@ Demikian disampaikan, atas perhatian dan kerjasamanya kami ucapkan terima kasih.
       </div></div>
     </div>
   </div>
+
+  
+    <div class="card" style="border:2px solid #16a34a">
+      <div class="card-head" style="background:#f0fdf4"><b>📝 Template Default Isu & Feedback per Satker (untuk 15 satker sekaligus)</b><span class="badge badge-pelengkap">Bisa edit - Terapkan ke semua</span></div>
+      <div class="card-body">
+        <div style="font-size:9px;color:#475569;background:#fff;border:1px solid #bbf7d0;border-radius:8px;padding:8px;margin-bottom:10px;line-height:1.5">
+          <b>💡 Cara pakai:</b> Tulis template default di bawah ini. Saat pilih 15 satker, yang belum pernah diedit akan otomatis pakai template ini. 
+          Kalau ada satker yang butuh khusus, edit langsung di kertas kerjanya (contenteditable) — hasil edit akan tersimpan dan jadi final saat cetak PDF 1cm.<br>
+          ✅ <b>Default → Edit per satker → Cetak 15 sekaligus rapi 1cm</b> — tidak terpotong.
+        </div>
+        <div class="config-grid">
+          <div class="config-item" style="grid-column:1/-1"><label>Default - ISU/PERMASALAHAN YANG BERHASIL DIIDENTIFIKASI</label><textarea id="cfgDefaultIsu" rows="4">1. Realisasi Belanja Barang rendah karena kegiatan sensus belum dilaksanakan
+2. Deviasi tinggi karena kesalahan perencanaan
+3. Satker baru memiliki rekening April 2026
+4. Empat kali revisi pagu tetap s.d Mei 2026</textarea></div>
+          <div class="config-item" style="grid-column:1/-1"><label>Default - FEEDBACK EKSTERNAL - TERHADAP PENGELOLAAN ANGGARAN SATKER</label><textarea id="cfgDefaultFbEk" rows="4">1. Percepatan realisasi belanja barang di bulan Juni 2026
+2. Sesuaikan penyerapan sesuai Hal III DIPA
+3. Ajukan SPM LS pihak ketiga
+4. Perencanaan revisi maksimal 2 kali per semester</textarea></div>
+          <div class="config-item" style="grid-column:1/-1"><label>Default - FEEDBACK INTERNAL - TERHADAP PERBAIKAN LAYANAN KEMENTERIAN KEUANGAN</label><textarea id="cfgDefaultFbIn" rows="3">1. Monitoring realisasi berkala
+2. Monitoring vs Hal III DIPA
+3. Percepatan rekening bendahara
+4. Asistensi satker baru & sosialisasi revisi</textarea></div>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:10px">
+          <button class="btn btn-success" onclick="applyDefaultIsuToAll()">✅ Terapkan Default ke SEMUA Satker Terpilih (15 satker)</button>
+          <button class="btn" style="background:#2563eb;color:#fff" onclick="applyDefaultToEmpty()">➕ Terapkan Hanya ke yang Masih Kosong</button>
+          <button class="btn btn-warning" onclick="resetIsuAllToDefault()">🔄 Reset Semua ke Default</button>
+          <button class="btn" onclick="clearAllIsu()">🗑️ Kosongkan Semua Isu Satker</button>
+        </div>
+        <div id="defaultIsuStatus" style="font-size:9px;color:#166534;margin-top:6px;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:6px;padding:4px 6px">Siap - edit template di atas, lalu klik Terapkan</div>
+      </div>
+    </div>
 
   <!-- TAB REKAP -->
   <div id="tab-rekap" class="tab-panel">
@@ -767,6 +812,78 @@ function addSpecialPra(){ specialPra.push({id:Date.now(), jenis:'Jenis Special M
 function addSpecialPasca(){ specialPasca.push({id:Date.now(), jenis:'Jenis Baru', stakeholder:'Stakeholder', ada:false, tidak:true, keterangan:'Keterangan'}); saveSpecial(); renderSpecial(); updateStorageInfo(); }
 function saveSpecial(){ localStorage.setItem('specialPra', JSON.stringify(specialPra)); localStorage.setItem('specialPasca', JSON.stringify(specialPasca)); localStorage.setItem('specialIsu', document.getElementById('specialIsu').value); localStorage.setItem('specialFb', document.getElementById('specialFb').value); }
 
+function getDefaultIsu(){ return document.getElementById('cfgDefaultIsu')?.value || ''; }
+function getDefaultFbEk(){ return document.getElementById('cfgDefaultFbEk')?.value || ''; }
+function getDefaultFbIn(){ return document.getElementById('cfgDefaultFbIn')?.value || ''; }
+
+function applyDefaultIsuToAll(){
+  if(selectedSatkerCodes.length===0){ alert('Pilih satker dulu di tab Upload'); return; }
+  if(!confirm(`Terapkan template default ke ${selectedSatkerCodes.length} satker terpilih? Akan overwrite isu/feedback yang sudah ada.`)) return;
+  const dIsu=getDefaultIsu(), dEk=getDefaultFbEk(), dIn=getDefaultFbIn();
+  selectedSatkerCodes.forEach(kode=>{
+    satkerIsu[kode]=dIsu;
+    satkerFbEk[kode]=dEk;
+    satkerFbIn[kode]=dIn;
+  });
+  localStorage.setItem('satkerIsu', JSON.stringify(satkerIsu));
+  localStorage.setItem('satkerFbEk', JSON.stringify(satkerFbEk));
+  localStorage.setItem('satkerFbIn', JSON.stringify(satkerFbIn));
+  const st=document.getElementById('defaultIsuStatus');
+  if(st) st.textContent=`✅ Diterapkan ke ${selectedSatkerCodes.length} satker: ${new Date().toLocaleString('id-ID')}`;
+  renderDetailPapers();
+  updateStorageInfo();
+}
+
+function applyDefaultToEmpty(){
+  if(selectedSatkerCodes.length===0){ alert('Pilih satker dulu'); return; }
+  const dIsu=getDefaultIsu(), dEk=getDefaultFbEk(), dIn=getDefaultFbIn();
+  let cnt=0;
+  selectedSatkerCodes.forEach(kode=>{
+    if(!satkerIsu[kode]){ satkerIsu[kode]=dIsu; cnt++; }
+    if(!satkerFbEk[kode]){ satkerFbEk[kode]=dEk; }
+    if(!satkerFbIn[kode]){ satkerFbIn[kode]=dIn; }
+  });
+  localStorage.setItem('satkerIsu', JSON.stringify(satkerIsu));
+  localStorage.setItem('satkerFbEk', JSON.stringify(satkerFbEk));
+  localStorage.setItem('satkerFbIn', JSON.stringify(satkerFbIn));
+  const st=document.getElementById('defaultIsuStatus');
+  if(st) st.textContent=`➕ Diterapkan ke ${cnt} satker yang kosong dari ${selectedSatkerCodes.length} terpilih`;
+  renderDetailPapers();
+  updateStorageInfo();
+}
+
+function resetIsuAllToDefault(){
+  if(!confirm('Reset SEMUA isu/feedback satker ke template default?')) return;
+  const dIsu=getDefaultIsu(), dEk=getDefaultFbEk(), dIn=getDefaultFbIn();
+  Object.keys(satkerIsu).forEach(k=>{ satkerIsu[k]=dIsu; });
+  Object.keys(satkerFbEk).forEach(k=>{ satkerFbEk[k]=dEk; });
+  Object.keys(satkerFbIn).forEach(k=>{ satkerFbIn[k]=dIn; });
+  // also apply to selected if not yet in map
+  selectedSatkerCodes.forEach(kode=>{
+    satkerIsu[kode]=dIsu;
+    satkerFbEk[kode]=dEk;
+    satkerFbIn[kode]=dIn;
+  });
+  localStorage.setItem('satkerIsu', JSON.stringify(satkerIsu));
+  localStorage.setItem('satkerFbEk', JSON.stringify(satkerFbEk));
+  localStorage.setItem('satkerFbIn', JSON.stringify(satkerFbIn));
+  const st=document.getElementById('defaultIsuStatus');
+  if(st) st.textContent=`🔄 Semua satker direset ke default: ${new Date().toLocaleString('id-ID')}`;
+  renderDetailPapers();
+}
+
+function clearAllIsu(){
+  if(!confirm('Kosongkan semua isu/feedback per satker?')) return;
+  satkerIsu={}; satkerFbEk={}; satkerFbIn={};
+  localStorage.setItem('satkerIsu', JSON.stringify(satkerIsu));
+  localStorage.setItem('satkerFbEk', JSON.stringify(satkerFbEk));
+  localStorage.setItem('satkerFbIn', JSON.stringify(satkerFbIn));
+  const st=document.getElementById('defaultIsuStatus');
+  if(st) st.textContent=`🗑️ Semua isu dikosongkan`;
+  renderDetailPapers();
+  updateStorageInfo();
+}
+
 
 function renderPeriodeBoxes(){
   const tw1=document.getElementById('cfgTW1').checked;
@@ -840,117 +957,83 @@ function renderSpecialPaper(){
 }
 
 
-function fmtRpRight(v){ if(!v) return 'Rp. -'; return 'Rp. '+Number(v).toLocaleString('id-ID'); }
-function classifySD(d){
-  let rm=0,pnbp=0,phln=0,phdn=0,hl=0,sbsn=0,blu=0;
-  (d.sdList||[]).forEach(s=>{
-    const k=String(s.kode||'').toUpperCase();
-    const p=Number(s.pagu||0);
-    // Format lama: A000000001=RM, D000000001=PNBP
-    // Format baru Inquiry: 01 RM, 04 PNBP, 06 BLU, 10 HLD, 19 SBSN, 02 PLN
-    if(k.includes('A000000001') || k.includes('01') && k.includes('RM') || k==='01 RM' || k==='01' || k.startsWith('01')){
-      // Need to distinguish: 01 = RM, but also 01 RM contains RM
-      if(k.includes('RM')) rm+=p;
-      else if(k.includes('01')) rm+=p;
-      else rm+=p;
-    } else if(k.includes('D000000001') || k.includes('04') && k.includes('PNBP') || k.includes('PNBP') || k.includes('06') && k.includes('BLU') || k.includes('BLU')){
-      // 04 PNBP, 06 BLU, 18 SOBLU masuk kelompok PNBP/BLU
-      if(k.includes('BLU')) blu+=p;
-      else pnbp+=p;
-    } else if(k.includes('19') && k.includes('SBSN') || k.includes('SBSN')){
-      sbsn+=p;
-    } else if(k.includes('02') && k.includes('PLN') || k.includes('PHLN') || k.includes('LUAR NEGERI')){
-      phln+=p;
-    } else if(k.includes('03') || k.includes('PHDN') || k.includes('DALAM NEGERI')){
-      phdn+=p;
-    } else if(k.includes('10') && k.includes('HLD') || k.includes('HIBAH') || k.includes('HLD')){
-      hl+=p;
-    } else {
-      // Fallback: lainnya masuk Hibah sesuai arahan
-      hl+=p;
-    }
-  });
-  // Normalisasi: jika ada BLU, gabung ke PNBP untuk tampilan 6 kelompok? Atau tampil terpisah?
-  // Untuk akurasi: BLU tetap hitung sebagai PNBP/BLU, tapi di Kertas Kerja masuk ke PNBP TA Berjalan (karena asli tidak ada kolom BLU)
-  // Kita gabung BLU ke PNBP untuk total PNBP, tapi simpan terpisah untuk detail
-  // Jika sdList kosong, semua masuk RM
-  if((d.sdList||[]).length===0 && d.totalPagu){ rm=d.totalPagu; }
-  // Gabung BLU ke PNBP untuk kelompok PNBP
-  pnbp += blu;
-  return {rm,pnbp,phln,phdn,hl,sbsn,blu};
-}
-function classifySDDetail(d){
-  // Return detail per kode asli untuk tooltip
-  const detail={};
-  (d.sdList||[]).forEach(s=>{
-    const k=s.kode||'';
-    const p=Number(s.pagu||0);
-    if(!detail[k]) detail[k]=0;
-    detail[k]+=p;
-  });
-  return detail;
-}
 
 
-function renderSDCell(d){
-  const sd=classifySD(d);
-  const chk = (v)=> v>0 ? '☑' : '☐';
-  const rp = (v)=> v>0 ? fmtRpRight(v) : 'Rp. -';
-  // Original format: 2 baris x 3 kolom
-  return `<div style="font-size:8px;line-height:1.2">
-    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:4px">
-      <div>${chk(sd.rm)} Rupiah Murni<br><span style="display:block;text-align:right">${rp(sd.rm)}</span></div>
-      <div>${chk(sd.phln)} Pinjaman/Hibah Luar Negeri<br><span style="display:block;text-align:right">${rp(sd.phln)}</span></div>
-      <div>${chk(sd.hl)} Hibah Langsung<br><span style="display:block;text-align:right">${rp(sd.hl)}</span></div>
-      <div>${chk(sd.pnbp)} PNBP TA Berjalan<br><span style="display:block;text-align:right">${rp(sd.pnbp)}</span></div>
-      <div>${chk(sd.phdn)} Pinjaman/Hibah Dalam Negeri<br><span style="display:block;text-align:right">${rp(sd.phdn)}</span></div>
-      <div>${chk(sd.sbsn)} SBSN PBS<br><span style="display:block;text-align:right">${rp(sd.sbsn)}</span></div>
-    </div>
-  </div>`;
-}
+
+
+
+
 
 
 function fmtRpRight(v){ if(v==null || v==0) return 'Rp. -'; return 'Rp. '+Number(v).toLocaleString('id-ID'); }
+
+function getSDGroup(kode){
+  const k=String(kode||'').toUpperCase().trim();
+  if(k.includes('A000000001')) return 'rm';
+  if(k.includes('D000000001')) return 'pnbp';
+  // Inquiry format: 01 RM, 04 PNBP, 06 BLU, 18 SOBLU, 19 SBSN, 02 PLN, 03 PDN, 10 HLD
+  if(k.startsWith('01') || k==='01' || k.includes(' 01 ') || /^01\b/.test(k) || k.includes('RM')) {
+    // but avoid misclassifying 10, 19 etc - check exact
+    if(k.startsWith('01') || k.includes(' RM') || k==='RM' || k.includes('RUPAH MURNI')) return 'rm';
+  }
+  if(k.startsWith('04') || k.includes('PNBP') && !k.includes('BLU')) return 'pnbp';
+  if(k.startsWith('06') || k.startsWith('18') || k.includes('BLU') || k.includes('SOBLU')) return 'blu';
+  if(k.startsWith('19') || k.includes('SBSN') || k.includes('PBS')) return 'sbsn';
+  if(k.startsWith('02') || k.includes('PLN') || k.includes('PHLN') || k.includes('LUAR NEGERI')) return 'phln';
+  if(k.startsWith('03') || k.includes('PHDN') || k.includes('DALAM NEGERI')) return 'phdn';
+  if(k.startsWith('10') || k.includes('HLD') || k.includes('HIBAH')) return 'hl';
+  // fallback by content
+  if(k.includes('01')) return 'rm';
+  if(k.includes('04')) return 'pnbp';
+  return 'hl';
+}
+
 function classifySD(d){
   let rm=0,pnbp=0,phln=0,phdn=0,hl=0,sbsn=0,blu=0;
   (d.sdList||[]).forEach(s=>{
-    const k=String(s.kode||'').toUpperCase();
+    const raw=String(s.kode||'').toUpperCase();
     const p=Number(s.pagu||0);
-    // Format lama: A000000001=RM, D000000001=PNBP
-    // Format baru Inquiry: 01 RM, 04 PNBP, 06 BLU, 10 HLD, 19 SBSN, 02 PLN
-    if(k.includes('A000000001') || k.includes('01') && k.includes('RM') || k==='01 RM' || k==='01' || k.startsWith('01')){
-      // Need to distinguish: 01 = RM, but also 01 RM contains RM
-      if(k.includes('RM')) rm+=p;
-      else if(k.includes('01')) rm+=p;
-      else rm+=p;
-    } else if(k.includes('D000000001') || k.includes('04') && k.includes('PNBP') || k.includes('PNBP') || k.includes('06') && k.includes('BLU') || k.includes('BLU')){
-      // 04 PNBP, 06 BLU, 18 SOBLU masuk kelompok PNBP/BLU
-      if(k.includes('BLU')) blu+=p;
-      else pnbp+=p;
-    } else if(k.includes('19') && k.includes('SBSN') || k.includes('SBSN')){
-      sbsn+=p;
-    } else if(k.includes('02') && k.includes('PLN') || k.includes('PHLN') || k.includes('LUAR NEGERI')){
-      phln+=p;
-    } else if(k.includes('03') || k.includes('PHDN') || k.includes('DALAM NEGERI')){
-      phdn+=p;
-    } else if(k.includes('10') && k.includes('HLD') || k.includes('HIBAH') || k.includes('HLD')){
-      hl+=p;
+    // precise classification
+    let grp='hl';
+    if(raw.includes('A000000001') || raw.trim()==='01' || raw.startsWith('01 ') || raw.startsWith('01-') || raw==='01 RM' || raw.startsWith('01 RM') || (raw.startsWith('01') && raw.includes('RM'))){
+      grp='rm';
+    } else if(raw.startsWith('01')){
+      grp='rm';
+    } else if(raw.includes('D000000001')){
+      grp='pnbp';
+    } else if(raw.startsWith('04') || (raw.includes('PNBP') && !raw.includes('BLU'))){
+      grp='pnbp';
+    } else if(raw.startsWith('06') || raw.startsWith('18') || raw.includes('BLU') || raw.includes('SOBLU')){
+      grp='blu';
+    } else if(raw.startsWith('19') || raw.includes('SBSN')){
+      grp='sbsn';
+    } else if(raw.startsWith('02') || raw.includes('PLN') || raw.includes('PHLN') || raw.includes('LUAR NEGERI')){
+      grp='phln';
+    } else if(raw.startsWith('03') || raw.includes('PHDN') || raw.includes('DALAM NEGERI')){
+      grp='phdn';
+    } else if(raw.startsWith('10') || raw.includes('HLD') || raw.includes('HIBAH')){
+      grp='hl';
     } else {
-      // Fallback: lainnya masuk Hibah sesuai arahan
-      hl+=p;
+      // fallback
+      if(raw.includes('RM')) grp='rm';
+      else if(raw.includes('PNBP')) grp='pnbp';
+      else if(raw.includes('SBSN')) grp='sbsn';
+      else grp='hl';
     }
+    if(grp==='rm') rm+=p;
+    else if(grp==='pnbp') pnbp+=p;
+    else if(grp==='blu') blu+=p;
+    else if(grp==='sbsn') sbsn+=p;
+    else if(grp==='phln') phln+=p;
+    else if(grp==='phdn') phdn+=p;
+    else hl+=p;
   });
-  // Normalisasi: jika ada BLU, gabung ke PNBP untuk tampilan 6 kelompok? Atau tampil terpisah?
-  // Untuk akurasi: BLU tetap hitung sebagai PNBP/BLU, tapi di Kertas Kerja masuk ke PNBP TA Berjalan (karena asli tidak ada kolom BLU)
-  // Kita gabung BLU ke PNBP untuk total PNBP, tapi simpan terpisah untuk detail
-  // Jika sdList kosong, semua masuk RM
   if((d.sdList||[]).length===0 && d.totalPagu){ rm=d.totalPagu; }
-  // Gabung BLU ke PNBP untuk kelompok PNBP
-  pnbp += blu;
+  pnbp += blu; // BLU digabung ke PNBP untuk tampilan 6 kotak sesuai format asli
   return {rm,pnbp,phln,phdn,hl,sbsn,blu};
 }
+
 function classifySDDetail(d){
-  // Return detail per kode asli untuk tooltip
   const detail={};
   (d.sdList||[]).forEach(s=>{
     const k=s.kode||'';
@@ -961,22 +1044,51 @@ function classifySDDetail(d){
   return detail;
 }
 
-
 function renderSDCell(d){
   const sd=classifySD(d);
+  const detail=classifySDDetail(d);
+  // group details
+  const groups={rm:[],pnbp:[],blu:[],sbsn:[],phln:[],phdn:[],hl:[]};
+  Object.entries(detail).forEach(([kode,pagu])=>{
+    const k=String(kode||'').toUpperCase();
+    let g='hl';
+    if(k.includes('A000000001') || k.trim()==='01' || k.startsWith('01 ')) g='rm';
+    else if(k.startsWith('01')) g='rm';
+    else if(k.includes('D000000001')) g='pnbp';
+    else if(k.startsWith('04') || (k.includes('PNBP') && !k.includes('BLU'))) g='pnbp';
+    else if(k.startsWith('06') || k.startsWith('18') || k.includes('BLU')) g='blu';
+    else if(k.startsWith('19') || k.includes('SBSN')) g='sbsn';
+    else if(k.startsWith('02') || k.includes('PLN') || k.includes('PHLN')) g='phln';
+    else if(k.startsWith('03') || k.includes('PHDN')) g='phdn';
+    else if(k.startsWith('10') || k.includes('HLD') || k.includes('HIBAH')) g='hl';
+    else g='hl';
+    groups[g].push({kode,pagu});
+  });
   const chk = (v)=> v>0 ? '■' : '□';
-  const rp = (v)=> v>0 ? fmtRpRight(v) : 'Rp. -';
+  const rp = (v)=> v>0 ? `<b>${fmtRpRight(v)}</b>` : 'Rp. -';
+  const detailHtml = (g)=>{
+    const arr=groups[g]||[];
+    if(arr.length<=1) return '';
+    // if blu grouped into pnbp, show both
+    return `<div style="margin-top:2px;border-top:1px dashed #cbd5e1;padding-top:2px;font-size:7px;line-height:1.2;color:#475569">${arr.map(x=>`${x.kode}: ${fmtRpRight(x.pagu)}`).join('<br>')}</div>`;
+  };
+  // For PNBP, include BLU details too
+  const pnbpDetailArr=[...(groups['pnbp']||[]),...(groups['blu']||[])];
+  const pnbpDetailHtml = pnbpDetailArr.length>1 ? `<div style="margin-top:2px;border-top:1px dashed #cbd5e1;padding-top:2px;font-size:7px;line-height:1.2;color:#475569">${pnbpDetailArr.map(x=>`${x.kode}: ${fmtRpRight(x.pagu)}`).join('<br>')}</div>` : '';
+
   return `<div style="font-size:8px;line-height:1.3">
     <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:3px 8px">
-      <div>${chk(sd.rm)} Rupiah Murni<br><span style="display:block;text-align:right">${rp(sd.rm)}</span></div>
-      <div>${chk(sd.phln)} Pinjaman/Hibah Luar Negeri<br><span style="display:block;text-align:right">${rp(sd.phln)}</span></div>
-      <div>${chk(sd.hl)} Hibah Langsung<br><span style="display:block;text-align:right">${rp(sd.hl)}</span></div>
-      <div>${chk(sd.pnbp)} PNBP TA Berjalan<br><span style="display:block;text-align:right">${rp(sd.pnbp)}</span></div>
-      <div>${chk(sd.phdn)} Pinjaman/Hibah Dalam Negeri<br><span style="display:block;text-align:right">${rp(sd.phdn)}</span></div>
-      <div>${chk(sd.sbsn)} SBSN PBS<br><span style="display:block;text-align:right">${rp(sd.sbsn)}</span></div>
+      <div>${chk(sd.rm)} Rupiah Murni<br><span style="display:block;text-align:right">${rp(sd.rm)}</span>${detailHtml('rm')}</div>
+      <div>${chk(sd.phln)} Pinjaman/Hibah Luar Negeri<br><span style="display:block;text-align:right">${rp(sd.phln)}</span>${detailHtml('phln')}</div>
+      <div>${chk(sd.hl)} Hibah Langsung<br><span style="display:block;text-align:right">${rp(sd.hl)}</span>${detailHtml('hl')}</div>
+      <div>${chk(sd.pnbp)} PNBP TA Berjalan<br><span style="display:block;text-align:right">${rp(sd.pnbp)}</span>${pnbpDetailHtml}</div>
+      <div>${chk(sd.phdn)} Pinjaman/Hibah Dalam Negeri<br><span style="display:block;text-align:right">${rp(sd.phdn)}</span>${detailHtml('phdn')}</div>
+      <div>${chk(sd.sbsn)} SBSN PBS<br><span style="display:block;text-align:right">${rp(sd.sbsn)}</span>${detailHtml('sbsn')}</div>
     </div>
   </div>`;
 }
+
+
 
 function renderDetailPapers(){
   const container=document.getElementById('detailPapers'); container.innerHTML='';
@@ -986,16 +1098,19 @@ function renderDetailPapers(){
     const ikpa=d.ikpaRec; const cfgTahun=document.getElementById('cfgTahun').value; const cfgKPPN=document.getElementById('cfgKPPN').value; const cfgKetua=document.getElementById('cfgKetua').value; const cfgNIP=document.getElementById('cfgNIP').value; const cfgTglND=document.getElementById('cfgTglND').value;
     const noUrut=String(idx+1).padStart(2,'0');
     const peserta=satkerPeserta[kode]||'KPA Bendahara Pengeluaran PPSPM PPK';
-    const isuVal=satkerIsu[kode]||`1. Realisasi Belanja Barang rendah karena kegiatan sensus belum dilaksanakan
+    const defaultIsu=getDefaultIsu()||`1. Realisasi Belanja Barang rendah karena kegiatan sensus belum dilaksanakan
 2. Deviasi tinggi karena kesalahan perencanaan
 3. Satker baru memiliki rekening April 2026
 4. Empat kali revisi pagu tetap s.d Mei 2026`;
-    const fbEkVal=satkerFbEk[kode]||`1. Percepatan realisasi belanja barang di bulan Juni 2026
+    const isuVal=satkerIsu[kode]||defaultIsu;
+    const defaultFbEk=getDefaultFbEk()||`1. Percepatan realisasi belanja barang di bulan Juni 2026
 2. Sesuaikan penyerapan sesuai Hal III DIPA
 3. Ajukan SPM LS pihak ketiga`;
-    const fbInVal=satkerFbIn[kode]||`1. Monitoring realisasi berkala
+    const fbEkVal=satkerFbEk[kode]||defaultFbEk;
+    const defaultFbIn=getDefaultFbIn()||`1. Monitoring realisasi berkala
 2. Monitoring vs Hal III DIPA
 3. Percepatan rekening bendahara`;
+    const fbInVal=satkerFbIn[kode]||defaultFbIn;
     const jb51=d.getJB(51); const jb52=d.getJB(52); const jb53=d.getJB(53);
     const upTotal=d.upTotal;
     const progCount=(d.faSummary?.program||[]).length||2;
@@ -1277,6 +1392,9 @@ function exportBackupJSON(){
       cfgKetua:document.getElementById('cfgKetua').value,
       cfgNIP:document.getElementById('cfgNIP').value,
       cfgKepala:document.getElementById('cfgKepala').value,
+      cfgDefaultIsu:document.getElementById('cfgDefaultIsu').value,
+      cfgDefaultFbEk:document.getElementById('cfgDefaultFbEk').value,
+      cfgDefaultFbIn:document.getElementById('cfgDefaultFbIn').value,
       cfgTW1:document.getElementById('cfgTW1').checked,
       cfgTW2:document.getElementById('cfgTW2').checked,
       cfgTW3:document.getElementById('cfgTW3').checked,
@@ -1309,7 +1427,7 @@ function importBackupJSON(ev){
       localStorage.setItem('kertasKerjaDB',JSON.stringify(DB)); localStorage.setItem('kertasKerjaMeta',JSON.stringify(uploadMeta));
       localStorage.setItem('selectedSatker',JSON.stringify(selectedSatkerCodes)); localStorage.setItem('stNumbers',JSON.stringify(stNumbers)); localStorage.setItem('manualScores',JSON.stringify(manualScores));
       saveLocal(); saveSpecial();
-      const allIds=['cfgKop','cfgAlamat','cfgNoND','cfgTglND','cfgYth','cfgDari','cfgSifat','cfgLampiran','cfgHal','cfgDasar','cfgIsi1','cfgIsi2','cfgNamaTtd','cfgJabatanTtd','cfgTipeTtd','cfgTTE','cfgNoST','cfgPeriode','cfgTahun','cfgKPPN','cfgKetua','cfgNIP','cfgKepala','rekapIsu','rekapFeedbackEksternal','rekapFeedbackInternal','localIsu','localFbEk','localFbIn','specialIsu','specialFb'];
+      const allIds=['cfgKop','cfgAlamat','cfgNoND','cfgTglND','cfgYth','cfgDari','cfgSifat','cfgLampiran','cfgHal','cfgDasar','cfgIsi1','cfgIsi2','cfgNamaTtd','cfgJabatanTtd','cfgTipeTtd','cfgTTE','cfgNoST','cfgPeriode','cfgTahun','cfgKPPN','cfgKetua','cfgNIP','cfgKepala','rekapIsu','rekapFeedbackEksternal','rekapFeedbackInternal','localIsu','localFbEk','localFbIn','specialIsu','specialFb','cfgDefaultIsu','cfgDefaultFbEk','cfgDefaultFbIn'];
       allIds.forEach(id=>{ const el=document.getElementById(id); if(el) localStorage.setItem(id,el.value); });
       ['cfgTW1','cfgTW2','cfgTW3','cfgTW4'].forEach(id=>{ const el=document.getElementById(id); if(el) localStorage.setItem(id,el.checked); });
       renderUploadGrid(); updateDashboard(); renderSatkerList(); renderRekap(); renderLocal(); renderSpecial(); renderNotaDinasPaper(); updateStorageInfo();
@@ -1387,16 +1505,16 @@ function updateStorageInfo(){
     const sPes=localStorage.getItem('satkerPeserta'); if(sPes) satkerPeserta=JSON.parse(sPes);
     const pra=localStorage.getItem('specialPra'); if(pra) specialPra=JSON.parse(pra);
     const pasca=localStorage.getItem('specialPasca'); if(pasca) specialPasca=JSON.parse(pasca);
-    const allIds=['cfgKop','cfgAlamat','cfgNoND','cfgTglND','cfgYth','cfgDari','cfgSifat','cfgLampiran','cfgHal','cfgDasar','cfgIsi1','cfgIsi2','cfgNamaTtd','cfgJabatanTtd','cfgTipeTtd','cfgTTE','cfgNoST','cfgPeriode','cfgTahun','cfgKPPN','cfgKetua','cfgNIP','cfgKepala','rekapIsu','rekapFeedbackEksternal','rekapFeedbackInternal','localIsu','localFbEk','localFbIn','specialIsu','specialFb'];
+    const allIds=['cfgKop','cfgAlamat','cfgNoND','cfgTglND','cfgYth','cfgDari','cfgSifat','cfgLampiran','cfgHal','cfgDasar','cfgIsi1','cfgIsi2','cfgNamaTtd','cfgJabatanTtd','cfgTipeTtd','cfgTTE','cfgNoST','cfgPeriode','cfgTahun','cfgKPPN','cfgKetua','cfgNIP','cfgKepala','rekapIsu','rekapFeedbackEksternal','rekapFeedbackInternal','localIsu','localFbEk','localFbIn','specialIsu','specialFb','cfgDefaultIsu','cfgDefaultFbEk','cfgDefaultFbIn'];
     allIds.forEach(id=>{ const v=localStorage.getItem(id); if(v!==null){ const el=document.getElementById(id); if(el) el.value=v; } });
     ['cfgTW1','cfgTW2','cfgTW3','cfgTW4'].forEach(id=>{ const v=localStorage.getItem(id); if(v!==null) document.getElementById(id).checked=v==='true'; });
     const activeTab=localStorage.getItem('activeTab')||'upload'; switchTab(activeTab);
   }catch(e){ switchTab('upload'); }
   renderUploadGrid(); updateDashboard(); renderSatkerList(); renderRekap(); renderLocal(); renderSpecial(); renderNotaDinasPaper(); updateStorageInfo();
-  const allIds2=['cfgKop','cfgAlamat','cfgNoND','cfgTglND','cfgYth','cfgDari','cfgSifat','cfgLampiran','cfgHal','cfgDasar','cfgIsi1','cfgIsi2','cfgNamaTtd','cfgJabatanTtd','cfgTipeTtd','cfgTTE','cfgNoST','cfgPeriode','cfgTahun','cfgKPPN','cfgKetua','cfgNIP','cfgKepala','rekapIsu','rekapFeedbackEksternal','rekapFeedbackInternal','localIsu','localFbEk','localFbIn','specialIsu','specialFb'];
+  const allIds2=['cfgKop','cfgAlamat','cfgNoND','cfgTglND','cfgYth','cfgDari','cfgSifat','cfgLampiran','cfgHal','cfgDasar','cfgIsi1','cfgIsi2','cfgNamaTtd','cfgJabatanTtd','cfgTipeTtd','cfgTTE','cfgNoST','cfgPeriode','cfgTahun','cfgKPPN','cfgKetua','cfgNIP','cfgKepala','rekapIsu','rekapFeedbackEksternal','rekapFeedbackInternal','localIsu','localFbEk','localFbIn','specialIsu','specialFb','cfgDefaultIsu','cfgDefaultFbEk','cfgDefaultFbIn'];
   allIds2.forEach(id=>{ const el=document.getElementById(id); if(el) el.addEventListener('input',()=>{ localStorage.setItem(id,el.value); renderNotaDinasPaper(); renderRekapPaper(); renderLocalPaper(); renderSpecialPaper(); renderDetailPapers(); updateStorageInfo(); }); });
   ['cfgTW1','cfgTW2','cfgTW3','cfgTW4'].forEach(id=>{ const el=document.getElementById(id); if(el) el.addEventListener('change',()=>{ localStorage.setItem(id,el.checked); renderRekapPaper(); renderNotaDinasPaper(); updateStorageInfo(); }); });
 })();
 </script>
-<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a4305c2fe996051a',t:'MTc5MDc0MTI0MA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</body>
 </html>

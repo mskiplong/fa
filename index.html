@@ -738,13 +738,28 @@ function renderPeriodeBoxesForPrint(){
   const tw4=document.getElementById('cfgTW4').checked;
   const box = (label, active) => {
     if(active){
-      return `<span style="display:inline-block;min-width:28px;text-align:center;border:1.5px solid #000;background:#000;color:#fff;font-weight:800;padding:1px 6px;font-size:9px"> ${label} </span>`;
+      return `<span style="display:inline-block;min-width:32px;text-align:center;border:1.5px solid #1a3c6e;background:#1a3c6e;color:#fff;font-weight:800;padding:3px 8px;border-radius:4px;font-size:10px"> ${label} </span>`;
     } else {
-      return `<span style="display:inline-block;min-width:28px;text-align:center;border:1px solid #000;background:#fff;color:#000;padding:1px 6px;font-size:9px"> ${label} </span>`;
+      return `<span style="display:inline-block;min-width:32px;text-align:center;border:1px solid #cbd5e1;background:#f1f5f9;color:#94a3b8;padding:3px 8px;border-radius:4px;font-size:10px"> ${label} </span>`;
+    }
+  };
+  return `<span style="display:inline-flex;gap:5px;align-items:center">${box('I',tw1)} ${box('II',tw2)} ${box('III',tw3)} ${box('IV',tw4)}</span>`;
+}
+function renderPeriodeBoxesSimple(){
+  const tw1=document.getElementById('cfgTW1').checked;
+  const tw2=document.getElementById('cfgTW2').checked;
+  const tw3=document.getElementById('cfgTW3').checked;
+  const tw4=document.getElementById('cfgTW4').checked;
+  const box = (label, active) => {
+    if(active){
+      return `<span style="display:inline-block;min-width:36px;text-align:center;border:2px solid #1a3c6e;background:#1a3c6e;color:#fff;font-weight:800;padding:4px 10px;border-radius:6px;font-size:11px"> ${label} </span>`;
+    } else {
+      return `<span style="display:inline-block;min-width:36px;text-align:center;border:1px solid #cbd5e1;background:#fff;color:#cbd5e1;padding:4px 10px;border-radius:6px;font-size:11px"> ${label} </span>`;
     }
   };
   return `${box('I',tw1)} ${box('II',tw2)} ${box('III',tw3)} ${box('IV',tw4)}`;
 }
+
 
 function renderRekapPaper(){
   const cfgTahun=document.getElementById('cfgTahun').value; const cfgKPPN=document.getElementById('cfgKPPN').value; const cfgPeriode=document.getElementById('cfgPeriode').value;
@@ -1332,5 +1347,5 @@ function updateStorageInfo(){
   ['cfgTW1','cfgTW2','cfgTW3','cfgTW4'].forEach(id=>{ const el=document.getElementById(id); if(el) el.addEventListener('change',()=>{ localStorage.setItem(id,el.checked); renderRekapPaper(); renderNotaDinasPaper(); updateStorageInfo(); }); });
 })();
 </script>
-<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a43041d71e5eeb6c',t:'MTc5MDc0MDE2MQ=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a43049df882ae8df',t:'MTc5MDc0MDQ5MA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
